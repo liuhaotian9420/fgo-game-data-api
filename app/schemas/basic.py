@@ -74,7 +74,7 @@ class BasicServant(BaseModelORJson):
     hpMax: int
     face: HttpUrl
     costume: dict[int, BasicCostume] = Field(
-        ...,
+        {},
         title="Costume Details",
         description="Mapping <Costume BattleCharaID, Costume Detail>.",
     )

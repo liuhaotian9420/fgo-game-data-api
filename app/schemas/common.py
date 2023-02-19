@@ -1,7 +1,7 @@
 from enum import StrEnum
 from typing import Any, Optional, Union
 
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel, Field, HttpUrl
 
 from .base import BaseModelORJson
 from .enums import SvtClass, Trait
@@ -68,7 +68,7 @@ class NiceTrait(BaseModel):
     """Nice trait"""
 
     id: int
-    name: Trait
+    name: Trait = Field(Trait.unknown, exclude=True)
     negative: Optional[bool] = None
 
 
