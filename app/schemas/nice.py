@@ -1264,7 +1264,7 @@ class NiceServant(BaseModelORJson):
     )
     coin: Optional[NiceServantCoin] = Field(None, title="Servant Coin")
     script: NiceServantScript = Field(
-        ...,
+        NiceServantScript,
         title="Servant Script",
         description="Random stuffs that get added to the servant entry. "
         "See each field description for more details.",
@@ -2063,7 +2063,7 @@ class EnemyAi(BaseModelORJson):
     aiId: int
     actPriority: int
     maxActNum: int
-    minActNum: int | None = None
+    minActNum: int | None = 0
 
 
 class EnemyMisc(BaseModelORJson):
@@ -2077,9 +2077,9 @@ class EnemyMisc(BaseModelORJson):
     userCommandCodeIds: list[int] = [-1, -1, -1, -1, -1]
     commandCardParam: Optional[list[int]] = None
     status: int = 0
-    hpGaugeType: int | None = None
-    imageSvtId: int | None = None
-    condVal: int | None = None
+    hpGaugeType: int | None = 0
+    imageSvtId: int | None = 0
+    condVal: int | None = 0
 
 
 class EnemyDrop(BaseModelORJson):
@@ -2305,14 +2305,14 @@ class NiceSpotRoad(BaseModelORJson):
     srcSpotId: int
     dstSpotId: int
     dispCondType: NiceCondType
-    dispTargetId: int
-    dispTargetValue: int
+    dispTargetId: int = 0
+    dispTargetValue: int = 0
     dispCondType2: NiceCondType
-    dispTargetId2: int
-    dispTargetValue2: int
+    dispTargetId2: int = 0
+    dispTargetValue2: int = 0
     activeCondType: NiceCondType
-    activeTargetId: int
-    activeTargetValue: int
+    activeTargetId: int = 0
+    activeTargetValue: int = 0
 
 
 class NiceMapGimmick(BaseModel):
@@ -2323,11 +2323,11 @@ class NiceMapGimmick(BaseModel):
     depthOffset: int
     scale: int
     dispCondType: NiceCondType
-    dispTargetId: int
-    dispTargetValue: int
+    dispTargetId: int = 0
+    dispTargetValue: int = 0
     dispCondType2: NiceCondType
-    dispTargetId2: int
-    dispTargetValue2: int
+    dispTargetId2: int = 0
+    dispTargetValue2: int = 0
     actionAnimTime: int
     actionEffectId: int
     startedAt: int
@@ -2348,7 +2348,7 @@ class NiceSpotAdd(BaseModel):
     # spotId: int
     priority: int
     overrideType: NiceSpotOverwriteType
-    targetId: int
+    targetId: int = 0
     targetText: str = ""
     condType: NiceCondType
     condTargetId: int
