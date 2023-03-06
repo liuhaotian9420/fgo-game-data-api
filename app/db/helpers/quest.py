@@ -27,6 +27,7 @@ from ...models.raw import (
     mstMap,
     mstQuest,
     mstQuestConsumeItem,
+    mstQuestHint,
     mstQuestMessage,
     mstQuestPhase,
     mstQuestPhaseDetail,
@@ -44,7 +45,7 @@ from ...models.raw import (
     npcSvtEquip,
     npcSvtFollower,
 )
-from ...models.rayshift import rayshiftQuest
+from ...models.rayshift import rayshiftQuest, rayshiftQuestHash
 from ...schemas.common import StageLink
 from ...schemas.gameenums import QuestFlag
 from ...schemas.raw import (
@@ -504,6 +505,13 @@ async def get_quest_phase_entity(
             ),
         )
         .outerjoin(
+            mstQuestHint,
+            and_(
+                mstQuest.c.id == mstQuestHint.c.questId,
+                mstQuestPhase.c.phase == mstQuestHint.c.questPhase,
+            ),
+        )
+        .outerjoin(
             mstStage,
             and_(
                 mstQuest.c.id == mstStage.c.questId,
@@ -583,11 +591,28 @@ async def get_quest_phase_entity(
             .scalar_subquery(),
             [],
         ).label("phasesWithEnemies"),
+        func.coalesce(
+            select(
+                func.array_remove(
+                    array_agg(rayshiftQuestHash.c.questHash.distinct()), None
+                )
+            )
+            .select_from(
+                rayshiftQuestHash.join(
+                    rayshiftQuest,
+                    rayshiftQuestHash.c.queryId == rayshiftQuest.c.queryId,
+                )
+            )
+            .where(rayshiftQuest.c.questId == quest_id)
+            .scalar_subquery(),
+            [],
+        ).label("availableEnemyHashes"),
         func.to_jsonb(mstQuestPhase.table_valued()).label(mstQuestPhase.name),
         func.to_jsonb(mstQuestPhaseDetail.table_valued()).label(
             mstQuestPhaseDetail.name
         ),
         sql_jsonb_agg(mstQuestMessage),
+        sql_jsonb_agg(mstQuestHint),
         func.array_remove(
             array_agg(ScriptFileList.c.scriptFileName.distinct()), None
         ).label("scripts"),
