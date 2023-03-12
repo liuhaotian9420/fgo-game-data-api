@@ -11,10 +11,12 @@ from sqlalchemy.sql import (
     and_,
     case,
     cast,
+    false,
     func,
     literal_column,
     or_,
     select,
+    true,
 )
 from sqlalchemy.sql._typing import _ColumnExpressionArgument
 
@@ -45,7 +47,7 @@ from ...models.raw import (
     npcSvtEquip,
     npcSvtFollower,
 )
-from ...models.rayshift import rayshiftQuest, rayshiftQuestHash
+from ...models.rayshift import rayshiftQuest
 from ...schemas.common import StageLink
 from ...schemas.gameenums import QuestFlag
 from ...schemas.raw import (
@@ -216,7 +218,7 @@ async def get_quest_phase_search(
     def questDetail_contains(userSvt_shape: dict[str, Any]) -> ColumnElement[bool]:
         return rayshiftQuest.c.questDetail.contains({"userSvt": [userSvt_shape]})
 
-    where_clause: list[_ColumnExpressionArgument[bool]] = []
+    where_clause: list[_ColumnExpressionArgument[bool]] = [true()]
     if name:
         where_clause.append(mstQuest.c.name.ilike(f"%{name}%"))
     if spot_name:
@@ -591,22 +593,6 @@ async def get_quest_phase_entity(
             .scalar_subquery(),
             [],
         ).label("phasesWithEnemies"),
-        func.coalesce(
-            select(
-                func.array_remove(
-                    array_agg(rayshiftQuestHash.c.questHash.distinct()), None
-                )
-            )
-            .select_from(
-                rayshiftQuestHash.join(
-                    rayshiftQuest,
-                    rayshiftQuestHash.c.queryId == rayshiftQuest.c.queryId,
-                )
-            )
-            .where(rayshiftQuest.c.questId == quest_id)
-            .scalar_subquery(),
-            [],
-        ).label("availableEnemyHashes"),
         func.to_jsonb(mstQuestPhase.table_valued()).label(mstQuestPhase.name),
         func.to_jsonb(mstQuestPhaseDetail.table_valued()).label(
             mstQuestPhaseDetail.name
@@ -677,7 +663,7 @@ async def get_remapped_stages(
         )
         for stage_remap in stage_remaps
     ]
-    stmt = select(mstStage).where(or_(*remapped_conditions))
+    stmt = select(mstStage).where(or_(false(), *remapped_conditions))
     return [MstStage.from_orm(stage) for stage in (await conn.execute(stmt)).fetchall()]
 
 

@@ -56,6 +56,7 @@ async def get_quest_response(
             raise HTTPException(
                 status_code=r.status_code,
                 detail=f"Please wait {wait_seconds} seconds until you make the next quest request",
+                headers={"Retry-After": str(wait_seconds)},
             )
         else:
             return None
@@ -66,27 +67,28 @@ async def get_quest_detail(
     region: Region,
     quest_id: int,
     phase: int,
-    questSelect: int | None = None,
+    questSelect: list[int],
     questHash: str | None = None,
+    rayshift_fallback: bool = True,
 ) -> Optional[QuestDetail]:
     db_quest_detail = await get_rayshift_quest_db(
         conn, quest_id, phase, questSelect, questHash
     )
     if db_quest_detail:
         return db_quest_detail
-    else:
+    elif rayshift_fallback:
         quest_response = await get_quest_response(region, quest_id, phase)
         if quest_response and quest_response.questDetails:
             await insert_rayshift_quest_db(conn, quest_response.questDetails)
             await insert_rayshift_quest_hash_db(conn, quest_response.questDetails)
             quest_detail = next(iter(quest_response.questDetails.values()))
             if (
-                questSelect is not None and quest_detail.questSelect != questSelect
+                questSelect and quest_detail.questSelect not in questSelect
             ):  # pragma: no cover
                 return None
             return quest_detail
 
-        return None
+    return None
 
 
 def get_multiple_quests(
