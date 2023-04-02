@@ -616,7 +616,7 @@ class MstCommandCodeComment(BaseModelORJson):
 class CommandCodeEntity(BaseModelORJson):
     mstCommandCode: MstCommandCode
     mstSkill: list[SkillEntityNoReverse]
-    mstCommandCodeComment: MstCommandCodeComment
+    mstCommandCodeComment: MstCommandCodeComment | None = None
     mstIllustrator: Optional[MstIllustrator] = None
 
 
@@ -1749,6 +1749,7 @@ class MstAi(BaseModelORJson):
 class MstAiAct(BaseModelORJson):
     targetIndividuality: list[int]  # [0]
     skillVals: list[int]  # [961075, 1]
+    script: dict[str, Any] | None = None
     id: int  # 94016184
     type: int  # 40
     target: int  # 0
@@ -1879,6 +1880,7 @@ class QuestEntity(BaseModelORJson):
     mstClosedMessage: list[MstClosedMessage]
     mstGift: list[MstGift]
     mstGiftAdd: list[MstGiftAdd]
+    mstItem: list[MstItem] = []
     phases: list[int]
     phasesWithEnemies: list[int] = []
     phasesNoBattle: list[int] = []

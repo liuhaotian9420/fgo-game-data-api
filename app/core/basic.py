@@ -1,5 +1,7 @@
+import asyncio
 from collections import defaultdict
-from typing import Any, Callable, Generator, Iterable, Optional
+from dataclasses import dataclass
+from typing import Any, Callable, Generator, Iterable, Optional, Sequence
 
 from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncConnection
@@ -516,6 +518,26 @@ async def get_basic_servant(
     )
 
 
+@dataclass
+class BasicServantGet:
+    svt_id: int
+    svt_limit: int
+
+
+async def get_multiple_basic_servants(
+    redis: Redis,
+    region: Region,
+    svt_details: Sequence[BasicServantGet],
+    lang: Language | None = None,
+) -> list[BasicServant]:
+    return await asyncio.gather(
+        *[
+            get_basic_servant(redis, region, detail.svt_id, detail.svt_limit, lang)
+            for detail in svt_details
+        ]
+    )
+
+
 async def get_all_basic_servants(
     redis: Redis, region: Region, lang: Language, all_servants: list[MstSvt]
 ) -> list[BasicServant]:  # pragma: no cover
@@ -661,7 +683,7 @@ def get_basic_war_from_raw(mstWar: MstWar, lang: Language) -> BasicWar:
         id=mstWar.id,
         coordinates=mstWar.coordinates,
         age=mstWar.age,
-        name=mstWar.name,
+        name=get_translation(lang, mstWar.name),
         longName=get_translation(lang, mstWar.longName),
         flags=get_flags(mstWar.flag, WAR_FLAG_NAME),
         eventId=mstWar.eventId,

@@ -31,7 +31,7 @@ async def get_rayshift_quest_db(
     phase: int,
     questSelect: list[int],
     questHash: str | None = None,
-) -> Optional[QuestDetail]:
+) -> list[QuestDetail]:
     where_conds = [
         rayshiftQuest.c.questId == quest_id,
         rayshiftQuest.c.phase == phase,
@@ -60,9 +60,34 @@ async def get_rayshift_quest_db(
 
     rayshift_quest = await fetch_one(conn, stmt)
     if rayshift_quest and rayshift_quest.questDetail:
-        return QuestDetail.parse_obj(rayshift_quest.questDetail)
+        return [QuestDetail.parse_obj(rayshift_quest.questDetail)]
 
-    return None
+    return []
+
+
+async def get_war_board_quest_details(
+    conn: AsyncConnection, quest_id: int, phase: int
+) -> list[QuestDetail]:
+    stmt = (
+        select(rayshiftQuest.c.questDetail)
+        .distinct(rayshiftQuestHash.c.questHash)
+        .select_from(
+            rayshiftQuest.join(
+                rayshiftQuestHash,
+                rayshiftQuest.c.queryId == rayshiftQuestHash.c.queryId,
+            )
+        )
+        .where(
+            and_(
+                rayshiftQuest.c.questId == quest_id,
+                rayshiftQuest.c.phase == phase,
+                rayshiftQuestHash.c.questHash.like("1_01%"),
+            )
+        )
+    )
+
+    res = await conn.execute(stmt)
+    return [QuestDetail.parse_obj(row.questDetail) for row in res.fetchall()]
 
 
 async def get_all_quest_hashes(
