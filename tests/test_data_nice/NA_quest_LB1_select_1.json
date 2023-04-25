@@ -93,7 +93,17 @@
   "bond": 1590,
   "isNpcOnly": false,
   "battleBgId": 39000,
-  "extraDetail": {},
+  "enemyHash": "1_0156_c3a1e0f",
+  "availableEnemyHashes": [
+    "1_0156_c3a1e0f"
+  ],
+  "dropsFromAllHashes": true,
+  "extraDetail": {
+    "questSelect": [
+      3000109,
+      3000110
+    ]
+  },
   "scripts": [
     {
       "scriptId": "0300010910",
@@ -105,6 +115,7 @@
     }
   ],
   "messages": [],
+  "hints": [],
   "restrictions": [],
   "supportServants": [
     {
@@ -299,7 +310,9 @@
                   "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_314.png",
                   "type": "upCommandall",
                   "buffGroup": 0,
-                  "script": {},
+                  "script": {
+                    "ProgressSelfTurn": 1
+                  },
                   "vals": [
                     {
                       "id": 3004,
@@ -765,6 +778,27 @@
             {
               "id": 4101,
               "name": "aoeNP"
+            }
+          ],
+          "npSvts": [
+            {
+              "svtId": 503600,
+              "num": 1,
+              "priority": 101,
+              "damage": [
+                16,
+                33,
+                51
+              ],
+              "strengthStatus": 1,
+              "flag": 0,
+              "imageIndex": 0,
+              "condQuestId": 0,
+              "condQuestPhase": 0,
+              "condLv": 0,
+              "condFriendshipRank": 0,
+              "motion": 50,
+              "card": "buster"
             }
           ],
           "script": {},
@@ -2100,7 +2134,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_511.png",
                       "type": "donotSkill",
                       "buffGroup": 800,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3005,
@@ -2143,7 +2179,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_300.png",
                       "type": "upAtk",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -2249,7 +2287,9 @@
                   }
                 ]
               }
-            ]
+            ],
+            "appendPassiveSkillIds": [],
+            "appendPassiveSkillLvs": []
           },
           "noblePhantasm": {
             "noblePhantasmId": 509,
@@ -2327,6 +2367,27 @@
                 {
                   "id": 4007,
                   "name": "cardNP"
+                }
+              ],
+              "npSvts": [
+                {
+                  "svtId": 9939340,
+                  "num": 1,
+                  "priority": 478,
+                  "damage": [
+                    16,
+                    33,
+                    51
+                  ],
+                  "strengthStatus": 0,
+                  "flag": 0,
+                  "imageIndex": 0,
+                  "condQuestId": 0,
+                  "condQuestPhase": 0,
+                  "condLv": 0,
+                  "condFriendshipRank": 0,
+                  "motion": 30,
+                  "card": "arts"
                 }
               ],
               "script": {},
@@ -2872,7 +2933,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_512.png",
                       "type": "donotNoble",
                       "buffGroup": 900,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3005,

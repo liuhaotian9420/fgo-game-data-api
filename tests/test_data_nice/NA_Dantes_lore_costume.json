@@ -909,6 +909,23 @@
       "condType": "none",
       "condId": 0,
       "condNum": 0
+    },
+    {
+      "idx": 8031801,
+      "trait": [
+        {
+          "id": 2771,
+          "name": "unknown"
+        },
+        {
+          "id": 2772,
+          "name": "unknown"
+        }
+      ],
+      "limitCount": -1,
+      "condType": "none",
+      "condId": 0,
+      "condNum": 0
     }
   ],
   "svtChange": [],
@@ -996,7 +1013,8 @@
             "uses": [
               "skill",
               "appendSkill",
-              "ascension"
+              "ascension",
+              "costume"
             ],
             "detail": "\"Skill Up & Ascension Material\"\nA page which nobody should ever read.\nUsually mixed in as the first or last page.",
             "individuality": [],
@@ -1863,7 +1881,9 @@
               "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_300.png",
               "type": "upAtk",
               "buffGroup": 0,
-              "script": {},
+              "script": {
+                "ProgressSelfTurn": 1
+              },
               "vals": [
                 {
                   "id": 3004,
@@ -2441,7 +2461,9 @@
               "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_327.png",
               "type": "upCriticalrate",
               "buffGroup": 0,
-              "script": {},
+              "script": {
+                "ProgressSelfTurn": 1
+              },
               "vals": [
                 {
                   "id": 3004,
@@ -4264,6 +4286,32 @@
           "name": "aoeNP"
         }
       ],
+      "npSvts": [
+        {
+          "svtId": 1100200,
+          "num": 1,
+          "priority": 101,
+          "damage": [
+            3,
+            6,
+            10,
+            13,
+            16,
+            13,
+            10,
+            29
+          ],
+          "strengthStatus": 1,
+          "flag": 0,
+          "imageIndex": 0,
+          "condQuestId": 0,
+          "condQuestPhase": 0,
+          "condLv": 0,
+          "condFriendshipRank": 0,
+          "motion": 50,
+          "card": "quick"
+        }
+      ],
       "script": {},
       "functions": [
         {
@@ -4405,7 +4453,9 @@
               "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_504.png",
               "type": "downDefence",
               "buffGroup": 0,
-              "script": {},
+              "script": {
+                "ProgressSelfTurn": 0
+              },
               "vals": [
                 {
                   "id": 3005,
@@ -4876,6 +4926,32 @@
           "name": "aoeNP"
         }
       ],
+      "npSvts": [
+        {
+          "svtId": 1100200,
+          "num": 1,
+          "priority": 102,
+          "damage": [
+            3,
+            6,
+            10,
+            13,
+            16,
+            13,
+            10,
+            29
+          ],
+          "strengthStatus": 2,
+          "flag": 0,
+          "imageIndex": 0,
+          "condQuestId": 94026512,
+          "condQuestPhase": 3,
+          "condLv": 0,
+          "condFriendshipRank": 0,
+          "motion": 50,
+          "card": "quick"
+        }
+      ],
       "script": {},
       "functions": [
         {
@@ -5017,7 +5093,9 @@
               "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_504.png",
               "type": "downDefence",
               "buffGroup": 0,
-              "script": {},
+              "script": {
+                "ProgressSelfTurn": 0
+              },
               "vals": [
                 {
                   "id": 3005,
@@ -6416,6 +6494,7 @@
                   900800,
                   900900,
                   901000,
+                  901100,
                   1000100,
                   1000200,
                   1000300,
@@ -6442,7 +6521,8 @@
                   2500400,
                   2500500,
                   2500600,
-                  2500700
+                  2500700,
+                  2500800
                 ],
                 "eventId": 0
               }

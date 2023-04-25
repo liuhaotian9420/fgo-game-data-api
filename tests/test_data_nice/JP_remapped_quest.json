@@ -75,9 +75,15 @@
   "bond": 415,
   "isNpcOnly": false,
   "battleBgId": 81001,
+  "enemyHash": "1_0715_1da8f2f",
+  "availableEnemyHashes": [
+    "1_0715_1da8f2f"
+  ],
+  "dropsFromAllHashes": true,
   "extraDetail": {},
   "scripts": [],
   "messages": [],
+  "hints": [],
   "restrictions": [],
   "supportServants": [],
   "drops": [
@@ -319,7 +325,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_300.png",
                       "type": "upAtk",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -433,6 +441,25 @@
                 {
                   "id": 4007,
                   "name": "cardNP"
+                }
+              ],
+              "npSvts": [
+                {
+                  "svtId": 9938890,
+                  "num": 1,
+                  "priority": 459,
+                  "damage": [
+                    100
+                  ],
+                  "strengthStatus": 0,
+                  "flag": 0,
+                  "imageIndex": 0,
+                  "condQuestId": 0,
+                  "condQuestPhase": 0,
+                  "condLv": 0,
+                  "condFriendshipRank": 0,
+                  "motion": 30,
+                  "card": "arts"
                 }
               ],
               "script": {},
@@ -576,7 +603,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_504.png",
                       "type": "downDefence",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 0
+                      },
                       "vals": [
                         {
                           "id": 3005,
@@ -941,7 +970,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_300.png",
                       "type": "upAtk",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -1055,6 +1086,25 @@
                 {
                   "id": 4007,
                   "name": "cardNP"
+                }
+              ],
+              "npSvts": [
+                {
+                  "svtId": 9938890,
+                  "num": 1,
+                  "priority": 459,
+                  "damage": [
+                    100
+                  ],
+                  "strengthStatus": 0,
+                  "flag": 0,
+                  "imageIndex": 0,
+                  "condQuestId": 0,
+                  "condQuestPhase": 0,
+                  "condLv": 0,
+                  "condFriendshipRank": 0,
+                  "motion": 30,
+                  "card": "arts"
                 }
               ],
               "script": {},
@@ -1198,7 +1248,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_504.png",
                       "type": "downDefence",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 0
+                      },
                       "vals": [
                         {
                           "id": 3005,
@@ -1587,7 +1639,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_300.png",
                       "type": "upAtk",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -1701,6 +1755,25 @@
                 {
                   "id": 4007,
                   "name": "cardNP"
+                }
+              ],
+              "npSvts": [
+                {
+                  "svtId": 9938890,
+                  "num": 1,
+                  "priority": 459,
+                  "damage": [
+                    100
+                  ],
+                  "strengthStatus": 0,
+                  "flag": 0,
+                  "imageIndex": 0,
+                  "condQuestId": 0,
+                  "condQuestPhase": 0,
+                  "condLv": 0,
+                  "condFriendshipRank": 0,
+                  "motion": 30,
+                  "card": "arts"
                 }
               ],
               "script": {},
@@ -1844,7 +1917,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_504.png",
                       "type": "downDefence",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 0
+                      },
                       "vals": [
                         {
                           "id": 3005,
@@ -2218,7 +2293,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_300.png",
                       "type": "upAtk",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -2332,6 +2409,25 @@
                 {
                   "id": 4007,
                   "name": "cardNP"
+                }
+              ],
+              "npSvts": [
+                {
+                  "svtId": 9938890,
+                  "num": 1,
+                  "priority": 459,
+                  "damage": [
+                    100
+                  ],
+                  "strengthStatus": 0,
+                  "flag": 0,
+                  "imageIndex": 0,
+                  "condQuestId": 0,
+                  "condQuestPhase": 0,
+                  "condLv": 0,
+                  "condFriendshipRank": 0,
+                  "motion": 30,
+                  "card": "arts"
                 }
               ],
               "script": {},
@@ -2475,7 +2571,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_504.png",
                       "type": "downDefence",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 0
+                      },
                       "vals": [
                         {
                           "id": 3005,
@@ -2849,7 +2947,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_300.png",
                       "type": "upAtk",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -2963,6 +3063,25 @@
                 {
                   "id": 4007,
                   "name": "cardNP"
+                }
+              ],
+              "npSvts": [
+                {
+                  "svtId": 9938890,
+                  "num": 1,
+                  "priority": 459,
+                  "damage": [
+                    100
+                  ],
+                  "strengthStatus": 0,
+                  "flag": 0,
+                  "imageIndex": 0,
+                  "condQuestId": 0,
+                  "condQuestPhase": 0,
+                  "condLv": 0,
+                  "condFriendshipRank": 0,
+                  "motion": 30,
+                  "card": "arts"
                 }
               ],
               "script": {},
@@ -3106,7 +3225,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_504.png",
                       "type": "downDefence",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 0
+                      },
                       "vals": [
                         {
                           "id": 3005,
@@ -3805,7 +3926,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_327.png",
                       "type": "upCriticalrate",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -4493,6 +4616,27 @@
                   "name": "stNP"
                 }
               ],
+              "npSvts": [
+                {
+                  "svtId": 102700,
+                  "num": 1,
+                  "priority": 101,
+                  "damage": [
+                    16,
+                    33,
+                    51
+                  ],
+                  "strengthStatus": 0,
+                  "flag": 0,
+                  "imageIndex": 0,
+                  "condQuestId": 0,
+                  "condQuestPhase": 0,
+                  "condLv": 0,
+                  "condFriendshipRank": 0,
+                  "motion": 50,
+                  "card": "quick"
+                }
+              ],
               "script": {},
               "functions": [
                 {
@@ -4634,7 +4778,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_504.png",
                       "type": "downDefence",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 0
+                      },
                       "vals": [
                         {
                           "id": 3005,
@@ -5034,7 +5180,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_314.png",
                       "type": "upCommandall",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -5146,7 +5294,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_321.png",
                       "type": "upCriticalpoint",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -5244,7 +5394,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_327.png",
                       "type": "upCriticalrate",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -5517,7 +5669,9 @@
                         "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_314.png",
                         "type": "upCommandall",
                         "buffGroup": 0,
-                        "script": {},
+                        "script": {
+                          "ProgressSelfTurn": 1
+                        },
                         "vals": [
                           {
                             "id": 3004,
@@ -5704,6 +5858,29 @@
                 {
                   "id": 4102,
                   "name": "stNP"
+                }
+              ],
+              "npSvts": [
+                {
+                  "svtId": 702500,
+                  "num": 1,
+                  "priority": 101,
+                  "damage": [
+                    6,
+                    13,
+                    20,
+                    26,
+                    35
+                  ],
+                  "strengthStatus": 1,
+                  "flag": 0,
+                  "imageIndex": 0,
+                  "condQuestId": 0,
+                  "condQuestPhase": 0,
+                  "condLv": 0,
+                  "condFriendshipRank": 0,
+                  "motion": 50,
+                  "card": "buster"
                 }
               ],
               "script": {},

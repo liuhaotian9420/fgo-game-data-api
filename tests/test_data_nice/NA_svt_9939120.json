@@ -588,6 +588,25 @@
           "name": "cardNP"
         }
       ],
+      "npSvts": [
+        {
+          "svtId": 9939120,
+          "num": 1,
+          "priority": 471,
+          "damage": [
+            100
+          ],
+          "strengthStatus": 0,
+          "flag": 0,
+          "imageIndex": 0,
+          "condQuestId": 0,
+          "condQuestPhase": 0,
+          "condLv": 0,
+          "condFriendshipRank": 0,
+          "motion": 30,
+          "card": "arts"
+        }
+      ],
       "script": {},
       "functions": [
         {
@@ -729,7 +748,9 @@
               "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_504.png",
               "type": "downDefence",
               "buffGroup": 0,
-              "script": {},
+              "script": {
+                "ProgressSelfTurn": 0
+              },
               "vals": [
                 {
                   "id": 3005,

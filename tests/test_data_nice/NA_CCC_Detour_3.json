@@ -79,9 +79,15 @@
   "bond": 915,
   "isNpcOnly": false,
   "battleBgId": 25800,
+  "enemyHash": "1_0612_6877b57",
+  "availableEnemyHashes": [
+    "1_0612_6877b57"
+  ],
+  "dropsFromAllHashes": true,
   "extraDetail": {},
   "scripts": [],
   "messages": [],
+  "hints": [],
   "restrictions": [],
   "supportServants": [],
   "drops": [
@@ -257,7 +263,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_512.png",
                       "type": "donotNoble",
                       "buffGroup": 900,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3005,
@@ -367,6 +375,26 @@
                 {
                   "id": 4007,
                   "name": "cardNP"
+                }
+              ],
+              "npSvts": [
+                {
+                  "svtId": 9935900,
+                  "num": 1,
+                  "priority": 336,
+                  "damage": [
+                    16,
+                    84
+                  ],
+                  "strengthStatus": 1,
+                  "flag": 0,
+                  "imageIndex": 0,
+                  "condQuestId": 0,
+                  "condQuestPhase": 0,
+                  "condLv": 0,
+                  "condFriendshipRank": 0,
+                  "motion": 30,
+                  "card": "arts"
                 }
               ],
               "script": {},
@@ -1075,7 +1103,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_327.png",
                       "type": "upCriticalrate",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -1306,7 +1336,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_327.png",
                       "type": "upCriticalrate",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -1537,7 +1569,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_327.png",
                       "type": "upCriticalrate",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -2077,6 +2111,29 @@
               "condQuestId": 0,
               "condQuestPhase": 0,
               "individuality": [],
+              "npSvts": [
+                {
+                  "svtId": 102000,
+                  "num": 99,
+                  "priority": 0,
+                  "damage": [
+                    6,
+                    13,
+                    20,
+                    26,
+                    35
+                  ],
+                  "strengthStatus": 0,
+                  "flag": 0,
+                  "imageIndex": 0,
+                  "condQuestId": 0,
+                  "condQuestPhase": 0,
+                  "condLv": 0,
+                  "condFriendshipRank": 0,
+                  "motion": 40,
+                  "card": "arts"
+                }
+              ],
               "script": {},
               "functions": [
                 {
@@ -2378,7 +2435,7 @@
               "detail": "Increase your Buster Card effectiveness (1 turn)",
               "unmodifiedDetail": "Increase your Buster Card effectiveness [{0}] (1 turn)",
               "type": "active",
-              "strengthStatus": 0,
+              "strengthStatus": 1,
               "priority": 1,
               "condQuestId": 0,
               "condQuestPhase": 0,
@@ -2420,7 +2477,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_314.png",
                       "type": "upCommandall",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -2661,7 +2720,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_327.png",
                       "type": "upCriticalrate",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -2953,7 +3014,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_300.png",
                       "type": "upAtk",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -3390,6 +3453,28 @@
               "condQuestId": 0,
               "condQuestPhase": 0,
               "individuality": [],
+              "npSvts": [
+                {
+                  "svtId": 301900,
+                  "num": 99,
+                  "priority": 0,
+                  "damage": [
+                    9,
+                    18,
+                    27,
+                    46
+                  ],
+                  "strengthStatus": 0,
+                  "flag": 0,
+                  "imageIndex": 0,
+                  "condQuestId": 0,
+                  "condQuestPhase": 0,
+                  "condLv": 0,
+                  "condFriendshipRank": 0,
+                  "motion": 40,
+                  "card": "arts"
+                }
+              ],
               "script": {},
               "functions": [
                 {
@@ -4080,7 +4165,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_512.png",
                       "type": "donotNoble",
                       "buffGroup": 900,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3005,
@@ -4775,6 +4862,30 @@
               "condQuestId": 0,
               "condQuestPhase": 0,
               "individuality": [],
+              "npSvts": [
+                {
+                  "svtId": 200800,
+                  "num": 99,
+                  "priority": 0,
+                  "damage": [
+                    4,
+                    9,
+                    14,
+                    19,
+                    23,
+                    31
+                  ],
+                  "strengthStatus": 0,
+                  "flag": 0,
+                  "imageIndex": 0,
+                  "condQuestId": 0,
+                  "condQuestPhase": 0,
+                  "condLv": 0,
+                  "condFriendshipRank": 0,
+                  "motion": 40,
+                  "card": "arts"
+                }
+              ],
               "script": {},
               "functions": [
                 {
@@ -6040,6 +6151,29 @@
               "condQuestId": 0,
               "condQuestPhase": 0,
               "individuality": [],
+              "npSvts": [
+                {
+                  "svtId": 101200,
+                  "num": 99,
+                  "priority": 0,
+                  "damage": [
+                    6,
+                    13,
+                    20,
+                    26,
+                    35
+                  ],
+                  "strengthStatus": 0,
+                  "flag": 0,
+                  "imageIndex": 0,
+                  "condQuestId": 0,
+                  "condQuestPhase": 0,
+                  "condLv": 0,
+                  "condFriendshipRank": 0,
+                  "motion": 40,
+                  "card": "arts"
+                }
+              ],
               "script": {},
               "functions": [
                 {
@@ -6347,7 +6481,7 @@
               "detail": "Increase your Buster Card effectiveness (1 turn)",
               "unmodifiedDetail": "Increase your Buster Card effectiveness [{0}] (1 turn)",
               "type": "active",
-              "strengthStatus": 0,
+              "strengthStatus": 1,
               "priority": 1,
               "condQuestId": 0,
               "condQuestPhase": 0,
@@ -6389,7 +6523,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_314.png",
                       "type": "upCommandall",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -6630,7 +6766,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_327.png",
                       "type": "upCriticalrate",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -6922,7 +7060,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/NA/BuffIcons/bufficon_300.png",
                       "type": "upAtk",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -7359,6 +7499,28 @@
               "condQuestId": 0,
               "condQuestPhase": 0,
               "individuality": [],
+              "npSvts": [
+                {
+                  "svtId": 301900,
+                  "num": 99,
+                  "priority": 0,
+                  "damage": [
+                    9,
+                    18,
+                    27,
+                    46
+                  ],
+                  "strengthStatus": 0,
+                  "flag": 0,
+                  "imageIndex": 0,
+                  "condQuestId": 0,
+                  "condQuestPhase": 0,
+                  "condLv": 0,
+                  "condFriendshipRank": 0,
+                  "motion": 40,
+                  "card": "arts"
+                }
+              ],
               "script": {},
               "functions": [
                 {

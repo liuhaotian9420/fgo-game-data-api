@@ -84,6 +84,27 @@
       "name": "stNP"
     }
   ],
+  "npSvts": [
+    {
+      "svtId": 202900,
+      "num": 1,
+      "priority": 101,
+      "damage": [
+        16,
+        33,
+        51
+      ],
+      "strengthStatus": 1,
+      "flag": 0,
+      "imageIndex": 0,
+      "condQuestId": 0,
+      "condQuestPhase": 0,
+      "condLv": 0,
+      "condFriendshipRank": 0,
+      "motion": 50,
+      "card": "buster"
+    }
+  ],
   "script": {},
   "functions": [
     {
@@ -2605,7 +2626,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_314.png",
                       "type": "upCommandall",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -2991,7 +3014,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_309.png",
                       "type": "breakAvoidance",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -3136,7 +3161,9 @@
                       "icon": "https://assets.atlasacademy.io/GameData/JP/BuffIcons/bufficon_327.png",
                       "type": "upCriticalrate",
                       "buffGroup": 0,
-                      "script": {},
+                      "script": {
+                        "ProgressSelfTurn": 1
+                      },
                       "vals": [
                         {
                           "id": 3004,
@@ -5798,6 +5825,27 @@
                   "name": "stNP"
                 }
               ],
+              "npSvts": [
+                {
+                  "svtId": 202900,
+                  "num": 1,
+                  "priority": 101,
+                  "damage": [
+                    16,
+                    33,
+                    51
+                  ],
+                  "strengthStatus": 1,
+                  "flag": 0,
+                  "imageIndex": 0,
+                  "condQuestId": 0,
+                  "condQuestPhase": 0,
+                  "condLv": 0,
+                  "condFriendshipRank": 0,
+                  "motion": 50,
+                  "card": "buster"
+                }
+              ],
               "script": {},
               "functions": [
                 {
@@ -6388,6 +6436,27 @@
                 {
                   "id": 4102,
                   "name": "stNP"
+                }
+              ],
+              "npSvts": [
+                {
+                  "svtId": 202900,
+                  "num": 1,
+                  "priority": 102,
+                  "damage": [
+                    16,
+                    33,
+                    51
+                  ],
+                  "strengthStatus": 2,
+                  "flag": 0,
+                  "imageIndex": 0,
+                  "condQuestId": 94059780,
+                  "condQuestPhase": 3,
+                  "condLv": 0,
+                  "condFriendshipRank": 0,
+                  "motion": 50,
+                  "card": "buster"
                 }
               ],
               "script": {},
