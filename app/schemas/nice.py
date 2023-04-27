@@ -153,6 +153,7 @@ class AssetURL:
     commandGraph = "{base_url}/{region}/CommandGraph/{item_id}a.png"
     audio = "{base_url}/{region}/Audio/{folder}/{id}.mp3"
     banner = "{base_url}/{region}/Banner/{banner}.png"
+    event = "{base_url}/{region}/Event/{event}.png"
     eventUi = "{base_url}/{region}/EventUI/{event}.png"
     eventReward = "{base_url}/{region}/EventReward/{fname}.png"
     mapImg = "{base_url}/{region}/Terminal/MapImgs/img_questmap_{map_id:0>6}/img_questmap_{map_id:0>6}.png"
@@ -1648,6 +1649,11 @@ class NiceEventMission(BaseModelORJson):
     conds: list[NiceEventMissionCondition] = []
 
 
+class NiceEventMissionGroup(BaseModelORJson):
+    id: int
+    missionIds: list[int]
+
+
 class NiceEventRandomMission(BaseModelORJson):
     missionId: int
     missionRank: int
@@ -1870,6 +1876,18 @@ class NiceEventVoicePlay(BaseModelORJson):
     endedAt: int
 
 
+class NiceEventCommandAssist(BaseModelORJson):
+    id: int
+    priority: int
+    lv: int
+    name: str
+    assistCard: NiceCardType
+    image: HttpUrl
+    skill: NiceSkill
+    skillLv: int
+    releaseConditions: list[NiceCommonRelease]
+
+
 class NiceEvent(BaseModelORJson):
     id: int
     type: NiceEventType
@@ -1894,6 +1912,7 @@ class NiceEvent(BaseModelORJson):
     pointBuffs: list[NiceEventPointBuff] = []
     missions: list[NiceEventMission] = []
     randomMissions: list[NiceEventRandomMission] = []
+    missionGroups: list[NiceEventMissionGroup] = []
     towers: list[NiceEventTower] = []
     lotteries: list[NiceEventLottery] = []
     treasureBoxes: list[NiceEventTreasureBox] = []
@@ -1901,10 +1920,11 @@ class NiceEvent(BaseModelORJson):
     recipes: list[NiceEventRecipe] = []
     digging: NiceEventDigging | None
     cooltime: NiceEventCooltime | None
+    fortifications: list[NiceEventFortification] = []
     campaigns: list[NiceEventCampaign] = []
     campaignQuests: list[NiceEventQuest] = []
+    commandAssists: list[NiceEventCommandAssist] = []
     voicePlays: list[NiceEventVoicePlay] = []
-    fortifications: list[NiceEventFortification] = []
     voices: list[NiceVoiceGroup] = Field(
         [], description="All voice lines related to this event"
     )
