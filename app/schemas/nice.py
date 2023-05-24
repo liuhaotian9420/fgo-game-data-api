@@ -649,17 +649,17 @@ class NpGain(BaseModel):
 
 class NiceTdSvt(BaseModelORJson):
     svtId: int
-    num: int
-    priority: int
+    num: int = 1
+    priority: int = 0
     damage: list[int]
-    strengthStatus: int
-    flag: int
-    imageIndex: int
-    condQuestId: int
-    condQuestPhase: int
+    strengthStatus: int = 0
+    flag: int = 0
+    imageIndex: int = 0
+    condQuestId: int = 0
+    condQuestPhase: int = 0
     condLv: int = 0
     condFriendshipRank: int = 0
-    motion: int
+    motion: int = 0
     card: NiceCardType
 
 
