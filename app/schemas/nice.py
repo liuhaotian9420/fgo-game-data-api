@@ -1793,7 +1793,7 @@ class NiceEventBulletinBoard(BaseModelORJson):
     bulletinBoardId: int
     message: str
     probability: int | None = None
-    dispOrder: int | None = None
+    dispOrder: int | None = 0
     releaseConditions: list[NiceEventBulletinBoardRelease]
     script: list[NiceEventBulletinBoardScript] = []
 
