@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncConnection
 from ...config import Settings
 from ...schemas.common import Language, Region
 from ...schemas.enums import SKILL_TYPE_NAME, SkillScriptCond
+from ...schemas.gameenums import COND_TYPE_NAME
 from ...schemas.nice import (
     AssetURL,
     ExtraPassive,
@@ -14,11 +15,15 @@ from ...schemas.nice import (
     NiceSkill,
     NiceSkillAdd,
     NiceSkillReverse,
+    NiceSkillSvt,
+    NiceSvtSkillRelease,
 )
 from ...schemas.raw import (
     MstCommonRelease,
     MstSkillAdd,
     MstSvtPassiveSkill,
+    MstSvtSkill,
+    MstSvtSkillRelease,
     SkillEntityNoReverse,
 )
 from ..raw import get_skill_entity_no_reverse, get_skill_entity_no_reverse_many
@@ -28,6 +33,30 @@ from .func import get_nice_function
 
 
 settings = Settings()
+
+
+def get_nice_skill_svt(
+    skill_svt: MstSvtSkill, skill_releases: list[MstSvtSkillRelease]
+) -> NiceSkillSvt:
+    return NiceSkillSvt(
+        svtId=skill_svt.svtId,
+        num=skill_svt.num,
+        priority=skill_svt.priority,
+        script=skill_svt.script,
+        strengthStatus=skill_svt.strengthStatus,
+        condQuestId=skill_svt.condQuestId,
+        condQuestPhase=skill_svt.condQuestPhase,
+        condLv=skill_svt.condLv,
+        condLimitCount=skill_svt.condLimitCount,
+        eventId=skill_svt.eventId,
+        flag=skill_svt.flag,
+        releaseConditions=[
+            get_nice_skill_release(release)
+            for release in skill_releases
+            if (release.svtId, release.num, release.priority)
+            == (skill_svt.svtId, skill_svt.num, skill_svt.priority)
+        ],
+    )
 
 
 def get_extra_passive(svt_passive: MstSvtPassiveSkill) -> ExtraPassive:
@@ -86,6 +115,16 @@ def get_nice_skill_script(skill_script: dict[str, Any]) -> dict[str, Any]:
     return skill_script
 
 
+def get_nice_skill_release(release: MstSvtSkillRelease) -> NiceSvtSkillRelease:
+    return NiceSvtSkillRelease(
+        idx=release.idx,
+        condType=COND_TYPE_NAME[release.condType],
+        condTargetId=release.condTargetId,
+        condNum=release.condNum,
+        condGroup=release.condGroup,
+    )
+
+
 async def get_nice_skill_with_svt(
     conn: AsyncConnection,
     skillEntity: SkillEntityNoReverse,
@@ -94,6 +133,10 @@ async def get_nice_skill_with_svt(
     lang: Language,
     mstSvtPassiveSkills: Optional[list[MstSvtPassiveSkill]] = None,
 ) -> list[dict[str, Any]]:
+    sorted_svtSkill = sorted(
+        skillEntity.mstSvtSkill, key=lambda x: (x.svtId, x.num, -x.priority)
+    )
+
     nice_skill: dict[str, Any] = {
         "id": skillEntity.mstSkill.id,
         "name": get_translation(lang, skillEntity.mstSkill.name),
@@ -104,6 +147,10 @@ async def get_nice_skill_with_svt(
         "skillAdd": get_nice_skill_add(
             skillEntity.mstSkillAdd, skillEntity.mstCommonRelease, lang
         ),
+        "skillSvts": [
+            get_nice_skill_svt(td_svt, skillEntity.mstSvtSkillRelease)
+            for td_svt in sorted_svtSkill
+        ],
     }
 
     if mstSvtPassiveSkills:

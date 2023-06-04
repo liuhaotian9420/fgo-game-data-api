@@ -158,6 +158,36 @@ mstSvtSkill = Table(
 )
 
 
+Index(
+    "ix_mstSvtSkill_svtId_num_priority",
+    mstSvtSkill.c.svtId,
+    mstSvtSkill.c.num,
+    mstSvtSkill.c.priority,
+)
+
+
+mstSvtSkillRelease = Table(
+    "mstSvtSkillRelease",
+    metadata,
+    Column("svtId", Integer, index=True),
+    Column("num", Integer, index=True),
+    Column("priority", Integer, index=True),
+    Column("idx", Integer),
+    Column("condType", Integer),
+    Column("condTargetId", Integer),
+    Column("condNum", Integer),
+    Column("condGroup", Integer),
+)
+
+
+Index(
+    "ix_mstSvtSkillRelease_svtId_num_priority",
+    mstSvtSkillRelease.c.svtId,
+    mstSvtSkillRelease.c.num,
+    mstSvtSkillRelease.c.priority,
+)
+
+
 mstSvtPassiveSkill = Table(
     "mstSvtPassiveSkill",
     metadata,
@@ -288,6 +318,14 @@ Index(
 )
 
 
+Index(
+    "ix_mstSvtTreasureDevice_svtId_num_priority",
+    mstSvtTreasureDevice.c.svtId,
+    mstSvtTreasureDevice.c.num,
+    mstSvtTreasureDevice.c.priority,
+)
+
+
 mstTreasureDeviceLv = Table(
     "mstTreasureDeviceLv",
     metadata,
@@ -322,6 +360,28 @@ Index(
 Index(
     "ix_mstTreasureDeviceLv_funcId_length",
     func.array_length(mstTreasureDeviceLv.c.funcId, 1),
+)
+
+
+mstSvtTreasureDeviceRelease = Table(
+    "mstSvtTreasureDeviceRelease",
+    metadata,
+    Column("svtId", Integer, index=True),
+    Column("num", Integer, index=True),
+    Column("priority", Integer, index=True),
+    Column("idx", Integer),
+    Column("condType", Integer),
+    Column("condTargetId", Integer),
+    Column("condNum", Integer),
+    Column("condGroup", Integer),
+)
+
+
+Index(
+    "ix_mstSvtTreasureDeviceRelease_svtId_num_priority",
+    mstSvtTreasureDeviceRelease.c.svtId,
+    mstSvtTreasureDeviceRelease.c.num,
+    mstSvtTreasureDeviceRelease.c.priority,
 )
 
 
@@ -2195,8 +2255,8 @@ TABLES_TO_BE_LOADED = [
     [mstSvtMultiPortrait],
     [mstSvtPassiveSkill],
     [mstSvtScript],
-    [mstSvtSkill],
-    [mstSvtTreasureDevice],
+    [mstSvtSkill, mstSvtSkillRelease],
+    [mstSvtTreasureDevice, mstSvtTreasureDeviceRelease],
     [mstSvtVoice],
     [mstSvtVoiceRelation],
     [mstTreasureBox],

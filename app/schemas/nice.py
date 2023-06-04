@@ -362,7 +362,7 @@ class BaseVals(BaseModel):
     NotSkillCopyTargetIndividualities: list[int] | None = None
     IntervalTurn: int | None = None
     IntervalCount: int | None = None
-    TargetEnemyRange: int | None = None
+    TargetEnemyRange: list[int] | None = None
     # Extra dataval from SkillLvEntty.DIC_KEY_APPLY_SUPPORT_SVT
     ApplySupportSvt: Optional[int] = None
     # These are not DataVals but guesses from SkillLvEntity and EventDropUpValInfo
@@ -612,6 +612,32 @@ class NiceSkillGroupOverwrite(BaseModelORJson):
     )
 
 
+class NiceSvtSkillRelease(BaseModelORJson):
+    # svtId: int
+    # num: int
+    # priority: int
+    idx: int
+    condType: NiceCondType
+    condTargetId: int
+    condNum: int
+    condGroup: int
+
+
+class NiceSkillSvt(BaseModelORJson):
+    svtId: int  # 9400920,
+    num: int  # 1,
+    priority: int  # 1,
+    script: Optional[dict[str, Any]] = None
+    strengthStatus: int  # 1,
+    condQuestId: int  # 0,
+    condQuestPhase: int  # 0,
+    condLv: int = 0  # 0,
+    condLimitCount: int  # 0,
+    eventId: int  # 0,
+    flag: int  # 0
+    releaseConditions: list[NiceSvtSkillRelease]
+
+
 class NiceSkill(BaseModelORJson):
     id: int
     num: int = 0
@@ -633,6 +659,7 @@ class NiceSkill(BaseModelORJson):
     script: NiceSkillScript = NiceSkillScript()
     extraPassive: list[ExtraPassive] = []
     skillAdd: list[NiceSkillAdd] = []
+    skillSvts: list[NiceSkillSvt] = []
     aiIds: Optional[dict[AiType, list[int]]] = None
     groupOverwrites: list[NiceSkillGroupOverwrite] | None = None
     functions: list[NiceFunction]
@@ -661,6 +688,7 @@ class NiceTdSvt(BaseModelORJson):
     condFriendshipRank: int = 0
     motion: int = 0
     card: NiceCardType
+    releaseConditions: list[NiceSvtSkillRelease] = []
 
 
 class NiceTd(BaseModelORJson):
@@ -682,6 +710,7 @@ class NiceTd(BaseModelORJson):
     priority: int
     condQuestId: int = 0
     condQuestPhase: int = 0
+    releaseConditions: list[NiceSvtSkillRelease] = []
     individuality: list[NiceTrait]
     npSvts: list[NiceTdSvt] = []
     script: NiceSkillScript = NiceSkillScript()
@@ -2299,6 +2328,16 @@ class NiceQuestPhaseAiNpc(BaseModelORJson):
     aiIds: list[int]
 
 
+class NiceQuestPhaseOverwriteEquipSkill(BaseModelORJson):
+    lv: int
+    id: int
+
+
+class NiceQuestPhaseOverwriteEquipSkills(BaseModelORJson):
+    iconId: int
+    skills: list[NiceQuestPhaseOverwriteEquipSkill]
+
+
 class NiceQuestPhaseExtraDetail(BaseModelORJson):
     questSelect: list[int] | None = None
     singleForceSvtId: int | None = None
@@ -2306,6 +2345,7 @@ class NiceQuestPhaseExtraDetail(BaseModelORJson):
     hintMessage: str | None = None
     aiNpc: NiceQuestPhaseAiNpc | None = None
     aiMultiNpc: list[NiceQuestPhaseAiNpc] | None = None
+    overwriteEquipSkills: NiceQuestPhaseOverwriteEquipSkills | None = None
 
 
 class NiceRestriction(BaseModelORJson):
