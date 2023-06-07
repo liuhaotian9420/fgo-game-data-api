@@ -360,6 +360,8 @@ class BaseVals(BaseModel):
     CopyTargetBuffType: list[int] | None = None
     NotSkillCopyTargetFuncIds: list[int] | None = None
     NotSkillCopyTargetIndividualities: list[int] | None = None
+    ClassIconAuraEffectId: int | None = None
+    ActMasterGenderType: int | None = None
     IntervalTurn: int | None = None
     IntervalCount: int | None = None
     TargetEnemyRange: list[int] | None = None
@@ -647,6 +649,7 @@ class NiceSkill(BaseModelORJson):
     detail: Optional[str] = None
     unmodifiedDetail: Optional[str] = None
     type: NiceSkillType
+    svtId: int = 0
     strengthStatus: int = 0
     priority: int = 0
     condQuestId: int = 0
@@ -706,6 +709,7 @@ class NiceTd(BaseModelORJson):
     unmodifiedDetail: Optional[str] = None
     npGain: NpGain
     npDistribution: list[int]
+    svtId: int = 0
     strengthStatus: int = 0
     priority: int
     condQuestId: int = 0
