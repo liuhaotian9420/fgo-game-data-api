@@ -618,26 +618,26 @@ class NiceSvtSkillRelease(BaseModelORJson):
     # svtId: int
     # num: int
     # priority: int
-    idx: int
+    idx: int = 0
     condType: NiceCondType
-    condTargetId: int
-    condNum: int
-    condGroup: int
+    condTargetId: int = 0
+    condNum: int = 0
+    condGroup: int = 0
 
 
 class NiceSkillSvt(BaseModelORJson):
-    svtId: int  # 9400920,
-    num: int  # 1,
-    priority: int  # 1,
+    svtId: int = 0  # 9400920,
+    num: int = 0  # 1,
+    priority: int = 0  # 1,
     script: Optional[dict[str, Any]] = None
-    strengthStatus: int  # 1,
-    condQuestId: int  # 0,
-    condQuestPhase: int  # 0,
+    strengthStatus: int = 0  # 1,
+    condQuestId: int = 0  # 0,
+    condQuestPhase: int = 0  # 0,
     condLv: int = 0  # 0,
-    condLimitCount: int  # 0,
-    eventId: int  # 0,
-    flag: int  # 0
-    releaseConditions: list[NiceSvtSkillRelease]
+    condLimitCount: int = 0  # 0,
+    eventId: int = 0  # 0,
+    flag: int = 0  # 0
+    releaseConditions: list[NiceSvtSkillRelease] = []
 
 
 class NiceSkill(BaseModelORJson):
@@ -711,7 +711,7 @@ class NiceTd(BaseModelORJson):
     npDistribution: list[int]
     svtId: int = 0
     strengthStatus: int = 0
-    priority: int
+    priority: int = 0
     condQuestId: int = 0
     condQuestPhase: int = 0
     releaseConditions: list[NiceSvtSkillRelease] = []
