@@ -46,6 +46,8 @@ from .gameenums import (
     NiceAiCond,
     NiceBuffType,
     NiceCardType,
+    NiceClassBoardSkillType,
+    NiceClassBoardSquareFlag,
     NiceCombineAdjustTarget,
     NiceCommandCardAttackType,
     NiceCommonConsumeType,
@@ -168,6 +170,8 @@ class AssetURL:
     commandSpell = "{base_url}/{region}/CommandSpell/cs_{item_id:0>4}.png"
     enemyMasterFace = "{base_url}/{region}/EnemyMasterFace/enemyMstFace{item_id}.png"
     enemyMasterFigure = "{base_url}/{region}/EnemyMasterFigure/figure{item_id}.png"
+    classBoardIcon = "{base_url}/{region}/ClassBoard/Icon/{item_id}.png"
+    classBoardBg = "{base_url}/{region}/ClassBoard/Bg/{item_id}.png"
 
 
 COSTUME_LIMIT_NO_LESS_THAN = 11
@@ -629,7 +633,7 @@ class NiceSkillSvt(BaseModelORJson):
     svtId: int = 0  # 9400920,
     num: int = 0  # 1,
     priority: int = 0  # 1,
-    script: Optional[dict[str, Any]] = None
+    script: Optional[dict[str, Any]] = {}
     strengthStatus: int = 0  # 1,
     condQuestId: int = 0  # 0,
     condQuestPhase: int = 0  # 0,
@@ -680,7 +684,10 @@ class NpGain(BaseModel):
 class NiceTdSvt(BaseModelORJson):
     svtId: int
     num: int = 1
+    npNum: int = 1
     priority: int = 0
+    num: int
+    priority: int
     damage: list[int]
     strengthStatus: int = 0
     flag: int = 0
@@ -697,6 +704,7 @@ class NiceTdSvt(BaseModelORJson):
 class NiceTd(BaseModelORJson):
     id: int
     num: int
+    npNum: int
     card: NiceCardType
     name: str
     originalName: str
@@ -2465,6 +2473,7 @@ class NiceSpotAdd(BaseModel):
 
 class NiceSpot(BaseModel):
     id: int
+    blankEarth: bool = False
     joinSpotIds: list[int] = []
     mapId: int
     name: str
@@ -2519,6 +2528,7 @@ class NiceWar(BaseModelORJson):
     priority: int
     parentWarId: int = 0
     materialParentWarId: int = 0
+    parentBlankEarthSpotId: int = 0
     emptyMessage: str
     bgm: NiceBgm
     scriptId: str = Field(..., description='Could be "NONE".')
@@ -2571,3 +2581,61 @@ class NiceAiCollection(BaseModelORJson):
     mainAis: list[NiceAi]
     relatedAis: list[NiceAi]
     relatedQuests: list[StageLink]
+
+
+class NiceClassBoardClass(BaseModelORJson):
+    classId: int
+    className: SvtClass
+    condType: NiceCondType = NiceCondType.none
+    condTargetId: int = 0
+    condNum: int = 0
+
+
+class NiceClassBoardCommandSpell(BaseModelORJson):
+    commandSpellId: int
+    name: str
+    detail: str
+    functions: list[NiceFunction]
+
+
+class NiceClassBoardLock(BaseModelORJson):
+    items: list[NiceItemAmount]
+    closedMessage: str = ""
+    condType: NiceCondType = NiceCondType.none
+    condTargetId: int = 0
+    condNum: int = 0
+
+
+class NiceClassBoardSquare(BaseModelORJson):
+    id: int
+    icon: HttpUrl | None
+    items: list[NiceItemAmount]
+    posX: int
+    posY: int
+    skillType: NiceClassBoardSkillType
+    targetSkill: NiceSkill | None
+    upSkillLv: int
+    targetCommandSpell: NiceClassBoardCommandSpell | None
+    lock: NiceClassBoardLock | None
+    flags: list[NiceClassBoardSquareFlag] = []
+    priority: int = 0
+
+
+class NiceClassBoardLine(BaseModelORJson):
+    id: int
+    prevSquareId: int
+    nextSquareId: int
+
+
+class NiceClassBoard(BaseModelORJson):
+    id: int
+    name: str
+    icon: HttpUrl
+    dispItems: list[NiceItem]
+    closedMessage: str = ""
+    condType: NiceCondType = NiceCondType.none
+    condTargetId: int = 0
+    condNum: int = 0
+    classes: list[NiceClassBoardClass]
+    squares: list[NiceClassBoardSquare]
+    lines: list[NiceClassBoardLine]

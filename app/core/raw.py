@@ -11,7 +11,14 @@ from ..redis import Redis
 from ..redis.helpers.reverse import RedisReverse, get_reverse_ids
 from ..schemas.common import Region, ReverseDepth
 from ..schemas.enums import FUNC_VALS_NOT_BUFF, DetailMissionCondType
-from ..schemas.gameenums import BgmFlag, CondType, PayType, PurchaseType, VoiceCondType
+from ..schemas.gameenums import (
+    BgmFlag,
+    ClassBoardSkillType,
+    CondType,
+    PayType,
+    PurchaseType,
+    VoiceCondType,
+)
 from ..schemas.nice import COSTUME_LIMIT_NO_LESS_THAN
 from ..schemas.raw import (
     EXTRA_ATTACK_TD_ID,
@@ -20,6 +27,7 @@ from ..schemas.raw import (
     BgmEntity,
     BuffEntity,
     BuffEntityNoReverse,
+    ClassBoardEntity,
     CommandCodeEntity,
     EnemyMasterEntity,
     EventEntity,
@@ -29,9 +37,16 @@ from ..schemas.raw import (
     MasterMissionEntity,
     MstBgm,
     MstBgmRelease,
+    MstBlankEarthSpot,
     MstBoxGacha,
     MstBoxGachaTalk,
     MstBuff,
+    MstClassBoardBase,
+    MstClassBoardClass,
+    MstClassBoardCommandSpell,
+    MstClassBoardLine,
+    MstClassBoardLock,
+    MstClassBoardSquare,
     MstClosedMessage,
     MstCombineAppendPassiveSkill,
     MstCombineCostume,
@@ -714,7 +729,9 @@ async def get_war_entity(conn: AsyncConnection, war_id: int) -> WarEntity:
     map_ids = [event_map.id for event_map in maps]
 
     spots = await fetch.get_all_multiple(conn, MstSpot, map_ids)
-    spot_ids = [spot.id for spot in spots]
+    blank_earth_spots = await fetch.get_all_multiple(conn, MstBlankEarthSpot, map_ids)
+
+    spot_ids = [spot.id for spot in spots] + [spot.id for spot in blank_earth_spots]
     spot_adds = await fetch.get_all_multiple(conn, MstSpotAdd, spot_ids)
 
     quests = await quest.get_quest_by_spot(conn, spot_ids)
@@ -740,6 +757,7 @@ async def get_war_entity(conn: AsyncConnection, war_id: int) -> WarEntity:
         mstMapGimmick=await fetch.get_all_multiple(conn, MstMapGimmick, map_ids),
         mstBgm=bgms,
         mstSpot=spots,
+        mstBlankEarthSpot=blank_earth_spots,
         mstSpotAdd=spot_adds,
         mstQuest=quests,
         mstSpotRoad=spot_roads,
@@ -1337,3 +1355,50 @@ async def get_common_releases(
 ) -> list[MstCommonRelease]:
     releases = await fetch.get_all_multiple(conn, MstCommonRelease, release_ids)
     return releases
+
+
+async def get_class_board_entity(
+    conn: AsyncConnection, class_board_id: int
+) -> ClassBoardEntity:
+    board_db = await fetch.get_one(conn, MstClassBoardBase, class_board_id)
+    if not board_db:
+        raise HTTPException(status_code=404, detail="Class Board not found")
+
+    classes = await fetch.get_all(conn, MstClassBoardClass, class_board_id)
+    lines = await fetch.get_all(conn, MstClassBoardLine, class_board_id)
+    squares = await fetch.get_all(conn, MstClassBoardSquare, class_board_id)
+
+    lock_ids = {square.lockId for square in squares if square.lockId > 0}
+    locks = await fetch.get_all_multiple(conn, MstClassBoardLock, lock_ids)
+
+    cs_ids = {
+        square.targetId
+        for square in squares
+        if square.skillType == ClassBoardSkillType.COMMAND_SPELL
+    }
+    command_spells = await fetch.get_all_multiple(
+        conn, MstClassBoardCommandSpell, cs_ids
+    )
+
+    item_ids: set[int] = set(board_db.dispItemIds)
+    item_ids |= {itemId for square in squares for itemId in square.itemIds}
+    item_ids |= {itemId for lock in locks for itemId in lock.itemIds}
+    mstItem = await get_multiple_items(conn, item_ids)
+
+    skill_ids = {
+        square.targetId
+        for square in squares
+        if square.skillType == ClassBoardSkillType.PASSIVE
+    }
+    skill_entities = await skill.get_skillEntity(conn, skill_ids)
+
+    return ClassBoardEntity(
+        mstClassBoardBase=board_db,
+        mstClassBoardClass=classes,
+        mstClassBoardLine=lines,
+        mstClassBoardSquare=squares,
+        mstClassBoardLock=locks,
+        mstClassBoardCommandSpell=command_spells,
+        mstItem=mstItem,
+        mstSkill=skill_entities,
+    )

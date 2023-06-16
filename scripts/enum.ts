@@ -130,6 +130,7 @@ export enum NiceFuncType {
     GAIN_NP_INDIVIDUAL_SUM = "gainNpIndividualSum",
     SET_QUEST_ROUTE_FLAG = "setQuestRouteFlag",
     LAST_USE_PLAYER_SKILL_COPY = "lastUsePlayerSkillCopy",
+    CHANGE_ENEMY_MASTER_FACE = "changeEnemyMasterFace",
 }
 
 export enum NiceFuncTargetType {
@@ -1374,6 +1375,7 @@ export enum NiceAiActType {
     NOBLE_PHANTASM = "noblePhantasm",
     BATTLE_END = "battleEnd",
     LOSE_END = "loseEnd",
+    BATTLE_END_NOT_RELATED_SURVIVAL_STATUS = "battleEndNotRelatedSurvivalStatus",
     CHANGE_THINKING = "changeThinking",
 }
 
@@ -1701,4 +1703,15 @@ export enum NiceNpcServantFollowerFlag {
     HIDE_TREASURE_DEVICE_LV = "hideTreasureDeviceLv",
     HIDE_TREASURE_DEVICE_DETAIL = "hideTreasureDeviceDetail",
     HIDE_RARITY = "hideRarity",
+}
+
+export enum NiceClassBoardSquareFlag {
+    START = "start",
+    BLANK = "blank",
+}
+
+export enum NiceClassBoardSkillType {
+    NONE = "none",
+    PASSIVE = "passive",
+    COMMAND_SPELL = "commandSpell",
 }

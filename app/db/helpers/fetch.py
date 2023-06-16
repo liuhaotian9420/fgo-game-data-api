@@ -9,9 +9,16 @@ from ...models.raw import (
     AssetStorage,
     mstBgm,
     mstBgmRelease,
+    mstBlankEarthSpot,
     mstBoxGacha,
     mstBoxGachaTalk,
     mstBuff,
+    mstClassBoardBase,
+    mstClassBoardClass,
+    mstClassBoardCommandSpell,
+    mstClassBoardLine,
+    mstClassBoardLock,
+    mstClassBoardSquare,
     mstClosedMessage,
     mstCombineAppendPassiveSkill,
     mstCombineCostume,
@@ -111,9 +118,16 @@ from ...schemas.raw import (
     AssetStorageLine,
     MstBgm,
     MstBgmRelease,
+    MstBlankEarthSpot,
     MstBoxGacha,
     MstBoxGachaTalk,
     MstBuff,
+    MstClassBoardBase,
+    MstClassBoardClass,
+    MstClassBoardCommandSpell,
+    MstClassBoardLine,
+    MstClassBoardLock,
+    MstClassBoardSquare,
     MstClosedMessage,
     MstCombineAppendPassiveSkill,
     MstCombineCostume,
@@ -235,6 +249,7 @@ schema_map_fetch_one: dict[  # type:ignore
     MstSvtCoin: (mstSvtCoin, mstSvtCoin.c.svtId),
     MstSvtAdd: (mstSvtAdd, mstSvtAdd.c.svtId),
     MstEventDigging: (mstEventDigging, mstEventDigging.c.eventId),
+    MstClassBoardBase: (mstClassBoardBase, mstClassBoardBase.c.id),
 }
 
 TFetchOne = TypeVar("TFetchOne", bound=BaseModelORJson)
@@ -456,6 +471,21 @@ schema_table_fetch_all: dict[  # type:ignore
         mstEventCommandAssist.c.eventId,
         mstEventCommandAssist.c.id,
     ),
+    MstClassBoardClass: (
+        mstClassBoardClass,
+        mstClassBoardClass.c.classBoardBaseId,
+        mstClassBoardClass.c.classId,
+    ),
+    MstClassBoardLine: (
+        mstClassBoardLine,
+        mstClassBoardLine.c.classBoardBaseId,
+        mstClassBoardLine.c.id,
+    ),
+    MstClassBoardSquare: (
+        mstClassBoardSquare,
+        mstClassBoardSquare.c.classBoardBaseId,
+        mstClassBoardSquare.c.id,
+    ),
 }
 
 TFetchAll = TypeVar("TFetchAll", bound=BaseModelORJson)
@@ -474,6 +504,11 @@ schema_table_fetch_all_multiple: dict[  # type:ignore
     Type[BaseModelORJson], tuple[Table, ColumnElement, list[ColumnElement]]
 ] = {
     MstSpot: (mstSpot, mstSpot.c.mapId, [mstSpot.c.id]),
+    MstBlankEarthSpot: (
+        mstBlankEarthSpot,
+        mstBlankEarthSpot.c.mapId,
+        [mstBlankEarthSpot.c.id],
+    ),
     MstSpotAdd: (mstSpotAdd, mstSpotAdd.c.spotId, [mstSpotAdd.c.priority]),
     MstVoice: (mstVoice, mstVoice.c.id, [mstVoice.c.id]),
     MstSvtGroup: (mstSvtGroup, mstSvtGroup.c.id, [mstSvtGroup.c.svtId]),
@@ -549,6 +584,20 @@ schema_table_fetch_all_multiple: dict[  # type:ignore
         mstEventMissionGroup.c.id,
         [mstEventMissionGroup.c.id, mstEventMissionGroup.c.missionId],
     ),
+    MstClassBoardLock: (
+        mstClassBoardLock,
+        mstClassBoardLock.c.id,
+        [mstClassBoardLock.c.id],
+    ),
+    MstClassBoardCommandSpell: (
+        mstClassBoardCommandSpell,
+        mstClassBoardCommandSpell.c.id,
+        [
+            mstClassBoardCommandSpell.c.id,
+            mstClassBoardCommandSpell.c.commandSpellId,
+            mstClassBoardCommandSpell.c.lv,
+        ],
+    ),
 }
 
 TFetchAllMultiple = TypeVar("TFetchAllMultiple", bound=BaseModelORJson)
@@ -583,6 +632,7 @@ schema_map_fetch_everything: dict[  # type:ignore
     MstMasterMission: (mstMasterMission, mstMasterMission.c.id),
     AssetStorageLine: (AssetStorage, AssetStorage.c.path),
     MstSvt: (mstSvt, mstSvt.c.id),
+    MstClassBoardBase: (mstClassBoardBase, mstClassBoardBase.c.id),
 }
 
 TFetchEverything = TypeVar("TFetchEverything", bound=BaseModelORJson)

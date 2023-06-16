@@ -298,6 +298,7 @@ mstSvtTreasureDevice = Table(
     metadata,
     Column("damage", ARRAY(Integer)),
     Column("strengthStatus", Integer, index=True),
+    Column("treasureDeviceNum", Integer),
     Column("svtId", Integer, index=True),
     Column("num", Integer),
     Column("priority", Integer),
@@ -1685,6 +1686,7 @@ mstWar = Table(
     Column("priority", Integer),
     Column("parentWarId", Integer),
     Column("materialParentWarId", Integer, default=0),
+    Column("parentBlankEarthSpotId", Integer, default=0),
     Column("flag", Integer),
     Column("emptyMessage", String),
     Column("bgmId", Integer),
@@ -1765,6 +1767,22 @@ mstSpot = Table(
     Column("activeTargetValue", Integer),
     Column("closedMessage", String),
     Column("flag", Integer),
+)
+
+
+mstBlankEarthSpot = Table(
+    "mstBlankEarthSpot",
+    metadata,
+    Column("id", Integer, primary_key=True),
+    Column("warId", Integer, index=True),
+    Column("mapId", Integer),
+    Column("name", String, index=True),
+    Column("objectId", Integer),
+    Column("x", Numeric),
+    Column("y", Numeric),
+    Column("condTargetType", Integer),
+    Column("condTargetId", Integer),
+    Column("condTargetNum", Integer),
 )
 
 
@@ -2156,6 +2174,116 @@ mstAiAct = Table(
 Index("ix_mstAiAct_skillVals", mstAiAct.c.skillVals[1])
 
 
+mstClassBoardBase = Table(
+    "mstClassBoardBase",
+    metadata,
+    Column("dispItemIds", ARRAY(Integer)),
+    Column("id", Integer, index=True),
+    Column("name", String),
+    Column("iconId", Integer),
+    Column("closedMessage", String),
+    Column("condType", Integer),
+    Column("condTargetId", Integer),
+    Column("condNum", Integer),
+)
+
+mstClassBoardClass = Table(
+    "mstClassBoardClass",
+    metadata,
+    Column("classBoardBaseId", Integer, index=True),
+    Column("classId", Integer),
+    Column("condType", Integer),
+    Column("condTargetId", Integer),
+    Column("condNum", Integer),
+)
+
+
+mstClassBoardCommandSpell = Table(
+    "mstClassBoardCommandSpell",
+    metadata,
+    Column("funcIds", ARRAY(Integer)),
+    Column("svals", ARRAY(String)),
+    Column("id", Integer, index=True),
+    Column("commandSpellId", Integer),
+    Column("lv", Integer),
+    Column("name", String),
+    Column("detail", String),
+    Column("vals", String),
+    Column("expandedFuncId", JSONB),
+    Column("relatedSkillIds", ARRAY(Integer)),
+)
+
+
+mstClassBoardLine = Table(
+    "mstClassBoardLine",
+    metadata,
+    Column("classBoardBaseId", Integer, index=True),
+    Column("id", Integer),
+    Column("prevSquareId", Integer),
+    Column("nextSquareId", Integer),
+)
+
+
+mstClassBoardLock = Table(
+    "mstClassBoardLock",
+    metadata,
+    Column("itemIds", ARRAY(Integer)),
+    Column("itemNums", ARRAY(Integer)),
+    Column("id", Integer, index=True),
+    Column("closedMessage", String),
+    Column("condType", Integer),
+    Column("condTargetId", Integer),
+    Column("condNum", Integer),
+)
+
+
+mstClassBoardSquare = Table(
+    "mstClassBoardSquare",
+    metadata,
+    Column("itemIds", ARRAY(Integer)),
+    Column("itemNums", ARRAY(Integer)),
+    Column("classBoardBaseId", Integer, index=True),
+    Column("id", Integer),
+    Column("iconId", Integer),
+    Column("posX", Integer),
+    Column("posY", Integer),
+    Column("skillType", Integer),
+    Column("targetId", Integer),
+    Column("upSkillLv", Integer),
+    Column("lockId", Integer),
+    Column("assetId", Integer),
+    Column("flag", Integer),
+    Column("priority", Integer),
+)
+
+
+mstFuncDisp = Table(
+    "mstFuncDisp",
+    metadata,
+    Column("funcIds", ARRAY(Integer)),
+    Column("id", Integer, index=True),
+    Column("detail", String),
+)
+
+
+mstCommandSpell = Table(
+    "mstCommandSpell",
+    metadata,
+    Column("id", Integer, index=True),
+    Column("consume", Integer),
+    Column("type", Integer),
+    Column("motion", Integer),
+    Column("name", String),
+    Column("detail", String),
+    Column("funcId", ARRAY(Integer)),
+    Column("svals", ARRAY(String)),
+    Column("priority", Integer),
+    Column("script", JSONB),
+    Column("expandedFuncId", JSONB),
+    Column("relatedSkillIds", ARRAY(Integer)),
+)
+
+
 ScriptFileList = Table(
     "ScriptFileList",
     metadata,
@@ -2271,11 +2399,13 @@ TABLES_TO_BE_LOADED = [
     [mstVoicePlayCond],
     [mstSvt],
     [mstMap],
-    [mstSpot, mstSpotAdd, mstSpotRoad],
+    [mstSpot, mstBlankEarthSpot, mstSpotAdd, mstSpotRoad],
     [mstMapGimmick],
     [mstWarAdd],
     [mstWarQuestSelection],
     [mstEventCampaign],
     [mstEventQuest],
     [mstEventAlloutBattle],
+    [mstClassBoardBase, mstClassBoardClass, mstClassBoardLine, mstFuncDisp],
+    [mstClassBoardLock, mstClassBoardSquare],
 ]
