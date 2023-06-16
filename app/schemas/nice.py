@@ -719,7 +719,7 @@ class NiceTd(BaseModelORJson):
     npDistribution: list[int]
     svtId: int = 0
     strengthStatus: int = 0
-    priority: int = 0
+    priority: int
     condQuestId: int = 0
     condQuestPhase: int = 0
     releaseConditions: list[NiceSvtSkillRelease] = []
