@@ -754,6 +754,8 @@ mstSvtComment = Table(
     Column("condValues", ARRAY(Integer)),
 )
 
+Index("ix_mstSvtComment_comment", mstSvtComment.c.comment, postgresql_using="pgroonga")
+
 
 mstSvtCommentAdd = Table(
     "mstSvtCommentAdd",
@@ -2295,6 +2297,8 @@ ScriptFileList = Table(
     Column("rawScript", TEXT),
     Column("textScript", TEXT),
 )
+
+Index("ix_ScriptFileList_raw", ScriptFileList.c.rawScript, postgresql_using="pgroonga")
 
 Index(
     "ix_ScriptFileList_text", ScriptFileList.c.textScript, postgresql_using="pgroonga"
