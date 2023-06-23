@@ -2131,19 +2131,19 @@ class EnemyLimit(BaseModelORJson):
 
 class EnemyServerMod(BaseModelORJson):
     tdRate: int = Field(
-        ...,
+        1000,
         title="Attacking NP gain server mod",
         description="`enemyServerMod` when attacking: "
         "https://github.com/atlasacademy/fgo-game-data-docs/blob/master/battle/np.md#attacking-np",
     )
     tdAttackRate: int = Field(
-        ...,
+        1000,
         title="Defending NP gain server mod",
         description="`enemyServerMod` when defending: "
         "https://github.com/atlasacademy/fgo-game-data-docs/blob/master/battle/np.md#defending-np",
     )
     starRate: int = Field(
-        ...,
+        0,
         title="Star drop rate server mod",
         description="`serverRate` when attacking: "
         "https://github.com/atlasacademy/fgo-game-data-docs/blob/master/battle/critstars.md",
@@ -2195,12 +2195,12 @@ class DeckType(StrEnum):
 
 
 class QuestEnemy(BaseModelORJson):
-    deck: DeckType
+    deck: DeckType = DeckType.ENEMY
     deckId: int
     userSvtId: int
     uniqueId: int
     npcId: int
-    roleType: EnemyRoleType
+    roleType: EnemyRoleType = EnemyRoleType.NORMAL
     name: str
     svt: BasicServant
     drops: list[EnemyDrop] = []
@@ -2218,7 +2218,7 @@ class QuestEnemy(BaseModelORJson):
     skills: EnemySkill = EnemySkill()
     classPassive: EnemyPassive = EnemyPassive()
     noblePhantasm: EnemyTd = EnemyTd()
-    serverMod: EnemyServerMod
+    serverMod: EnemyServerMod = EnemyServerMod()  # type: ignore
     ai: EnemyAi
     enemyScript: EnemyScript = EnemyScript()  # type: ignore
     originalEnemyScript: dict[str, Any] = {}
@@ -2251,7 +2251,7 @@ class NiceStage(BaseModelORJson):
     )
     NoEntryIds: list[int] | None = None
     waveStartMovies: list[NiceStageStartMovie] = []
-    originalScript: dict[str, Any]
+    originalScript: dict[str, Any] = {}
     enemies: list[QuestEnemy] = []
 
 
