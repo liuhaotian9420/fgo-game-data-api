@@ -703,8 +703,8 @@ class NiceTdSvt(BaseModelORJson):
 
 class NiceTd(BaseModelORJson):
     id: int
-    num: int
-    npNum: int
+    num: int = 1
+    npNum: int = 1
     card: NiceCardType
     name: str
     originalName: str
@@ -719,7 +719,7 @@ class NiceTd(BaseModelORJson):
     npDistribution: list[int]
     svtId: int = 0
     strengthStatus: int = 0
-    priority: int
+    priority: int = 0
     condQuestId: int = 0
     condQuestPhase: int = 0
     releaseConditions: list[NiceSvtSkillRelease] = []
@@ -951,10 +951,10 @@ class NiceServantCoin(BaseModel):
 class NiceServantTrait(BaseModel):
     idx: int
     trait: list[NiceTrait]
-    limitCount: int
-    condType: Optional[NiceCondType] = None
-    condId: Optional[int] = None
-    condNum: Optional[int] = None
+    limitCount: int = -1
+    condType: Optional[NiceCondType] = NiceCondType.none
+    condId: Optional[int] = 0
+    condNum: Optional[int] = 0
 
 
 class NiceLoreCommentAdd(BaseModel):
@@ -1188,9 +1188,9 @@ class NiceServant(BaseModelORJson):
         "Because enemies also use this model, you can see some non-playable classes "
         "as possible values.",
     )
-    type: NiceSvtType = Field(..., title="svt's type", description="svt's type.")
+    type: NiceSvtType = Field(NiceSvtType.normal, title="svt's type", description="svt's type.")
     flag: NiceSvtFlag = Field(
-        ..., title="svt's flag", description="Some random flags given to the svt items."
+        NiceSvtFlag.normal, title="svt's flag", description="Some random flags given to the svt items."
     )
     rarity: int = Field(..., title="svt's rarity", description="svt's rarity.")
     cost: int = Field(
@@ -1382,9 +1382,9 @@ class NiceEquip(BaseModelORJson):
     ruby: str = Field(
         "", title="svt's name ruby text", description="svt's name ruby text"
     )
-    type: NiceSvtType = Field(..., title="svt's type", description="svt's type.")
+    type: NiceSvtType = Field(NiceSvtType.servantEquip, title="svt's type", description="svt's type.")
     flag: NiceSvtFlag = Field(
-        ..., title="svt's flag", description="Some random flags given to the svt items."
+        NiceSvtFlag.normal, title="svt's flag", description="Some random flags given to the svt items."
     )
     rarity: int = Field(..., title="svt's rarity", description="svt's rarity.")
     cost: int = Field(
@@ -2174,9 +2174,9 @@ class EnemyMisc(BaseModelORJson):
 
 
 class EnemyDrop(BaseModelORJson):
-    type: NiceGiftType
+    type: NiceGiftType = NiceGiftType.item
     objectId: int
-    num: int
+    num: int = 1
     dropCount: int
     runs: int
     dropExpected: float
@@ -2453,8 +2453,8 @@ class NiceMapGimmick(BaseModel):
 class NiceMap(BaseModel):
     id: int
     mapImage: Optional[HttpUrl] = None
-    mapImageW: int
-    mapImageH: int
+    mapImageW: int = 0
+    mapImageH: int = 0
     mapGimmicks: list[NiceMapGimmick] = []
     headerImage: Optional[HttpUrl] = None
     bgm: NiceBgm
@@ -2466,8 +2466,8 @@ class NiceSpotAdd(BaseModel):
     overrideType: NiceSpotOverwriteType
     targetId: int = 0
     targetText: str = ""
-    condType: NiceCondType
-    condTargetId: int
+    condType: NiceCondType = NiceCondType.none
+    condTargetId: int = 0
     condNum: int = 0
 
 
@@ -2479,8 +2479,8 @@ class NiceSpot(BaseModel):
     name: str
     originalName: str
     image: Optional[HttpUrl] = None
-    x: int
-    y: int
+    x: int = 0
+    y: int = 0
     imageOfsX: int = 0
     imageOfsY: int = 0
     nameOfsX: int = 0
@@ -2501,9 +2501,9 @@ class NiceWarAdd(BaseModelORJson):
     overwriteId: int
     overwriteStr: str = ""
     overwriteBanner: Optional[HttpUrl] = None
-    condType: NiceCondType
-    targetId: int
-    value: int
+    condType: NiceCondType = NiceCondType.none
+    targetId: int = 0
+    value: int = 0
     startedAt: int
     endedAt: int
 
@@ -2531,13 +2531,13 @@ class NiceWar(BaseModelORJson):
     parentBlankEarthSpotId: int = 0
     emptyMessage: str
     bgm: NiceBgm
-    scriptId: str = Field(..., description='Could be "NONE".')
+    scriptId: str = Field("NONE", description='Could be "NONE".')
     script: HttpUrl
-    startType: NiceWarStartType
-    targetId: int
+    startType: NiceWarStartType = NiceWarStartType.none
+    targetId: int = 0
     eventId: int = 0
     eventName: str = ""
-    lastQuestId: int
+    lastQuestId: int = 0
     warAdds: list[NiceWarAdd] = []
     maps: list[NiceMap] = []
     spots: list[NiceSpot] = []

@@ -148,9 +148,9 @@ class StageLink(BaseModel):
 
 class BasicCostume(BaseModelORJson):
     id: int
-    costumeCollectionNo: int
+    costumeCollectionNo: int = 0
     battleCharaId: int
-    shortName: str
+    shortName: str = ""
 
 
 class NiceCostume(BaseModelORJson):

@@ -59,13 +59,13 @@ class BasicTd(BaseModelORJson):
 
 class BasicServant(BaseModelORJson):
     id: int
-    collectionNo: int
+    collectionNo: int = 0
     name: str
     originalName: str
     overwriteName: str | None = None
     originalOverwriteName: str | None = None
-    type: NiceSvtType
-    flag: NiceSvtFlag
+    type: NiceSvtType = NiceSvtType.normal
+    flag: NiceSvtFlag = NiceSvtFlag.normal
     classId: int
     className: SvtClass
     attribute: Attribute
@@ -85,8 +85,8 @@ class BasicEquip(BaseModelORJson):
     collectionNo: int
     name: str
     originalName: str
-    type: NiceSvtType
-    flag: NiceSvtFlag
+    type: NiceSvtType = NiceSvtType.servantEquip
+    flag: NiceSvtFlag = NiceSvtFlag.normal
     rarity: int
     atkMax: int
     hpMax: int
