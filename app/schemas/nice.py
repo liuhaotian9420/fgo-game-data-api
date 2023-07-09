@@ -594,6 +594,7 @@ class NiceSkillScript(BaseModel):
     tdTypeChangeIDs: list[int] | None = None
     excludeTdChangeTypes: list[int] | None = None
     SelectAddInfo: list[NiceSelectAddInfo] | None = None
+    actRarity: list[list[int]] | None = None
 
 
 class NiceSkillAdd(BaseModelORJson):
@@ -2217,6 +2218,7 @@ class DeckType(StrEnum):
     SKILL_SHIFT = "skillShift"
     MISSION_TARGET_SKILL_SHIFT = "missionTargetSkillShift"
     AI_NPC = "aiNpc"
+    SVT_FOLLOWER = "svtFollower"
 
 
 class QuestEnemy(BaseModelORJson):
@@ -2342,6 +2344,7 @@ class NpcServant(BaseModelORJson):
 
 class SupportServant(BaseModelORJson):
     id: int
+    npcSvtFollowerId: int
     priority: int
     name: str
     svt: BasicServant
@@ -2357,6 +2360,7 @@ class SupportServant(BaseModelORJson):
     script: SupportServantScript
     limit: SupportServantLimit
     misc: SupportServantMisc
+    detail: QuestEnemy | None = None
 
 
 class NiceQuestPhaseAiNpc(BaseModelORJson):
@@ -2504,8 +2508,8 @@ class NiceSpot(BaseModel):
     name: str
     originalName: str
     image: Optional[HttpUrl] = None
-    x: int = 0
-    y: int = 0
+    x: Decimal = Decimal()
+    y: Decimal = Decimal()
     imageOfsX: int = 0
     imageOfsY: int = 0
     nameOfsX: int = 0
