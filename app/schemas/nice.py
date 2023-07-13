@@ -1593,16 +1593,16 @@ class NiceBgmRelease(BaseModelORJson):
 
 class NiceBgm(BaseModelORJson):
     id: int
-    name: str
+    name: str = ""
     originalName: str
-    fileName: str
+    fileName: str = ""
     notReleased: bool
     audioAsset: Optional[HttpUrl] = None
 
 
 class NiceBgmEntity(NiceBgm):
-    priority: int
-    detail: str
+    priority: int = 0
+    detail: str = ""
     shop: Optional[NiceShop] = None
     logo: HttpUrl
     releaseConditions: list[NiceBgmRelease] = []
@@ -2675,4 +2675,4 @@ class NiceFuncTypeDetail(BaseModelORJson):
 class NiceBuffTypeDetail(BaseModelORJson):
     buffType: NiceBuffType
     ignoreValueUp: bool
-    script: dict[str, Any]
+    script: dict[str, Any] = {}
