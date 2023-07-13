@@ -1591,15 +1591,18 @@ class NiceBgmRelease(BaseModelORJson):
     closedMessage: str
 
 
-class NiceBgmEntity(BaseModelORJson):
+class NiceBgm(BaseModelORJson):
     id: int
     name: str
     originalName: str
     fileName: str
+    notReleased: bool
     audioAsset: Optional[HttpUrl] = None
+
+
+class NiceBgmEntity(NiceBgm):
     priority: int
     detail: str
-    notReleased: bool
     shop: Optional[NiceShop] = None
     logo: HttpUrl
     releaseConditions: list[NiceBgmRelease] = []
@@ -2001,14 +2004,6 @@ class NiceMasterMission(BaseModelORJson):
     closedAt: int
     missions: list[NiceEventMission]
     quests: list[BasicQuest]
-
-
-class NiceBgm(BaseModelORJson):
-    id: int
-    name: str
-    fileName: str
-    notReleased: bool
-    audioAsset: Optional[HttpUrl] = None
 
 
 class NiceQuestRelease(BaseModelORJson):
@@ -2670,3 +2665,14 @@ class NiceClassBoard(BaseModelORJson):
     classes: list[NiceClassBoardClass]
     squares: list[NiceClassBoardSquare]
     lines: list[NiceClassBoardLine]
+
+
+class NiceFuncTypeDetail(BaseModelORJson):
+    funcType: NiceFuncType
+    ignoreValueUp: bool
+
+
+class NiceBuffTypeDetail(BaseModelORJson):
+    buffType: NiceBuffType
+    ignoreValueUp: bool
+    script: dict[str, Any]
