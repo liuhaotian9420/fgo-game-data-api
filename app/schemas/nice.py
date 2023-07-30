@@ -368,7 +368,13 @@ class BaseVals(BaseModel):
     ActMasterGenderType: int | None = None
     IntervalTurn: int | None = None
     IntervalCount: int | None = None
+    TriggeredFieldCountTarget: int | None = None
+    TriggeredFieldCountRange: list[int] | None = None
     TargetEnemyRange: list[int] | None = None
+    TriggeredFuncPositionSameTarget: int | None = None
+    TriggeredFuncPositionAll: int | None = None
+    TriggeredTargetHpRange: str | None = None
+    TriggeredTargetHpRateRange: str | None = None
     # Extra dataval from SkillLvEntty.DIC_KEY_APPLY_SUPPORT_SVT
     ApplySupportSvt: Optional[int] = None
     # These are not DataVals but guesses from SkillLvEntity and EventDropUpValInfo
@@ -595,6 +601,7 @@ class NiceSkillScript(BaseModel):
     excludeTdChangeTypes: list[int] | None = None
     SelectAddInfo: list[NiceSelectAddInfo] | None = None
     actRarity: list[list[int]] | None = None
+    battleStartRemainingTurn: list[int] | None = None
 
 
 class NiceSkillAdd(BaseModelORJson):

@@ -409,6 +409,8 @@ CLASS_NAME: dict[int, SvtClass] = {
     1001: SvtClass.ALL,
     1002: SvtClass.EXTRA,
     1003: SvtClass.MIX,
+    # 1004: SvtClass.EXTRA1,
+    # 1005: SvtClass.EXTRA2,
 }
 
 
@@ -962,6 +964,7 @@ class Trait(StrEnum):
     classBeastVI = "classBeastVI"
     classBeastVIBoss = "classBeastVIBoss"
     buffBound = "buffBound"
+    buffDamageCut = "buffDamageCut"
 
     @classmethod
     def _missing_(cls, value: object):
@@ -1208,6 +1211,7 @@ TRAIT_NAME: dict[int, Trait] = {
     3068: Trait.chenGongNp,
     3070: Trait.buffNullifyBuff,
     3076: Trait.cantBeSacrificed,
+    3085: Trait.buffDamageCut,
     3086: Trait.gutsBlock,
     3087: Trait.buffBound,
     # 6016: No detail

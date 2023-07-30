@@ -57,8 +57,13 @@ LIST_DATAVALS = {
     "NotSkillCopyTargetFuncIds",
     "NotSkillCopyTargetIndividualities",
     "TargetEnemyRange",
+    "TriggeredFieldCountRange",
 }
-STRING_DATAVALS = {"PopValueText"}
+STRING_DATAVALS = {
+    "PopValueText",
+    "TriggeredTargetHpRange",
+    "TriggeredTargetHpRateRange",
+}
 STRING_LIST_DATAVALS = {"ApplyValueUp"}
 
 
