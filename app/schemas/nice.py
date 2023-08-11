@@ -599,9 +599,9 @@ class NiceSkillScript(BaseModel):
     additionalSkillActorType: Optional[list[int]] = None
     tdTypeChangeIDs: list[int] | None = None
     excludeTdChangeTypes: list[int] | None = None
-    SelectAddInfo: list[NiceSelectAddInfo] | None = None
     actRarity: list[list[int]] | None = None
     battleStartRemainingTurn: list[int] | None = None
+    SelectAddInfo: list[NiceSelectAddInfo] | None = None
 
 
 class NiceSkillAdd(BaseModelORJson):
@@ -1961,6 +1961,15 @@ class NiceHeelPortrait(BaseModelORJson):
     script: dict[str, Any] = {}
 
 
+class NiceEventMural(BaseModelORJson):
+    id: int
+    message: str
+    imageIds: list[HttpUrl]
+    num: int
+    condQuestId: int
+    condQuestPhase: int
+
+
 class NiceEvent(BaseModelORJson):
     id: int
     type: NiceEventType
@@ -1998,6 +2007,7 @@ class NiceEvent(BaseModelORJson):
     campaignQuests: list[NiceEventQuest] = []
     commandAssists: list[NiceEventCommandAssist] = []
     heelPortraits: list[NiceHeelPortrait] = []
+    murals: list[NiceEventMural] = []
     voicePlays: list[NiceEventVoicePlay] = []
     voices: list[NiceVoiceGroup] = Field(
         [], description="All voice lines related to this event"

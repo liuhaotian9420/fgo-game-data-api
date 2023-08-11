@@ -223,6 +223,7 @@ class NiceItemBGType(StrEnum):
     silver = "silver"
     gold = "gold"
     questClearQPReward = "questClearQPReward"
+    five = "five"
 
 
 ITEM_BG_TYPE_NAME: dict[int, NiceItemBGType] = {
@@ -231,6 +232,7 @@ ITEM_BG_TYPE_NAME: dict[int, NiceItemBGType] = {
     2: NiceItemBGType.silver,
     3: NiceItemBGType.gold,
     4: NiceItemBGType.questClearQPReward,
+    5: NiceItemBGType.five,
 }
 
 
@@ -965,6 +967,7 @@ class Trait(StrEnum):
     classBeastVIBoss = "classBeastVIBoss"
     buffBound = "buffBound"
     buffDamageCut = "buffDamageCut"
+    marking = "marking"
 
     @classmethod
     def _missing_(cls, value: object):
@@ -1214,6 +1217,7 @@ TRAIT_NAME: dict[int, Trait] = {
     3085: Trait.buffDamageCut,
     3086: Trait.gutsBlock,
     3087: Trait.buffBound,
+    3088: Trait.marking,
     # 6016: No detail
     # 6021: No detail
     # 6022: No detail
