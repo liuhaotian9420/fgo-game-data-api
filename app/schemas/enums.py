@@ -223,7 +223,7 @@ class NiceItemBGType(StrEnum):
     silver = "silver"
     gold = "gold"
     questClearQPReward = "questClearQPReward"
-    five = "five"
+    aquaBlue = "aquaBlue"
 
 
 ITEM_BG_TYPE_NAME: dict[int, NiceItemBGType] = {
@@ -232,7 +232,7 @@ ITEM_BG_TYPE_NAME: dict[int, NiceItemBGType] = {
     2: NiceItemBGType.silver,
     3: NiceItemBGType.gold,
     4: NiceItemBGType.questClearQPReward,
-    5: NiceItemBGType.five,
+    5: NiceItemBGType.aquaBlue,
 }
 
 
@@ -535,6 +535,22 @@ SHOP_TYPE_NAME_REVERSE: dict[NiceShopType, int] = {
 }
 
 PAY_TYPE_NAME_REVERSE: dict[NicePayType, int] = {v: k for k, v in PAY_TYPE_NAME.items()}
+
+
+### EventPointActivity.objectType ###
+
+
+class EventPointActivityObjectType(StrEnum):
+    QUEST_ID = "questId"
+    SKILL_ID = "skillId"
+    SHOP_ID = "shopId"
+
+
+EVENT_POINT_ACTIVITY_OBJECT_NAME: dict[int, EventPointActivityObjectType] = {
+    1: EventPointActivityObjectType.QUEST_ID,
+    2: EventPointActivityObjectType.SKILL_ID,
+    3: EventPointActivityObjectType.SHOP_ID,
+}
 
 
 ### Mission Cond Detail Type ###
@@ -968,6 +984,8 @@ class Trait(StrEnum):
     buffBound = "buffBound"
     buffDamageCut = "buffDamageCut"
     marking = "marking"
+    manuscriptComplete = "manuscriptComplete"
+    myFairSoldier = "myFairSoldier"
 
     @classmethod
     def _missing_(cls, value: object):
@@ -1147,6 +1165,8 @@ TRAIT_NAME: dict[int, Trait] = {
     2851: Trait.servantsWithSkyAttribute,
     2857: Trait.holdingHolyGrail,
     2858: Trait.standardClassServant,
+    2872: Trait.manuscriptComplete,
+    2873: Trait.myFairSoldier,
     # 2xxx: CQ or Story quests buff
     3000: Trait.attackPhysical,  # Normal attack, including NP
     3001: Trait.attackProjectile,

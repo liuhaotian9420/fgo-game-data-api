@@ -28,6 +28,7 @@ from .enums import (
     Attribute,
     EnemyDeathType,
     EnemyRoleType,
+    EventPointActivityObjectType,
     FuncApplyTarget,
     NiceDetailMissionCondLinkType,
     NiceItemBGType,
@@ -1143,6 +1144,7 @@ class NiceServantScript(BaseModel):
         title="Servant Buff Turn Extend",
         description="Bazett's effect. Extend buff's duration from end of player turn to end of enemy turn.",
     )
+    maleImage: ExtraAssets | None = None
 
 
 class NiceCommandCode(BaseModelORJson):
@@ -1453,6 +1455,12 @@ class NiceEquip(BaseModelORJson):
         title="Ascension Add",
         description="Attributes that change when servants ascend.",
     )
+    script: NiceServantScript = Field(
+        ...,
+        title="Servant Script",
+        description="Random stuffs that get added to the servant entry. "
+        "See each field description for more details.",
+    )
     skills: list[NiceSkill] = Field(
         ..., title="Skills", description="list of servant or CE skills."
     )
@@ -1653,7 +1661,17 @@ class NiceEventPointBuff(BaseModelORJson):
     detail: str
     icon: HttpUrl
     background: NiceItemBGType
+    skillIcon: HttpUrl | None
+    lv: int | None = 0
     value: int
+
+
+class NiceEventPointActivity(BaseModelORJson):
+    groupId: int
+    point: int
+    objectType: EventPointActivityObjectType
+    objectId: int = 0
+    objectValue: int = 0
 
 
 class NiceEventMissionConditionDetail(BaseModelORJson):
@@ -1992,6 +2010,7 @@ class NiceEvent(BaseModelORJson):
     rewardScenes: list[NiceEventRewardScene] = []
     pointGroups: list[NiceEventPointGroup] = []
     pointBuffs: list[NiceEventPointBuff] = []
+    pointActivities: list[NiceEventPointActivity] = []
     missions: list[NiceEventMission] = []
     randomMissions: list[NiceEventRandomMission] = []
     missionGroups: list[NiceEventMissionGroup] = []
