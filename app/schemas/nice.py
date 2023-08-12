@@ -1339,7 +1339,7 @@ class NiceServant(BaseModelORJson):
     )
     coin: Optional[NiceServantCoin] = Field(None, title="Servant Coin")
     script: NiceServantScript = Field(
-        NiceServantScript,
+        NiceServantScript(),  # type: ignore
         title="Servant Script",
         description="Random stuffs that get added to the servant entry. "
         "See each field description for more details.",
@@ -1456,7 +1456,7 @@ class NiceEquip(BaseModelORJson):
         description="Attributes that change when servants ascend.",
     )
     script: NiceServantScript = Field(
-        ...,
+        NiceServantScript(),  # type: ignore
         title="Servant Script",
         description="Random stuffs that get added to the servant entry. "
         "See each field description for more details.",
