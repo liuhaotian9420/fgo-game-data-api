@@ -914,6 +914,7 @@ class AscensionAdd(BaseModel):
     overWriteTDRank: AscensionAddEntryStr = Field(..., title="NP rank changes")
     overWriteTDTypeText: AscensionAddEntryStr = Field(..., title="NP type changes")
     lvMax: AscensionAddEntryInt = Field(..., title="Max level")
+    rarity: AscensionAddEntryInt
     charaGraphChange: AscensionAddEntryHttpUrl
     charaGraphChangeCommonRelease: AscensionAddEntryCommonRelease
     faceChange: AscensionAddEntryHttpUrl
@@ -2392,6 +2393,7 @@ class SupportServant(BaseModelORJson):
     npcSvtFollowerId: int
     priority: int
     name: str
+    originalName: str
     svt: BasicServant
     releaseConditions: list[SupportServantRelease]
     lv: int
