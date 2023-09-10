@@ -67,7 +67,7 @@ class BasicServant(BaseModelORJson):
     type: NiceSvtType = NiceSvtType.normal
     flag: NiceSvtFlag = NiceSvtFlag.normal
     classId: int
-    className: SvtClass
+    className: SvtClass | str
     attribute: Attribute
     rarity: int
     atkMax: int
