@@ -377,6 +377,7 @@ class BaseVals(BaseModel):
     TriggeredFuncPositionAll: int | None = None
     TriggeredTargetHpRange: str | None = None
     TriggeredTargetHpRateRange: str | None = None
+    ExcludeUnSubStateIndiv: int | None = None
     # Extra dataval from SkillLvEntty.DIC_KEY_APPLY_SUPPORT_SVT
     ApplySupportSvt: Optional[int] = None
     # These are not DataVals but guesses from SkillLvEntity and EventDropUpValInfo
@@ -408,6 +409,7 @@ class NiceCommonRelease(BaseModelORJson):
 class NiceBuff(BaseModelORJson):
     id: int = Field(..., title="Buff ID", description="Buff ID.")
     name: str = Field(..., title="Buff name", description="Buff name.")
+    originalName: str
     detail: str = Field(
         ..., title="Buff detailed description", description="Buff detailed description."
     )
@@ -2434,6 +2436,7 @@ class NiceQuestPhaseExtraDetail(BaseModelORJson):
     aiNpc: NiceQuestPhaseAiNpc | None = None
     aiMultiNpc: list[NiceQuestPhaseAiNpc] | None = None
     overwriteEquipSkills: NiceQuestPhaseOverwriteEquipSkills | None = None
+    waveSetup: int | None = None  # U Olga Marie Quest
 
 
 class NiceRestriction(BaseModelORJson):
