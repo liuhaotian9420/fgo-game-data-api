@@ -1050,7 +1050,7 @@ class MstMasterMission(BaseModelORJson):
     endedAt: int
     closedAt: int
     imageId: int = 0
-    name: str
+    name: str = ""
 
 
 class MstEventRewardScene(BaseModelORJson):
