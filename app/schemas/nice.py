@@ -1556,7 +1556,7 @@ class NiceShop(BaseModelORJson):
     baseShopId: int
     shopType: NiceShopType = NiceShopType.eventItem
     releaseConditions: list[NiceShopRelease] = []
-    eventId: int
+    eventId: int = 0
     slot: int = Field(..., title="Slot", description="Tab number in the shop")
     priority: int = Field(..., title="Priority", description="Sort order in the shop")
     name: str
