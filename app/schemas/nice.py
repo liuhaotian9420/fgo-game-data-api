@@ -1060,7 +1060,7 @@ class NiceVoiceLine(BaseModelORJson):
         description="Voice line default condition type.",
     )
     condValue: Optional[int] = Field(
-        default=None,
+        default=0,
         title="Voice line default condition value",
         description="Voice line default condition threshold value.",
     )
@@ -1563,7 +1563,7 @@ class NiceShop(BaseModelORJson):
     shopType: NiceShopType = NiceShopType.eventItem
     releaseConditions: list[NiceShopRelease] = []
     eventId: int = 0
-    slot: int = Field(..., title="Slot", description="Tab number in the shop")
+    slot: int = Field(0, title="Slot", description="Tab number in the shop")
     priority: int = Field(..., title="Priority", description="Sort order in the shop")
     name: str
     detail: str
@@ -1943,8 +1943,8 @@ class NiceEventRewardSceneGuide(BaseModelORJson):
 
 
 class NiceEventRewardScene(BaseModelORJson):
-    slot: int
-    groupId: int
+    slot: int = 0
+    groupId: int = 0
     type: int = Field(
         ..., description="See Event Reward Scene Type in app/schemas/enums.py"
     )
