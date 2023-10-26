@@ -86,6 +86,8 @@ from .gameenums import (
     NiceSvtVoiceType,
     NiceTdEffectFlag,
     NiceVoiceCondType,
+    NiceWarBoardStageSquareType,
+    NiceWarBoardTreasureRarity,
     NiceWarFlag,
     NiceWarOverwriteType,
     NiceWarStartType,
@@ -2013,6 +2015,33 @@ class NiceEventAdd(BaseModelORJson):
     endedAt: int
 
 
+class NiceWarBoardTreasure(BaseModelORJson):
+    warBoardTreasureId: int
+    rarity: NiceWarBoardTreasureRarity
+    gifts: list[NiceGift]
+
+
+class NiceWarBoardStageSquare(BaseModelORJson):
+    squareIndex: int
+    type: NiceWarBoardStageSquareType = NiceWarBoardStageSquareType.normal
+    effectId: int = 0
+    treasures: list[NiceWarBoardTreasure] = []
+
+
+class NiceWarBoardStage(BaseModelORJson):
+    warBoardStageId: int
+    boardMessage: str = ""
+    formationCost: int
+    questId: int
+    questPhase: int
+    squares: list[NiceWarBoardStageSquare]
+
+
+class NiceWarBoard(BaseModelORJson):
+    warBoardId: int
+    stages: list[NiceWarBoardStage]
+
+
 class NiceEvent(BaseModelORJson):
     id: int
     type: NiceEventType
@@ -2042,6 +2071,7 @@ class NiceEvent(BaseModelORJson):
     missionGroups: list[NiceEventMissionGroup] = []
     towers: list[NiceEventTower] = []
     lotteries: list[NiceEventLottery] = []
+    warBoards: list[NiceWarBoard] = []
     treasureBoxes: list[NiceEventTreasureBox] = []
     bulletinBoards: list[NiceEventBulletinBoard] = []
     recipes: list[NiceEventRecipe] = []

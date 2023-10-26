@@ -18,6 +18,7 @@ from ..schemas.gameenums import (
     PayType,
     PurchaseType,
     VoiceCondType,
+    WarBoardStageLayoutType,
 )
 from ..schemas.nice import COSTUME_LIMIT_NO_LESS_THAN
 from ..schemas.raw import (
@@ -143,6 +144,11 @@ from ..schemas.raw import (
     MstVoice,
     MstWar,
     MstWarAdd,
+    MstWarBoard,
+    MstWarBoardQuest,
+    MstWarBoardStage,
+    MstWarBoardStageLayout,
+    MstWarBoardTreasure,
     MstWarQuestSelection,
     MysticCodeEntity,
     QuestEntity,
@@ -1019,11 +1025,30 @@ async def get_event_entity(conn: AsyncConnection, event_id: int) -> EventEntity:
     fortification_servants = await fetch.get_all(
         conn, MstEventFortificationSvt, event_id
     )
-    fortification_gift_ids = {fortification.giftId for fortification in fortifications}
     fortification_release_ids = (
         {fortification.commonReleaseId for fortification in fortifications}
         | {detail.commonReleaseId for detail in fortification_details}
         | {svt.commonReleaseId for svt in fortification_servants}
+    )
+
+    warboards = await fetch.get_all(conn, MstWarBoard, event_id)
+    warboard_stages = await fetch.get_all_multiple(
+        conn, MstWarBoardStage, {w.id for w in warboards}
+    )
+    warboard_stage_layouts = await fetch.get_all_multiple(
+        conn, MstWarBoardStageLayout, {w.id for w in warboard_stages}
+    )
+    warboard_quests = await fetch.get_all_multiple(
+        conn, MstWarBoardQuest, {w.id for w in warboard_stages}
+    )
+    warboard_treasures = await fetch.get_all_multiple(
+        conn,
+        MstWarBoardTreasure,
+        {
+            w.effectId
+            for w in warboard_stage_layouts
+            if w.type == WarBoardStageLayoutType.TREASURE
+        },
     )
 
     common_release_ids = (
@@ -1062,7 +1087,8 @@ async def get_event_entity(conn: AsyncConnection, event_id: int) -> EventEntity:
         | {cooltime.giftId for cooltime in event_cooltimes}
         | {recipe_gift.giftId for recipe_gift in recipe_gifts}
         | digging_gift_ids
-        | fortification_gift_ids
+        | {fortification.giftId for fortification in fortifications}
+        | {w.giftId for w in warboard_treasures}
     )
 
     gift_adds = await fetch.get_all_multiple(conn, MstGiftAdd, gift_ids)
@@ -1136,6 +1162,11 @@ async def get_event_entity(conn: AsyncConnection, event_id: int) -> EventEntity:
         mstEventPointActivity=await fetch.get_all(
             conn, MstEventPointActivity, event_id
         ),
+        mstWarBoard=warboards,
+        mstWarBoardStage=warboard_stages,
+        mstWarBoardQuest=warboard_quests,
+        mstWarBoardStageLayout=warboard_stage_layouts,
+        mstWarBoardTreasure=warboard_treasures,
         mstItem=mstItem,
         mstCommonConsume=common_consumes,
         mstCommonRelease=common_releases,
