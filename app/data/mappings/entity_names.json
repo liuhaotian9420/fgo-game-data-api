@@ -352,10 +352,10 @@
   "アラハバキ": "Arahabaki",
   "田中新兵衛": "Tanaka Shinbei",
   "奇兵隊": "Kiheitai",
-  "キンノブ": "Imperial Nobu",
+  "キンノブ": "Kinnobu",
   "魔神柱型巨大ケーキ": "Gigantic Cake Model Demon God Pillar",
-  "アラハバキ・弐号機": "Arahabaki - Unit 2",
-  "戦国維新ロボ・ナガオカゲトラ": "Sengoku Restoration - Nagao Kagetora",
+  "アラハバキ・弐号機": "Arahabaki Mk. II",
+  "戦国維新ロボ・ナガオカゲトラ": "Warring States Restoration Robot - Nagao Kagetora",
   "呪毒蟲": "Cursed Poisonous Insect",
   "マーマン": "Merman",
   "マイティマーマン": "Mighty Merman",
@@ -422,7 +422,9 @@
   "ニワトリア・リリィ": "Poultria Lily",
   "ニワトリア": "Poultria",
   "高長恭": "Gao Changgong",
-  "ヘビードラゴン": "ヘビードラゴン",
+  "広域殲滅兵器δ": "Large-Scale Annihilator δ",
+  "テュフォン・エフェメロス": "Typhon Ephemeros",
+  "ヘビードラゴン": "Heavy Dragon",
   "キシトリア": "Cavaltria",
   "サメトリア": "Sharktria",
   "イノトリア": "Boartria",
@@ -430,5 +432,6 @@
   "ウデトリア": "Handtria",
   "ガラガラオロチ": "Rattle Orochi",
   "ヤラアーンドゥ": "Yaraan-doo",
-  "影の騎士": "影の騎士"
+  "アステリオス？": "Asterios?",
+  "影の騎士": "Shadow Knight"
 }
