@@ -114,6 +114,9 @@ class AssetURL:
         3: "{base_url}/{region}/CharaGraph/CharaGraphEx/{item_id}/{item_id}b@1.png",
         4: "{base_url}/{region}/CharaGraph/CharaGraphEx/{item_id}/{item_id}b@2.png",
     }
+    charaGraphExEquip = (
+        "{base_url}/{region}/CharaGraph/CharaGraphEx/{item_id}/{item_id}a.png"
+    )
     charaGraphExCostume = (
         "{base_url}/{region}/CharaGraph/CharaGraphEx/{item_id}/{item_id}a.png"
     )
@@ -440,6 +443,7 @@ class NiceBuff(BaseModelORJson):
         description="Random stuffs that get added to the buff entry. "
         "See each field description for more details.",
     )
+    originalScript: dict[str, Any] = Field({}, title="Original Buff script")
     vals: list[NiceTrait] = Field(
         [],
         title="Buff individualities",
