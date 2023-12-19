@@ -391,6 +391,7 @@ class BaseVals(BaseModel):
     CancelTransform: int | None = None
     UnSubStateWhenContinue: int | None = None
     CheckTargetHaveDefeatPoint: int | None = None
+    NPFixedDamageValue: int | None = None
     # Extra dataval from SkillLvEntty.DIC_KEY_APPLY_SUPPORT_SVT
     ApplySupportSvt: Optional[int] = None
     # These are not DataVals but guesses from SkillLvEntity and EventDropUpValInfo
@@ -2356,9 +2357,21 @@ class NiceStageStartMovie(BaseModelORJson):
     waveStartMovie: HttpUrl
 
 
+class NiceStageCutInSkill(BaseModelORJson):
+    skill: NiceSkill
+    appearCount: int
+
+
+class NiceStageCutIn(BaseModelORJson):
+    runs: int
+    skills: list[NiceStageCutInSkill]
+    drops: list[EnemyDrop]
+
+
 class NiceStage(BaseModelORJson):
     wave: int
     bgm: NiceBgm
+    startEffectId: int
     fieldAis: list[FieldAi] = []
     call: list[int] = Field([], title="Summon these NPC IDs")
     enemyFieldPosCount: int | None = None
@@ -2369,6 +2382,7 @@ class NiceStage(BaseModelORJson):
     )
     NoEntryIds: list[int] | None = None
     waveStartMovies: list[NiceStageStartMovie] = []
+    cutin: NiceStageCutIn | None = None
     originalScript: dict[str, Any] = {}
     enemies: list[QuestEnemy] = []
 
