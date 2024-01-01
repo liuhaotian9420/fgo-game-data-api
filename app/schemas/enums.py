@@ -1016,6 +1016,8 @@ class Trait(StrEnum):
     classUOlgaMarieFlare = "classUOlgaMarieFlare"
     elementalsWrath = "elementalsWrath"
     buffBuffSuccessRateUp = "buffBuffSuccessRateUp"
+    groupServant = "groupServant"
+    takeruDummyTrait = "takeruDummyTrait"
 
     @classmethod
     def _missing_(cls, value: object):
@@ -1211,6 +1213,7 @@ TRAIT_NAME: dict[int, Trait] = {
     2878: Trait.fieldAir,
     2879: Trait.caitCuCerpriestessOnTheField,
     2880: Trait.elementalsWrath,
+    2881: Trait.groupServant,
     # 2xxx: CQ or Story quests buff
     3000: Trait.attackPhysical,  # Normal attack, including NP
     3001: Trait.attackProjectile,
@@ -1286,6 +1289,7 @@ TRAIT_NAME: dict[int, Trait] = {
     3088: Trait.marking,
     3089: Trait.burnEffectivenessUp,
     3090: Trait.buffBuffSuccessRateUp,
+    3091: Trait.takeruDummyTrait,
     # 6016: No detail
     # 6021: No detail
     # 6022: No detail
