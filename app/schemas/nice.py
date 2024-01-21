@@ -45,6 +45,7 @@ from .gameenums import (
     NiceAiActTarget,
     NiceAiActType,
     NiceAiCond,
+    NiceBattleFieldEnvironmentGrantType,
     NiceBuffType,
     NiceCardType,
     NiceClassBoardSkillType,
@@ -77,6 +78,7 @@ from .gameenums import (
     NiceQuestType,
     NiceRestrictionRangeType,
     NiceRestrictionType,
+    NiceServantOverwriteType,
     NiceShopType,
     NiceSpotOverwriteType,
     NiceStatusRank,
@@ -1008,6 +1010,19 @@ class NiceLoreComment(BaseModel):
     additionalConds: list[NiceLoreCommentAdd] = []
 
 
+class NiceSvtOverwriteValue(BaseModel):
+    noblePhantasm: NiceTd | None = None
+
+
+class NiceSvtOverwrite(BaseModel):
+    type: NiceServantOverwriteType
+    priority: int
+    condType: NiceCondType
+    condTargetId: int
+    condValue: int
+    overwriteValue: NiceSvtOverwriteValue
+
+
 class NiceLoreStats(BaseModel):
     strength: NiceStatusRank = NiceStatusRank.none  # power
     endurance: NiceStatusRank = NiceStatusRank.none  # defense
@@ -1336,6 +1351,7 @@ class NiceServant(BaseModelORJson):
         [], title="Servant Change", description="EOR servants' hidden name details."
     )
     ascensionImage: list[NiceServantLimitImage] = Field([], title="Servant Limit Image")
+    overwrites: list[NiceSvtOverwrite] = Field([], title="Servant Overwrites")
     ascensionMaterials: dict[int, NiceLvlUpMaterial] = Field(
         ...,
         title="Ascension Materials",
@@ -2368,6 +2384,14 @@ class NiceStageCutIn(BaseModelORJson):
     drops: list[EnemyDrop]
 
 
+class NiceBattleBg(BaseModelORJson):
+    id: int
+    type: NiceBattleFieldEnvironmentGrantType = NiceBattleFieldEnvironmentGrantType.none
+    priority: int = 0
+    individuality: list[NiceTrait] = []
+    imageId: int = 0
+
+
 class NiceStage(BaseModelORJson):
     wave: int
     bgm: NiceBgm
@@ -2380,6 +2404,7 @@ class NiceStage(BaseModelORJson):
     limitAct: StageLimitActType | None = Field(
         None, title="Action after turn countdown is over"
     )
+    battleBg: NiceBattleBg | None = None
     NoEntryIds: list[int] | None = None
     waveStartMovies: list[NiceStageStartMovie] = []
     cutin: NiceStageCutIn | None = None
@@ -2525,6 +2550,7 @@ class NiceQuestPhase(NiceQuest):
     enemyHash: str | None = None
     availableEnemyHashes: list[str] = []
     dropsFromAllHashes: bool | None = None
+    battleBg: NiceBattleBg | None = None
     extraDetail: NiceQuestPhaseExtraDetail = NiceQuestPhaseExtraDetail()
     scripts: list[ScriptLink] = []
     messages: list[NiceQuestMessage] = []

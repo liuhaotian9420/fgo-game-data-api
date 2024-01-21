@@ -34,6 +34,9 @@ RAW_NAME_OVERRIDE = {
         "FUNCTION_ATTACK_AFTER": "FUNCTION_ATTACK",
         "FUNCTION_COMMANDCODEATTACK_BEFORE": "FUNCTION_COMMANDCODEATTACK",
     },
+    "BattleFieldEnvironmentDataGrantType": {
+        "None": "None_",
+    },
 }
 
 
@@ -577,6 +580,20 @@ ENUMS: list[tuple[str, str, str, str, str]] = [
         "NiceWarBoardTreasureRarity",
         "War Board Treasure Rarity",
         "WAR_BOARD_TREASURE_RARITY_NAME",
+    ),
+    (
+        "BattleFieldEnvironmentData.GrantType",
+        "BattleFieldEnvironmentDataGrantType",
+        "NiceBattleFieldEnvironmentGrantType",
+        "Battle Field Environment Grant Type",
+        "BATTLE_ENVIRONMENT_GRANT_TYPE_NAME",
+    ),
+    (
+        "ServantOverwriteEntity.ServantOverwriteType",
+        "ServantOverwriteType",
+        "NiceServantOverwriteType",
+        "Servant Overwrite Type",
+        "SERVANT_OVERWRITE_TYPE_NAME",
     ),
 ]
 

@@ -25,6 +25,7 @@ from ...redis.helpers.quest import RayshiftRedisData, get_stages_cache, set_stag
 from ...schemas.common import Language, Region, ScriptLink
 from ...schemas.enums import STAGE_LIMIT_ACT_TYPE_NAME, get_class_name
 from ...schemas.gameenums import (
+    BATTLE_ENVIRONMENT_GRANT_TYPE_NAME,
     COND_TYPE_NAME,
     FREQUENCY_TYPE_NAME,
     QUEST_AFTER_CLEAR_NAME,
@@ -39,6 +40,7 @@ from ...schemas.nice import (
     AssetURL,
     DeckType,
     EnemyDrop,
+    NiceBattleBg,
     NiceBgm,
     NiceQuest,
     NiceQuestHint,
@@ -56,6 +58,7 @@ from ...schemas.nice import (
     SupportServant,
 )
 from ...schemas.raw import (
+    MstBattleBg,
     MstBgm,
     MstBlankEarthSpot,
     MstClosedMessage,
@@ -168,11 +171,22 @@ def get_nice_quest_restriction(
     )
 
 
+def get_nice_battle_bg(battle_bg: MstBattleBg) -> NiceBattleBg:
+    return NiceBattleBg(
+        id=battle_bg.id,
+        type=BATTLE_ENVIRONMENT_GRANT_TYPE_NAME[battle_bg.type],
+        priority=battle_bg.priority,
+        individuality=get_traits_list(battle_bg.individuality),
+        imageId=battle_bg.imageId,
+    )
+
+
 def get_nice_stage(
     region: Region,
     raw_stage: MstStage,
     enemies: list[QuestEnemy],
     bgms: list[MstBgm],
+    bgs: list[MstBattleBg],
     waveStartMovies: dict[int, list[NiceStageStartMovie]],
     stage_cutins: dict[int, NiceStageCutIn],
     lang: Language,
@@ -194,6 +208,17 @@ def get_nice_stage(
         turn=raw_stage.script.get("turn"),
         limitAct=STAGE_LIMIT_ACT_TYPE_NAME[raw_stage.script["LimitAct"]]
         if "LimitAct" in raw_stage.script
+        else None,
+        battleBg=next(
+            (
+                get_nice_battle_bg(bg)
+                for bg in bgs
+                if bg.id == raw_stage.script["changeBgId"]
+                and bg.type == raw_stage.script["changeBgType"]
+            ),
+            None,
+        )
+        if "changeBgId" in raw_stage.script and "changeBgType" in raw_stage.script
         else None,
         NoEntryIds=raw_stage.script.get("NoEntryIds"),
         waveStartMovies=waveStartMovies.get(raw_stage.wave, []),
@@ -386,6 +411,15 @@ async def get_nice_quest_phase_no_rayshift(
         "isNpcOnly": raw_quest.mstQuestPhase.isNpcOnly,
         "battleBgId": raw_quest.mstQuestPhase.battleBgId,
         "extraDetail": raw_quest.mstQuestPhase.script,
+        "battleBg": next(
+            (
+                get_nice_battle_bg(bg)
+                for bg in raw_quest.mstBattleBg
+                if bg.id == raw_quest.mstQuestPhase.battleBgId
+                and bg.type == raw_quest.mstQuestPhase.battleBgType
+            ),
+            None,
+        ),
         "availableEnemyHashes": [],
         "scripts": [
             get_nice_script_link(region, script) for script in sorted(raw_quest.scripts)
@@ -538,11 +572,16 @@ async def get_nice_quest_phase(
         if (
             db_data.raw.mstQuest.type in (QuestType.MAIN, QuestType.FREE)
             and db_data.nice.warId < 1000
-        ) or db_data.nice.warId == 1002:
+        ):
             if region == Region.JP:
                 min_query_id = 154613  # 2021-08-01 10:00:00 UTC
             elif region == Region.NA:
                 min_query_id = 1062363  # 2022-07-04 09:00:00 UTC
+        elif db_data.nice.warId == 1002:
+            if region == Region.JP:
+                min_query_id = 499538  # 2022-01-02 00:00:00 UTC
+            elif region == Region.NA:
+                min_query_id = 6481638  # 2024-01-02 00:00:00 UTC
 
         rayshift_query_questHash = (
             None if db_data.raw.mstQuest.type == QuestType.WAR_BOARD else questHash
@@ -655,6 +694,7 @@ async def get_nice_quest_phase(
             stage,
             enemies,
             db_data.raw.mstBgm,
+            db_data.raw.mstBattleBg,
             waveStartMovies,
             stage_cutins,
             lang,

@@ -841,6 +841,19 @@ mstSvtMultiPortrait = Table(
 )
 
 
+mstSvtOverwrite = Table(
+    "mstSvtOverwrite",
+    metadata,
+    Column("svtId", Integer),
+    Column("type", Integer),
+    Column("priority", Integer),
+    Column("condType", Integer),
+    Column("condTargetId", Integer),
+    Column("condValue", Integer),
+    Column("overwriteValue", JSONB),
+)
+
+
 mstEquip = Table(
     "mstEquip",
     metadata,
@@ -2223,6 +2236,18 @@ mstStage = Table(
 )
 
 
+mstBattleBg = Table(
+    "mstBattleBg",
+    metadata,
+    Column("individuality", ARRAY(Integer)),
+    Column("script", JSONB),
+    Column("id", Integer),
+    Column("type", Integer),
+    Column("imageId", Integer),
+    Column("priority", Integer),
+)
+
+
 mstStageRemap = Table(
     "mstStageRemap",
     metadata,
@@ -2569,6 +2594,7 @@ TABLES_TO_BE_LOADED = [
     [mstQuestRestriction, mstQuestRestrictionInfo, mstRestriction],
     [mstStage],
     [mstStageRemap],
+    [mstBattleBg],
     [npcFollower],
     [npcFollowerRelease],
     [npcSvtEquip],
@@ -2595,6 +2621,7 @@ TABLES_TO_BE_LOADED = [
     [mstSvtMultiPortrait],
     [mstSvtPassiveSkill],
     [mstSvtScript],
+    [mstSvtOverwrite],
     [mstSvtSkill, mstSvtSkillRelease],
     [mstSvtTreasureDevice, mstSvtTreasureDeviceRelease],
     [mstSvtVoice],

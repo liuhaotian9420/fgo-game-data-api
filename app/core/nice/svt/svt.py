@@ -23,6 +23,7 @@ from ....schemas.gameenums import (
     SVT_FLAG_NAME,
     SVT_TYPE_NAME,
     NiceStatusRank,
+    ServantOverwriteType,
     SvtType,
 )
 from ....schemas.nice import (
@@ -51,6 +52,7 @@ from .ascensionAdd import get_nice_ascensionAdd
 from .asset import get_male_image_extraAssets, get_svt_extraAssets
 from .card import get_nice_card
 from .individuality import get_nice_svt_trait
+from .overwrite import get_nice_svt_overwrite
 from .voice import get_nice_voice
 
 
@@ -183,6 +185,12 @@ async def get_nice_servant(
         "traitAdd": [
             get_nice_svt_trait(svt_individuality)
             for svt_individuality in raw_svt.mstSvtIndividuality
+        ],
+        "overwrites": [
+            await get_nice_svt_overwrite(
+                conn, region, overwrite, svt_id, raw_svt.mstTreasureDevice, lang
+            )
+            for overwrite in raw_svt.mstSvtOverwrite
         ],
         # "bondEquip": masters[region].bondEquip.get(svt_id, 0),
         "relateQuestIds": raw_svt.mstSvt.relateQuestIds,

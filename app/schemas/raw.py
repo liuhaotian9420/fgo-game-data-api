@@ -859,6 +859,16 @@ class MstSvtMultiPortrait(BaseModelORJson):
     displayPriority: int
 
 
+class MstSvtOverwrite(BaseModelORJson):
+    svtId: int
+    type: int
+    priority: int
+    condType: int
+    condTargetId: int
+    condValue: int
+    overwriteValue: dict[str, Any]
+
+
 def get_subtitle_svtId(sub_id: str) -> int:
     svt = sub_id.split("_")[0]
     try:
@@ -1877,6 +1887,15 @@ class MstStageRemap(BaseModelORJson):
     remapWave: int
 
 
+class MstBattleBg(BaseModelORJson):
+    individuality: list[int]
+    script: dict[str, Any]
+    id: int
+    type: int
+    imageId: int
+    priority: int
+
+
 class NpcFollower(BaseModelORJson):
     id: int
     questId: int
@@ -2000,6 +2019,7 @@ class ServantEntity(BaseModelORJson):
     expandedAppendPassive: list[SkillEntityNoReverse] = []
     mstSvtAppendPassiveSkillUnlock: list[MstSvtAppendPassiveSkillUnlock]
     mstCombineAppendPassiveSkill: list[MstCombineAppendPassiveSkill]
+    mstSvtOverwrite: list[MstSvtOverwrite]
     mstItem: list[MstItem]
     mstCommonRelease: list[MstCommonRelease]
     mstSvtCoin: Optional[MstSvtCoin] = None
@@ -2095,6 +2115,7 @@ class QuestPhaseEntity(QuestEntity):
     mstQuestMessage: list[MstQuestMessage] = []
     scripts: list[str]
     mstStage: list[MstStage]
+    mstBattleBg: list[MstBattleBg]
     mstBgm: list[MstBgm]
     npcFollower: list[NpcFollower]
     npcFollowerRelease: list[NpcFollowerRelease]
