@@ -68,6 +68,7 @@ from ...models.raw import (
     mstEventReward,
     mstEventRewardScene,
     mstEventRewardSet,
+    mstEventSvt,
     mstEventTower,
     mstEventVoicePlay,
     mstFriendship,
@@ -188,6 +189,7 @@ from ...schemas.raw import (
     MstEventReward,
     MstEventRewardScene,
     MstEventRewardSet,
+    MstEventSvt,
     MstEventTower,
     MstEventVoicePlay,
     MstFriendship,
@@ -532,6 +534,11 @@ schema_table_fetch_all: dict[  # type:ignore
         mstSvtOverwrite.c.svtId,
         mstSvtOverwrite.c.priority,
     ),
+    MstEventSvt: (
+        mstEventSvt,
+        mstEventSvt.c.eventId,
+        mstEventSvt.c.svtId,
+    ),
 }
 
 TFetchAll = TypeVar("TFetchAll", bound=BaseModelORJson)
@@ -605,7 +612,13 @@ schema_table_fetch_all_multiple: dict[  # type:ignore
     MstCommonRelease: (
         mstCommonRelease,
         mstCommonRelease.c.id,
-        [mstCommonRelease.c.id],
+        [
+            mstCommonRelease.c.id,
+            mstCommonRelease.c.priority,
+            mstCommonRelease.c.condGroup,
+            mstCommonRelease.c.condType,
+            mstCommonRelease.c.condId,
+        ],
     ),
     MstSpotRoad: (mstSpotRoad, mstSpotRoad.c.mapId, [mstSpotRoad.c.id]),
     MstBoxGachaTalk: (mstBoxGachaTalk, mstBoxGachaTalk.c.id, [mstBoxGachaTalk.c.id]),
@@ -663,6 +676,17 @@ schema_table_fetch_all_multiple: dict[  # type:ignore
         mstWarBoardQuest,
         mstWarBoardQuest.c.stageId,
         [mstWarBoardQuest.c.stageId],
+    ),
+    MstEventCampaign: (
+        mstEventCampaign,
+        mstEventCampaign.c.eventId,
+        [
+            mstEventCampaign.c.eventId,
+            mstEventCampaign.c.idx,
+            mstEventCampaign.c.target,
+            mstEventCampaign.c.priority,
+            mstEventCampaign.c.groupId,
+        ],
     ),
 }
 

@@ -1162,6 +1162,18 @@ mstGacha = Table(
     Column("flag", Integer),
 )
 
+mstGachaStoryAdjust = Table(
+    "mstGachaStoryAdjust",
+    metadata,
+    Column("gachaId", Integer),
+    Column("idx", Integer),
+    Column("adjustId", Integer),
+    Column("condType", Integer),
+    Column("targetId", Integer),
+    Column("value", Integer),
+    Column("imageId", Integer),
+)
+
 
 mstEvent = Table(
     "mstEvent",
@@ -1750,6 +1762,24 @@ mstHeelPortrait = Table(
     Column("dispCondId", Integer),
     Column("dispCondNum", Integer),
     Column("script", JSONB),
+)
+
+
+mstEventSvt = Table(
+    "mstEventSvt",
+    metadata,
+    Column("script", JSONB),
+    Column("eventId", Integer),
+    Column("svtId", Integer),
+    Column("type", Integer),
+    Column("joinMessage", String),
+    Column("getMessage", String),
+    Column("leaveMessage", String),
+    Column("name", String),
+    Column("battleName", String),
+    Column("commonReleaseId", Integer),
+    Column("startedAt", Integer),
+    Column("endedAt", Integer),
 )
 
 
@@ -2634,6 +2664,7 @@ TABLES_TO_BE_LOADED = [
     [mstEventBulletinBoard, mstEventBulletinBoardRelease],
     [mstEventRecipe, mstEventRecipeGift],
     [mstEventFortification, mstEventFortificationDetail, mstEventFortificationSvt],
+    [mstEventSvt],
     [mstVoice],
     [mstVoicePlayCond],
     [mstSvt],
@@ -2648,5 +2679,5 @@ TABLES_TO_BE_LOADED = [
     [mstClassBoardBase, mstClassBoardClass, mstClassBoardLine, mstFuncDisp],
     [mstClassBoardLock, mstClassBoardSquare],
     [mstFuncTypeDetail, mstBuffTypeDetail],
-    [mstGacha],
+    [mstGacha, mstGachaStoryAdjust],
 ]

@@ -59,11 +59,13 @@ from .gameenums import (
     NiceEventFortificationSvtType,
     NiceEventOverwriteType,
     NiceEventRewardSceneFlag,
+    NiceEventSvtType,
     NiceEventType,
     NiceEventWorkType,
     NiceFrequencyType,
     NiceFuncTargetType,
     NiceFuncType,
+    NiceGachaFlag,
     NiceGender,
     NiceGiftType,
     NiceItemType,
@@ -2036,6 +2038,32 @@ class NiceEventAdd(BaseModelORJson):
     endedAt: int
 
 
+class NiceEventSvtScript(BaseModelORJson):
+    addGetMessage: str | None = None
+    addMessageReleaseConditions: list[NiceCommonRelease] | None = None
+    isProtectedDuringEvent: bool | None = None
+    joinQuestId: int | None = None
+    joinShopId: int | None = None
+    notPresentAnonymous: bool | None = None
+    notPresentRarePri: int | None = None
+    ruby: str | None = None
+
+
+class NiceEventSvt(BaseModelORJson):
+    svtId: int
+    script: NiceEventSvtScript
+    originalScript: dict[str, Any]
+    type: NiceEventSvtType
+    joinMessage: str
+    getMessage: str
+    leaveMessage: str
+    name: str
+    battleName: str
+    releaseConditions: list[NiceCommonRelease]
+    startedAt: int
+    endedAt: int
+
+
 class NiceWarBoardTreasure(BaseModelORJson):
     warBoardTreasureId: int
     rarity: NiceWarBoardTreasureRarity
@@ -2081,6 +2109,7 @@ class NiceEvent(BaseModelORJson):
     materialOpenedAt: int
     warIds: list[int] = []
     eventAdds: list[NiceEventAdd] = []
+    svts: list[NiceEventSvt] = []
     shop: list[NiceShop] = []
     rewards: list[NiceEventReward] = []
     rewardScenes: list[NiceEventRewardScene] = []
@@ -2814,3 +2843,29 @@ class NiceBuffTypeDetail(BaseModelORJson):
     buffType: NiceBuffType
     ignoreValueUp: bool
     script: dict[str, Any] = {}
+
+
+class GachaStoryAdjust(BaseModelORJson):
+    idx: int
+    adjustId: int
+    condType: NiceCondType
+    targetId: int
+    value: int
+    imageId: int
+
+
+class NiceGacha(BaseModelORJson):
+    id: int
+    name: str
+    imageId: int
+    type: NicePayType = NicePayType.stone
+    adjustId: int = 0
+    pickupId: int = 0
+    drawNum1: int
+    drawNum2: int
+    maxDrawNum: int = 0
+    openedAt: int
+    closedAt: int
+    detailUrl: str
+    flags: list[NiceGachaFlag] = []
+    storyAdjusts: list[GachaStoryAdjust] = []

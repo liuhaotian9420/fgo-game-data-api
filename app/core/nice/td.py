@@ -179,7 +179,9 @@ async def get_nice_td(
             base_settings_id["item_id"] = chosen_svt.svtId
 
         imageId = chosen_svt.imageIndex
-        if imageId < 2:
+        if "npNameFileSuffix" in tdEntity.mstTreasureDevice.script:
+            file_i = f"np_{tdEntity.mstTreasureDevice.script['npNameFileSuffix']}"
+        elif imageId < 2:
             file_i = "np"
         else:
             file_i = "np" + str(imageId // 2)
@@ -188,9 +190,11 @@ async def get_nice_td(
             "icon": AssetURL.commands.format(**base_settings_id, i=file_i),
             "strengthStatus": chosen_svt.strengthStatus,
             "num": chosen_svt.num,
-            "npNum": chosen_svt.treasureDeviceNum
-            if chosen_svt.treasureDeviceNum is not None
-            else 1,
+            "npNum": (
+                chosen_svt.treasureDeviceNum
+                if chosen_svt.treasureDeviceNum is not None
+                else 1
+            ),
             "priority": chosen_svt.priority,
             "condQuestId": chosen_svt.condQuestId,
             "condQuestPhase": chosen_svt.condQuestPhase,

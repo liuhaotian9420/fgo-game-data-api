@@ -17,6 +17,16 @@ def get_nice_common_release(release: MstCommonRelease) -> NiceCommonRelease:
     )
 
 
+def get_nice_common_releases(
+    raw_releases: list[MstCommonRelease], release_id: int | None = None
+) -> list[NiceCommonRelease]:
+    return [
+        get_nice_common_release(release)
+        for release in raw_releases
+        if release_id is None or release.id == release_id
+    ]
+
+
 async def get_nice_common_releases_from_id(
     conn: AsyncConnection, common_release_id: int
 ) -> list[NiceCommonRelease]:

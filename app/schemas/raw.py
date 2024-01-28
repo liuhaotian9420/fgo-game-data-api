@@ -130,8 +130,7 @@ class MstSvtSkillRelease(BaseModelORJson):
     condGroup: int
 
 
-class MstSvtTreasureDeviceRelease(MstSvtSkillRelease):
-    ...
+class MstSvtTreasureDeviceRelease(MstSvtSkillRelease): ...
 
 
 class MstSvtPassiveSkill(BaseModelORJson):
@@ -743,7 +742,9 @@ class MstSvtCostume(BaseModelORJson):
     detail: str  # "霊基接触の影響か、この霊衣で\n戦闘すると言動に謎の変化が見られる",
     itemGetInfo: str  # "クエスト「エピローグ」クリアで開放",
     releaseInfo: str  # "最終再臨かつLv.MAXで開放",
-    costumeReleaseDetail: str  # "簡易霊衣「アマゾネスCEOセット」開放権を\n獲得できます。",
+    costumeReleaseDetail: (
+        str  # "簡易霊衣「アマゾネスCEOセット」開放権を\n獲得できます。",
+    )
     priority: int  # 1,
     flag: int  # 0,
     costumeCollectionNo: int  # 32,
@@ -1019,6 +1020,16 @@ class MstGacha(BaseModelORJson):
     bannerQuestId: int
     bannerQuestPhase: int
     flag: int
+
+
+class MstGachaStoryAdjust(BaseModelORJson):
+    gachaId: int
+    idx: int
+    adjustId: int
+    condType: int
+    targetId: int
+    value: int
+    imageId: int
 
 
 class MstEventReward(BaseModelORJson):
@@ -1460,6 +1471,21 @@ class MstEventAdd(BaseModelORJson):
     overwriteText: str
     condType: int
     targetId: int
+    startedAt: int
+    endedAt: int
+
+
+class MstEventSvt(BaseModelORJson):
+    script: dict[str, Any]
+    eventId: int
+    svtId: int
+    type: int
+    joinMessage: str
+    getMessage: str
+    leaveMessage: str
+    name: str
+    battleName: str
+    commonReleaseId: int
     startedAt: int
     endedAt: int
 
@@ -2187,6 +2213,7 @@ class EventEntity(BaseModelORJson):
     mstHeelPortrait: list[MstHeelPortrait]
     mstEventMural: list[MstEventMural]
     mstEventPointActivity: list[MstEventPointActivity]
+    mstEventSvt: list[MstEventSvt]
     mstWarBoard: list[MstWarBoard]
     mstWarBoardStage: list[MstWarBoardStage]
     mstWarBoardQuest: list[MstWarBoardQuest]
@@ -2354,6 +2381,11 @@ class ClassBoardEntity(BaseModelORJson):
     mstItem: list[MstItem]
     mstSkill: list[SkillEntityNoReverse]
     # mstFuncDisp: list[MstFuncDisp]
+
+
+class GachaEntity(BaseModelORJson):
+    mstGacha: MstGacha
+    mstGachaStoryAdjust: list[MstGachaStoryAdjust]
 
 
 class AssetStorageLine(BaseModelORJson):

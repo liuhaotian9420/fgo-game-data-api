@@ -10,6 +10,7 @@ PYTHON_NAME_JSON_NAME_OVERRIDE = {
     "CENTER": "center_",
     "SET": "set_",
     "NAME": "name_",
+    "JOIN": "join_",
 }
 
 
@@ -594,6 +595,20 @@ ENUMS: list[tuple[str, str, str, str, str]] = [
         "NiceServantOverwriteType",
         "Servant Overwrite Type",
         "SERVANT_OVERWRITE_TYPE_NAME",
+    ),
+    (
+        "GachaEntity.Flag",
+        "GachaFlag",
+        "NiceGachaFlag",
+        "Gacha Flag",
+        "GACHA_FLAG_NAME",
+    ),
+    (
+        "EventServantEntity.TYPE",
+        "EventSvtType",
+        "NiceEventSvtType",
+        "Event Svt Type",
+        "EVENT_SVT_TYPE_NAME",
     ),
 ]
 

@@ -6,7 +6,19 @@ from sqlalchemy.ext.asyncio import AsyncConnection
 
 from ..data.custom_mappings import EXTRA_CHARAFIGURES
 from ..data.shop import get_shop_cost_item_id
-from ..db.helpers import ai, event, fetch, item, quest, script, skill, svt, td, war
+from ..db.helpers import (
+    ai,
+    event,
+    fetch,
+    gacha,
+    item,
+    quest,
+    script,
+    skill,
+    svt,
+    td,
+    war,
+)
 from ..redis import Redis
 from ..redis.helpers.reverse import RedisReverse, get_reverse_ids
 from ..schemas.common import Region, ReverseDepth
@@ -36,6 +48,7 @@ from ..schemas.raw import (
     EventMissionEntity,
     FunctionEntity,
     FunctionEntityNoReverse,
+    GachaEntity,
     ItemEntity,
     MasterMissionEntity,
     MstBgm,
@@ -98,6 +111,7 @@ from ..schemas.raw import (
     MstEventReward,
     MstEventRewardScene,
     MstEventRewardSet,
+    MstEventSvt,
     MstEventTower,
     MstEventVoicePlay,
     MstFriendship,
@@ -1059,11 +1073,19 @@ async def get_event_entity(conn: AsyncConnection, event_id: int) -> EventEntity:
         },
     )
 
+    event_svts = await fetch.get_all(conn, MstEventSvt, event_id)
+    event_svt_release_ids = {svt.commonReleaseId for svt in event_svts} | {
+        svt.script["addMessageCommonReleaseId"]
+        for svt in event_svts
+        if "addMessageCommonReleaseId" in svt.script
+    }
+
     common_release_ids = (
         cooltime_release_ids
         | recipe_release_ids
         | fortification_release_ids
         | command_assist_release_ids
+        | event_svt_release_ids
     )
     common_releases = await fetch.get_all_multiple(
         conn, MstCommonRelease, common_release_ids
@@ -1159,7 +1181,9 @@ async def get_event_entity(conn: AsyncConnection, event_id: int) -> EventEntity:
         mstEventFortificationDetail=fortification_details,
         mstEventFortificationSvt=fortification_servants,
         mstEventQuest=await fetch.get_all(conn, MstEventQuest, event_id),
-        mstEventCampaign=await fetch.get_all(conn, MstEventCampaign, event_id),
+        mstEventCampaign=await fetch.get_all_multiple(
+            conn, MstEventCampaign, [event_id]
+        ),
         mstEventBulletinBoard=bulletins,
         mstEventBulletinBoardRelease=bulletin_releases,
         mstEventRecipe=recipes,
@@ -1170,6 +1194,7 @@ async def get_event_entity(conn: AsyncConnection, event_id: int) -> EventEntity:
         mstEventPointActivity=await fetch.get_all(
             conn, MstEventPointActivity, event_id
         ),
+        mstEventSvt=event_svts,
         mstWarBoard=warboards,
         mstWarBoardStage=warboard_stages,
         mstWarBoardQuest=warboard_quests,
@@ -1428,11 +1453,15 @@ async def get_shop_entities(
                 ],
                 mstShopScript=shop_script_map.get(shop.id),
                 mstItem=[item_map[item_id]] if item_id in item_map else [],
-                mstCommonConsume=[
-                    consume for consume in common_consumes if consume.id in shop.itemIds
-                ]
-                if shop.payType == PayType.COMMON_CONSUME
-                else [],
+                mstCommonConsume=(
+                    [
+                        consume
+                        for consume in common_consumes
+                        if consume.id in shop.itemIds
+                    ]
+                    if shop.payType == PayType.COMMON_CONSUME
+                    else []
+                ),
                 mstGift=gifts,
                 mstGiftAdd=gift_adds,
             )
@@ -1506,3 +1535,11 @@ async def get_class_board_entity(
         mstItem=mstItem,
         mstSkill=skill_entities,
     )
+
+
+async def get_gacha_entity(conn: AsyncConnection, gacha_id: int) -> GachaEntity:
+    gacha_entity = await gacha.get_gacha_entity(conn, gacha_id)
+    if gacha_entity is None:
+        raise HTTPException(status_code=404, detail="Banner not found")
+
+    return gacha_entity
