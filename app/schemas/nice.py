@@ -2051,15 +2051,15 @@ class NiceEventSvtScript(BaseModelORJson):
 
 class NiceEventSvt(BaseModelORJson):
     svtId: int
-    script: NiceEventSvtScript
-    originalScript: dict[str, Any]
-    type: NiceEventSvtType
-    joinMessage: str
-    getMessage: str
-    leaveMessage: str
-    name: str
-    battleName: str
-    releaseConditions: list[NiceCommonRelease]
+    script: NiceEventSvtScript = NiceEventSvtScript()
+    originalScript: dict[str, Any] = {}
+    type: NiceEventSvtType = NiceEventSvtType.none
+    joinMessage: str = ""
+    getMessage: str = ""
+    leaveMessage: str = ""
+    name: str = ""
+    battleName: str = ""
+    releaseConditions: list[NiceCommonRelease] = []
     startedAt: int
     endedAt: int
 
