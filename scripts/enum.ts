@@ -28,10 +28,19 @@ export enum NiceSvtFlag {
     NORMAL = "normal",
     GOETIA = "goetia",
     MAT_DROP_RATE_UP_CE = "matDropRateUpCe",
+    DAVINCI_SHOP_CE = "davinciShopCe",
     CAMPAIGN_CE = "campaignCe",
     EVENT_CE_SUMMON = "eventCeSummon",
     EVENT_CE_SHOP = "eventCeShop",
     UNKNOWN = "unknown",
+}
+
+export enum NiceSvtFlagOriginal {
+    ONLY_USE_FOR_NPC = "onlyUseForNpc",
+    SVT_EQUIP_FRIEND_SHIP = "svtEquipFriendShip",
+    IGNORE_COMBINE_LIMIT_SPECIAL = "ignoreCombineLimitSpecial",
+    SVT_EQUIP_EXP = "svtEquipExp",
+    SVT_EQUIP_CHOCOLATE = "svtEquipChocolate",
 }
 
 export enum NiceFuncType {
@@ -1843,4 +1852,14 @@ export enum NiceEventSvtType {
     JOIN = "join",
     COND_JOIN = "condJoin",
     DIRECT_JOIN = "directJoin",
+}
+
+export enum NiceSvtDeadType {
+    NORMAL = "normal",
+    ESCAPE = "escape",
+    STAND = "stand",
+    EFFECT = "effect",
+    WAIT = "wait",
+    ENERGY = "energy",
+    CRYSTAL = "crystal",
 }

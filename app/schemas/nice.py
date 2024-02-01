@@ -26,7 +26,6 @@ from .enums import (
     AiTiming,
     AiType,
     Attribute,
-    EnemyDeathType,
     EnemyRoleType,
     EventPointActivityObjectType,
     FuncApplyTarget,
@@ -85,7 +84,9 @@ from .gameenums import (
     NiceSpotOverwriteType,
     NiceStatusRank,
     NiceSvtClassSupportGroupType,
+    NiceSvtDeadType,
     NiceSvtFlag,
+    NiceSvtFlagOriginal,
     NiceSvtType,
     NiceSvtVoiceType,
     NiceTdEffectFlag,
@@ -802,6 +803,20 @@ class NiceEnemyMaster(BaseModelORJson):
     battles: list[NiceEnemyMasterBattle]
 
 
+class NiceBattleMasterImage(BaseModelORJson):
+    id: int
+    type: NiceGender
+    faceIcon: HttpUrl
+    skillCutin: HttpUrl
+    skillCutinOffsetX: int
+    skillCutinOffsetY: int
+    commandSpellCutin: HttpUrl
+    commandSpellCutinOffsetX: int
+    commandSpellCutinOffsetY: int
+    resultImage: HttpUrl
+    releaseConditions: list[NiceCommonRelease] = []
+
+
 def get_community_limit(limit_count: int) -> int:
     return limit_count + 1 if limit_count < 2 else limit_count
 
@@ -1237,8 +1252,11 @@ class NiceServant(BaseModelORJson):
     )
     type: NiceSvtType = Field(NiceSvtType.normal, title="svt's type", description="svt's type.")
     flag: NiceSvtFlag = Field(
-        NiceSvtFlag.normal, title="svt's flag", description="Some random flags given to the svt items."
+        NiceSvtFlag.normal,
+        title="svt's flag",
+        description="[DEPRECATED] Use the `flags` field. Some random flags given to the svt items.",
     )
+    flags: list[NiceSvtFlagOriginal] = []
     rarity: int = Field(..., title="svt's rarity", description="svt's rarity.")
     cost: int = Field(
         ..., title="svt's cost", description="Cost to put the item in a party."
@@ -1432,8 +1450,11 @@ class NiceEquip(BaseModelORJson):
     )
     type: NiceSvtType = Field(NiceSvtType.servantEquip, title="svt's type", description="svt's type.")
     flag: NiceSvtFlag = Field(
-        NiceSvtFlag.normal, title="svt's flag", description="Some random flags given to the svt items."
+        NiceSvtFlag.normal,
+        title="svt's flag",
+        description="[DEPRECATED] Use the `flags` field. Some random flags given to the svt items.",
     )
+    flags: list[NiceSvtFlagOriginal] = []
     rarity: int = Field(..., title="svt's rarity", description="svt's rarity.")
     cost: int = Field(
         ..., title="svt's cost", description="Cost to put the item in a party."
@@ -2213,7 +2234,7 @@ class NiceQuest(BaseModelORJson):
 
 
 class EnemyScript(BaseModelORJson):
-    deathType: Optional[EnemyDeathType]
+    deathType: Optional[NiceSvtDeadType]
     appear: Optional[bool]
     noVoice: Optional[bool]
     raid: Optional[int]
@@ -2447,6 +2468,22 @@ class NiceQuestMessage(BaseModelORJson):
     condType: NiceCondType
     targetId: int
     targetNum: int
+
+
+class NiceBattleMessage(BaseModelORJson):
+    id: int
+    idx: int
+    priority: int
+    releaseConditions: list[NiceCommonRelease] = []
+    motionId: int
+    message: str
+    script: dict[str, Any] = {}
+
+
+class NiceBattleMessageGroup(BaseModelORJson):
+    groupId: int
+    probability: int
+    messages: list[NiceBattleMessage]
 
 
 class NiceQuestHint(BaseModelORJson):

@@ -487,26 +487,6 @@ AI_TIMING_NAME: dict[int, AiTiming] = {
 }
 
 
-### Enemy death type ###
-
-
-class EnemyDeathType(StrEnum):
-    ESCAPE = "escape"
-    STAND = "stand"
-    EFFECT = "effect"
-    WAIT = "wait"
-    ENERGY = "energy"
-
-
-ENEMY_DEATH_TYPE_NAME: dict[int, EnemyDeathType] = {
-    1: EnemyDeathType.ESCAPE,
-    2: EnemyDeathType.STAND,
-    3: EnemyDeathType.EFFECT,
-    4: EnemyDeathType.WAIT,
-    5: EnemyDeathType.ENERGY,
-}
-
-
 ### Enemy role type ###
 
 
@@ -1021,6 +1001,7 @@ class Trait(StrEnum):
     artsBuff = "artsBuff"
     busterBuff = "busterBuff"
     quickBuff = "quickBuff"
+    FSNServant = "FSNServant"
 
     @classmethod
     def _missing_(cls, value: object):
@@ -1217,6 +1198,7 @@ TRAIT_NAME: dict[int, Trait] = {
     2879: Trait.caitCuCerpriestessOnTheField,
     2880: Trait.elementalsWrath,
     2881: Trait.groupServant,
+    2883: Trait.FSNServant,
     # 2xxx: CQ or Story quests buff
     3000: Trait.attackPhysical,  # Normal attack, including NP
     3001: Trait.attackProjectile,

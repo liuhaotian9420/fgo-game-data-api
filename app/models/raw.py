@@ -925,6 +925,23 @@ mstEnemyMasterBattle = Table(
 )
 
 
+mstBattleMasterImage = Table(
+    "mstBattleMasterImage",
+    metadata,
+    Column("id", Integer, index=True),
+    Column("type", Integer),
+    Column("faceIconId", Integer),
+    Column("skillCutinId", Integer),
+    Column("skillCutinOffsetX", Integer),
+    Column("skillCutinOffsetY", Integer),
+    Column("commandSpellCutinId", Integer),
+    Column("commandSpellCutinOffsetX", Integer),
+    Column("commandSpellCutinOffsetY", Integer),
+    Column("resultImageId", Integer),
+    Column("commonReleaseId", Integer),
+)
+
+
 mstItem = Table(
     "mstItem",
     metadata,
@@ -2161,6 +2178,28 @@ mstClosedMessage = Table(
 )
 
 
+mstBattleMessage = Table(
+    "mstBattleMessage",
+    metadata,
+    Column("id", Integer, index=True),
+    Column("idx", Integer),
+    Column("priority", Integer),
+    Column("commonReleaseId", Integer),
+    Column("motionId", Integer),
+    Column("message", String),
+    Column("script", JSONB),
+)
+
+
+mstBattleMessageGroup = Table(
+    "mstBattleMessageGroup",
+    metadata,
+    Column("groupId", Integer, index=True),
+    Column("messageId", Integer),
+    Column("probability", Integer),
+)
+
+
 mstQuestConsumeItem = Table(
     "mstQuestConsumeItem",
     metadata,
@@ -2258,6 +2297,7 @@ mstStage = Table(
     Column("enemyInfo", Integer),
     Column("bgmId", Integer, index=True),
     Column("startEffectId", Integer),
+    Column("stageCutinGroupIds", ARRAY(Integer)),
     Index(
         "ix_mstStage_script_GIN",
         text('"script" jsonb_path_ops'),
@@ -2578,6 +2618,7 @@ TABLES_TO_BE_LOADED = [
     [mstBoxGacha, mstBoxGachaBase, mstBoxGachaTalk],
     [mstClassRelationOverwrite, mstBuffConvert],
     [mstClosedMessage],
+    [mstBattleMessage, mstBattleMessageGroup],
     [mstCombineAppendPassiveSkill],
     [mstCombineCostume],
     [mstCombineLimit],
@@ -2590,6 +2631,7 @@ TABLES_TO_BE_LOADED = [
     [mstCv],
     [mstEquip, mstEquipAdd, mstEquipExp, mstEquipSkill],
     [mstEnemyMaster, mstEnemyMasterBattle],
+    [mstBattleMasterImage],
     [mstEventAdd],
     [
         mstEventMission,

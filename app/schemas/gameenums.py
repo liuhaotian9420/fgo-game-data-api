@@ -93,6 +93,7 @@ class NiceSvtFlag(StrEnum):
     normal = "normal"
     goetia = "goetia"
     matDropRateUpCe = "matDropRateUpCe"
+    davinciShopCe = "davinciShopCe"
     campaignCe = "campaignCe"
     eventCeSummon = "eventCeSummon"
     eventCeShop = "eventCeShop"
@@ -108,10 +109,38 @@ SVT_FLAG_NAME: dict[int, NiceSvtFlag] = {
     0: NiceSvtFlag.normal,
     63: NiceSvtFlag.goetia,
     64: NiceSvtFlag.matDropRateUpCe,
+    128: NiceSvtFlag.davinciShopCe,
     256: NiceSvtFlag.campaignCe,
     512: NiceSvtFlag.eventCeSummon,
     1024: NiceSvtFlag.eventCeShop,
     -1: NiceSvtFlag.unknown,
+}
+
+
+class SvtFlagOriginal(IntEnum):
+    ONLY_USE_FOR_NPC = 2
+    SVT_EQUIP_FRIEND_SHIP = 4
+    IGNORE_COMBINE_LIMIT_SPECIAL = 8
+    SVT_EQUIP_EXP = 16
+    SVT_EQUIP_CHOCOLATE = 32
+
+
+class NiceSvtFlagOriginal(StrEnum):
+    """Original Servant Flag Enum"""
+
+    onlyUseForNpc = "onlyUseForNpc"
+    svtEquipFriendShip = "svtEquipFriendShip"
+    ignoreCombineLimitSpecial = "ignoreCombineLimitSpecial"
+    svtEquipExp = "svtEquipExp"
+    svtEquipChocolate = "svtEquipChocolate"
+
+
+SVT_FLAG_ORIGINAL_NAME: dict[int, NiceSvtFlagOriginal] = {
+    2: NiceSvtFlagOriginal.onlyUseForNpc,
+    4: NiceSvtFlagOriginal.svtEquipFriendShip,
+    8: NiceSvtFlagOriginal.ignoreCombineLimitSpecial,
+    16: NiceSvtFlagOriginal.svtEquipExp,
+    32: NiceSvtFlagOriginal.svtEquipChocolate,
 }
 
 
@@ -5437,4 +5466,37 @@ EVENT_SVT_TYPE_NAME: dict[int, NiceEventSvtType] = {
     1: NiceEventSvtType.join_,
     2: NiceEventSvtType.condJoin,
     3: NiceEventSvtType.directJoin,
+}
+
+
+class SvtDeadType(IntEnum):
+    NORMAL = 0
+    ESCAPE = 1
+    STAND = 2
+    EFFECT = 3
+    WAIT = 4
+    ENERGY = 5
+    CRYSTAL = 6
+
+
+class NiceSvtDeadType(StrEnum):
+    """Svt Dead Type"""
+
+    normal = "normal"
+    escape = "escape"
+    stand = "stand"
+    effect = "effect"
+    wait = "wait"
+    energy = "energy"
+    crystal = "crystal"
+
+
+SVT_DEAD_TYPE_NAME: dict[int, NiceSvtDeadType] = {
+    0: NiceSvtDeadType.normal,
+    1: NiceSvtDeadType.escape,
+    2: NiceSvtDeadType.stand,
+    3: NiceSvtDeadType.effect,
+    4: NiceSvtDeadType.wait,
+    5: NiceSvtDeadType.energy,
+    6: NiceSvtDeadType.crystal,
 }

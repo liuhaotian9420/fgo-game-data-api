@@ -7,6 +7,9 @@ from sqlalchemy.sql import ColumnElement, select
 
 from ...models.raw import (
     AssetStorage,
+    mstBattleMasterImage,
+    mstBattleMessage,
+    mstBattleMessageGroup,
     mstBgm,
     mstBgmRelease,
     mstBlankEarthSpot,
@@ -128,6 +131,9 @@ from ...models.raw import (
 from ...schemas.base import BaseModelORJson
 from ...schemas.raw import (
     AssetStorageLine,
+    MstBattleMasterImage,
+    MstBattleMessage,
+    MstBattleMessageGroup,
     MstBgm,
     MstBgmRelease,
     MstBlankEarthSpot,
@@ -374,6 +380,17 @@ schema_table_fetch_all: dict[  # type:ignore
         mstEnemyMasterBattle.c.enemyMasterId,
         mstEnemyMasterBattle.c.id,
     ),
+    MstBattleMasterImage: (
+        mstBattleMasterImage,
+        mstBattleMasterImage.c.id,
+        mstBattleMasterImage.c.type,
+    ),
+    MstBattleMessage: (mstBattleMessage, mstBattleMessage.c.id, mstBattleMessage.c.idx),
+    MstBattleMessageGroup: (
+        mstBattleMessageGroup,
+        mstBattleMessageGroup.c.groupId,
+        mstBattleMessageGroup.c.messageId,
+    ),
     MstEventAdd: (mstEventAdd, mstEventAdd.c.eventId, mstEventAdd.c.priority),
     MstEventMission: (
         mstEventMission,
@@ -595,6 +612,11 @@ schema_table_fetch_all_multiple: dict[  # type:ignore
         mstClosedMessage,
         mstClosedMessage.c.id,
         [mstClosedMessage.c.id],
+    ),
+    MstBattleMessage: (
+        mstBattleMessage,
+        mstBattleMessage.c.id,
+        [mstBattleMessage.c.id, mstBattleMessage.c.idx],
     ),
     MstShop: (mstShop, mstShop.c.id, [mstShop.c.id]),
     MstQuest: (mstQuest, mstQuest.c.id, [mstQuest.c.id]),

@@ -38,6 +38,9 @@ from ..schemas.raw import (
     EXTRA_ATTACK_TD_ID,
     AiCollection,
     AiEntity,
+    BattleMasterImageEntity,
+    BattleMessageEntity,
+    BattleMessageGroupEntity,
     BgmEntity,
     BuffEntity,
     BuffEntityNoReverse,
@@ -51,6 +54,9 @@ from ..schemas.raw import (
     GachaEntity,
     ItemEntity,
     MasterMissionEntity,
+    MstBattleMasterImage,
+    MstBattleMessage,
+    MstBattleMessageGroup,
     MstBgm,
     MstBgmRelease,
     MstBlankEarthSpot,
@@ -697,6 +703,64 @@ async def get_enemy_master_entity(
     mstEnemyMasterBattle = await fetch.get_all(conn, MstEnemyMasterBattle, master_id)
     return EnemyMasterEntity(
         mstEnemyMaster=master_db, mstEnemyMasterBattle=mstEnemyMasterBattle
+    )
+
+
+async def get_battle_master_image_entity(
+    conn: AsyncConnection, battle_master_image_id: int
+) -> BattleMasterImageEntity:
+    mstBattleMasterImage = await fetch.get_all(
+        conn, MstBattleMasterImage, battle_master_image_id
+    )
+    if not mstBattleMasterImage:
+        raise HTTPException(status_code=404, detail="Battle Master Image not found")
+
+    common_release_ids = {image.commonReleaseId for image in mstBattleMasterImage}
+    common_releases = await fetch.get_all_multiple(
+        conn, MstCommonRelease, common_release_ids
+    )
+    return BattleMasterImageEntity(
+        mstBattleMasterImage=mstBattleMasterImage,
+        mstCommonRelease=common_releases,
+    )
+
+
+async def get_battle_message_entity(
+    conn: AsyncConnection, message_id: int
+) -> BattleMessageEntity:
+    mstBattleMessage = await fetch.get_all(conn, MstBattleMessage, message_id)
+    if not mstBattleMessage:
+        raise HTTPException(status_code=404, detail="Battle Message not found")
+
+    common_release_ids = {message.commonReleaseId for message in mstBattleMessage}
+    common_releases = await fetch.get_all_multiple(
+        conn, MstCommonRelease, common_release_ids
+    )
+    return BattleMessageEntity(
+        mstBattleMessage=mstBattleMessage,
+        mstCommonRelease=common_releases,
+    )
+
+
+async def get_battle_message_group_entity(
+    conn: AsyncConnection, group_id: int
+) -> BattleMessageGroupEntity:
+    mstBattleMessageGroup = await fetch.get_all(conn, MstBattleMessageGroup, group_id)
+    if not mstBattleMessageGroup:
+        raise HTTPException(status_code=404, detail="Battle Message Group not found")
+
+    message_ids = {group.messageId for group in mstBattleMessageGroup}
+
+    messages = await fetch.get_all_multiple(conn, MstBattleMessage, message_ids)
+
+    common_release_ids = {message.commonReleaseId for message in messages}
+    common_releases = await fetch.get_all_multiple(
+        conn, MstCommonRelease, common_release_ids
+    )
+    return BattleMessageGroupEntity(
+        mstBattleMessageGroup=mstBattleMessageGroup,
+        mstBattleMessage=messages,
+        mstCommonRelease=common_releases,
     )
 
 
