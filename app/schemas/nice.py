@@ -2160,12 +2160,21 @@ class NiceEvent(BaseModelORJson):
     )
 
 
+class NiceCompleteMission(BaseModelORJson):
+    # masterMissionId: int
+    objectId: int
+    presentMessageId: int
+    gifts: list[NiceGift]
+    bgm: NiceBgm | None
+
+
 class NiceMasterMission(BaseModelORJson):
     id: int
     startedAt: int
     endedAt: int
     closedAt: int
     missions: list[NiceEventMission]
+    completeMission: NiceCompleteMission | None
     quests: list[BasicQuest]
 
 
@@ -2585,6 +2594,7 @@ class NiceQuestPhaseExtraDetail(BaseModelORJson):
     aiMultiNpc: list[NiceQuestPhaseAiNpc] | None = None
     overwriteEquipSkills: NiceQuestPhaseOverwriteEquipSkills | None = None
     waveSetup: int | None = None  # U Olga Marie Quest
+    masterImageId: int | None = None
 
 
 class NiceRestriction(BaseModelORJson):
