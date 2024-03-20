@@ -529,7 +529,7 @@ class NiceBaseFunction(BaseModelORJson):
         "need to satisfy the traits given here.",
     )
     overWriteTvalsList: list[list[NiceTrait]] = Field(
-        ...,
+        [],
         title="Overwrite Tvals List",
         description="Overwrite functvals if given. Two-dimensional list, the inner trait list acts as a combined trait in functvals",
     )
@@ -540,7 +540,7 @@ class NiceBaseFunction(BaseModelORJson):
         "The current quest needs this traits for the function to works.",
     )
     script: FunctionScript = Field(
-        ...,
+        FunctionScript(),
         title="Function script",
     )
     funcGroup: list[NiceFuncGroup] = Field(
