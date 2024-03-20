@@ -10,9 +10,9 @@ from ...db.helpers import fetch
 from ...schemas.common import Language, Region
 from ...schemas.enums import FUNC_APPLYTARGET_NAME, FUNC_VALS_NOT_BUFF
 from ...schemas.gameenums import FUNC_TARGETTYPE_NAME, FUNC_TYPE_NAME, FuncType
-from ...schemas.nice import AssetURL, NiceFuncGroup
+from ...schemas.nice import AssetURL, FunctionScript, NiceFuncGroup
 from ...schemas.raw import FunctionEntityNoReverse, MstFunc, MstFuncGroup
-from ..utils import fmt_url, get_traits_list
+from ..utils import fmt_url, get_traits_list, get_traits_list_list
 from .buff import get_nice_buff
 
 
@@ -74,6 +74,7 @@ async def parse_dataVals(
     conn: AsyncConnection, datavals: str, functype: int
 ) -> DataValType:
     error_message = f"Can't parse datavals: {datavals}"
+    exception = HTTPException(status_code=500, detail=error_message)
     INITIAL_VALUE = -98765
     # Prefix to be used for temporary keys that need further parsing.
     # Some functions' datavals can't be parsed by themselves and need the first
@@ -200,9 +201,7 @@ async def parse_dataVals(
                         # using DUMMY_PREFIX + ... and parse it later
                         dependMstFunc = await fetch.get_one(conn, MstFunc, int(output["DependFuncId"]))  # type: ignore
                         if not dependMstFunc:
-                            raise HTTPException(
-                                status_code=500, detail=error_message
-                            ) from None
+                            raise exception from None
                         vals_value = await parse_dataVals(
                             conn, array2[1], dependMstFunc.funcType
                         )
@@ -211,9 +210,7 @@ async def parse_dataVals(
                         try:
                             output[array2[0]] = [int(i) for i in array2[1].split("/")]
                         except ValueError as err:
-                            raise HTTPException(
-                                status_code=500, detail=error_message
-                            ) from err
+                            raise exception from err
                     elif array2[0] in STRING_LIST_DATAVALS:
                         output[array2[0]] = array2[1].split("/")
                     elif array2[0] in STRING_DATAVALS:
@@ -223,9 +220,9 @@ async def parse_dataVals(
                             text = array2[0]
                             value = int(array2[1])
                         except ValueError as err:
-                            value = array2[1]
+                            raise exception from err
                 else:
-                    raise HTTPException(status_code=500, detail=error_message) from None
+                    raise exception from None
 
             if text:
                 output[text] = value
@@ -286,6 +283,19 @@ def get_nice_func_group(
     )
 
 
+def get_nice_func_script(mstFunc: MstFunc) -> FunctionScript:
+    if not mstFunc.script:
+        return FunctionScript()
+
+    script: dict[str, Any] = {}
+    if "overwriteTvals" in mstFunc.script:
+        script["overwriteTvals"] = get_traits_list_list(
+            mstFunc.script["overwriteTvals"]
+        )
+
+    return FunctionScript.parse_obj(script)
+
+
 async def get_nice_function(
     conn: AsyncConnection,
     region: Region,
@@ -303,6 +313,9 @@ async def get_nice_function(
         "funcPopupText": function.mstFunc.popupText,
         "funcquestTvals": get_traits_list(function.mstFunc.questTvals),
         "functvals": get_traits_list(function.mstFunc.tvals),
+        "overWriteTvalsList": get_traits_list_list(
+            function.mstFunc.overWriteTvalsList or []
+        ),
         "funcType": FUNC_TYPE_NAME[function.mstFunc.funcType],
         "funcTargetTeam": FUNC_APPLYTARGET_NAME[function.mstFunc.applyTarget],
         "funcTargetType": FUNC_TARGETTYPE_NAME[function.mstFunc.targetType],
@@ -313,6 +326,7 @@ async def get_nice_function(
         "buffs": [
             get_nice_buff(buff, region, lang) for buff in function.mstFunc.expandedVals
         ],
+        "script": get_nice_func_script(function.mstFunc),
     }
 
     if function.mstFunc.funcType in FUNC_VALS_NOT_BUFF:

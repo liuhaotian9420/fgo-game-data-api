@@ -1002,6 +1002,7 @@ class Trait(StrEnum):
     busterBuff = "busterBuff"
     quickBuff = "quickBuff"
     FSNServant = "FSNServant"
+    fieldDarkness = "fieldDarkness"
 
     @classmethod
     def _missing_(cls, value: object):
@@ -1199,6 +1200,7 @@ TRAIT_NAME: dict[int, Trait] = {
     2880: Trait.elementalsWrath,
     2881: Trait.groupServant,
     2883: Trait.FSNServant,
+    2884: Trait.fieldDarkness,
     # 2xxx: CQ or Story quests buff
     3000: Trait.attackPhysical,  # Normal attack, including NP
     3001: Trait.attackProjectile,

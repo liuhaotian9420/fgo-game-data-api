@@ -1,6 +1,6 @@
 from decimal import Decimal
 from enum import StrEnum
-from typing import Any, Generic, Optional, TypeVar, Union
+from typing import Any, Generic, Optional, TypeVar
 
 from pydantic import BaseModel, Field, HttpUrl
 from pydantic.generics import GenericModel
@@ -252,7 +252,7 @@ class BaseVals(BaseModel):
     Turn: Optional[int] = None
     Count: Optional[int] = None
     Value: Optional[int] = None
-    Value2: Optional[Union[int,str]] = None
+    Value2: Optional[int] = None
     UseRate: Optional[int] = None
     Target: Optional[int] = None
     Correction: Optional[int] = None
@@ -494,6 +494,10 @@ class NiceFuncGroup(BaseModelORJson):
     isDispValue: bool
 
 
+class FunctionScript(BaseModel):
+    overwriteTvals: list[list[NiceTrait]] | None = None
+
+
 class NiceBaseFunction(BaseModelORJson):
     funcId: int = Field(..., title="Function ID", description="Function ID")
     funcType: NiceFuncType = Field(
@@ -524,11 +528,20 @@ class NiceBaseFunction(BaseModelORJson):
         description="Function tvals: If available, function's targets or their buffs "
         "need to satisfy the traits given here.",
     )
+    overWriteTvalsList: list[list[NiceTrait]] = Field(
+        ...,
+        title="Overwrite Tvals List",
+        description="Overwrite functvals if given. Two-dimensional list, the inner trait list acts as a combined trait in functvals",
+    )
     funcquestTvals: list[NiceTrait] = Field(
         [],
         title="Function quest traits",
         description="Function quest traits. "
         "The current quest needs this traits for the function to works.",
+    )
+    script: FunctionScript = Field(
+        ...,
+        title="Function script",
     )
     funcGroup: list[NiceFuncGroup] = Field(
         [],
