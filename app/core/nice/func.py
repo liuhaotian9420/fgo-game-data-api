@@ -58,6 +58,7 @@ LIST_DATAVALS = {
     "NotSkillCopyTargetIndividualities",
     "TargetEnemyRange",
     "TriggeredFieldCountRange",
+    "FieldIndividuality",
 }
 STRING_DATAVALS = {
     "PopValueText",
@@ -131,6 +132,8 @@ async def parse_dataVals(
                     FuncType.SUB_STATE,
                     FuncType.GAIN_NP_INDIVIDUAL_SUM,
                     FuncType.SUB_FIELD_BUFF,
+                    FuncType.SHORTEN_SKILL,
+                    FuncType.EXTEND_SKILL,
                     FuncType.SHORTEN_USER_EQUIP_SKILL,
                     FuncType.EXTEND_USER_EQUIP_SKILL,
                 }:

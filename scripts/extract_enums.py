@@ -23,18 +23,6 @@ def convert_name(name: str) -> str:
 
 
 RAW_NAME_OVERRIDE = {
-    "BuffType": {
-        "COMMANDATTACK_AFTER_FUNCTION": "COMMANDATTACK_FUNCTION",
-        "UP_DEFENCE_COMMANDDAMAGE": "UP_DEFENCECOMMAN_DAMAGE",
-        "DOWN_DEFENCE_COMMANDDAMAGE": "DOWN_DEFENCECOMMAN_DAMAGE",
-        "ATTACK_AFTER_FUNCTION": "ATTACK_FUNCTION",
-        "COMMANDCODEATTACK_BEFORE_FUNCTION": "COMMANDCODEATTACK_FUNCTION",
-    },
-    "BuffAction": {
-        "FUNCTION_COMMANDATTACK_AFTER": "FUNCTION_COMMANDATTACK",
-        "FUNCTION_ATTACK_AFTER": "FUNCTION_ATTACK",
-        "FUNCTION_COMMANDCODEATTACK_BEFORE": "FUNCTION_COMMANDCODEATTACK",
-    },
     "BattleFieldEnvironmentDataGrantType": {
         "None": "None_",
     },
@@ -627,6 +615,13 @@ ENUMS: list[tuple[str, str, str, str, str]] = [
         "NiceSvtDeadType",
         "Svt Dead Type",
         "SVT_DEAD_TYPE_NAME",
+    ),
+    (
+        "AiAllocationInfo.ApplySvtFlag",
+        "AiAllocationSvtFlag",
+        "NiceAiAllocationSvtFlag",
+        "AI Allocation Svt Flag",
+        "AI_ALLOCATION_SVT_FLAG_NAME",
     ),
 ]
 

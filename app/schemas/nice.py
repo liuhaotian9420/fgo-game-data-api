@@ -43,6 +43,7 @@ from .gameenums import (
     NiceAiActNum,
     NiceAiActTarget,
     NiceAiActType,
+    NiceAiAllocationSvtFlag,
     NiceAiCond,
     NiceBattleFieldEnvironmentGrantType,
     NiceBuffType,
@@ -353,7 +354,7 @@ class BaseVals(BaseModel):
     NotAccompanyWhenLinkedTargetMoveState: int | None = None
     NotTargetSkillIdArray: list[int] | None = None
     ShortTurn: int | None = None
-    FieldIndividuality: int | None = None
+    FieldIndividuality: list[int] | None = None
     BGId: int | None = None
     BGType: int | None = None
     BgmId: int | None = None
@@ -2469,6 +2470,12 @@ class NiceBattleBg(BaseModelORJson):
     imageId: int = 0
 
 
+class NiceAiAllocation(BaseModelORJson):
+    aiIds: list[int]
+    individuality: NiceTrait
+    applySvtType: list[NiceAiAllocationSvtFlag]
+
+
 class NiceStage(BaseModelORJson):
     wave: int
     bgm: NiceBgm
@@ -2485,6 +2492,7 @@ class NiceStage(BaseModelORJson):
     NoEntryIds: list[int] | None = None
     waveStartMovies: list[NiceStageStartMovie] = []
     cutin: NiceStageCutIn | None = None
+    aiAllocations: list[NiceAiAllocation] | None = None
     originalScript: dict[str, Any] = {}
     enemies: list[QuestEnemy] = []
 
@@ -2596,10 +2604,13 @@ class NiceQuestPhaseAiNpc(BaseModelORJson):
 class NiceQuestPhaseOverwriteEquipSkill(BaseModelORJson):
     lv: int
     id: int
+    condId: int | None = None
 
 
 class NiceQuestPhaseOverwriteEquipSkills(BaseModelORJson):
-    iconId: int
+    iconId: int | None = None
+    cutInView: int | None = None  # 1: ShowMasterSkillCutIn
+    notDispEquipSkillIconSplit: int | None = None
     skills: list[NiceQuestPhaseOverwriteEquipSkill]
 
 
@@ -2611,7 +2622,9 @@ class NiceQuestPhaseExtraDetail(BaseModelORJson):
     aiNpc: NiceQuestPhaseAiNpc | None = None
     aiMultiNpc: list[NiceQuestPhaseAiNpc] | None = None
     overwriteEquipSkills: NiceQuestPhaseOverwriteEquipSkills | None = None
+    addEquipSkills: NiceQuestPhaseOverwriteEquipSkills | None = None
     waveSetup: int | None = None  # U Olga Marie Quest
+    interruptibleQuest: int | None = None
     masterImageId: int | None = None
 
 
