@@ -122,9 +122,6 @@ async def get_nice_event(
         for item in raw_event.mstItem
     }
 
-    common_consumes = {consume.id: consume for consume in raw_event.mstCommonConsume}
-    common_releases = {release.id: release for release in raw_event.mstCommonRelease}
-
     gift_data = GiftData(raw_event.mstGiftAdd, gift_maps)
 
     missions = get_nice_missions(
@@ -320,7 +317,6 @@ async def get_nice_event(
                 box,
                 raw_event.mstTreasureBoxGift,
                 gift_data,
-                common_consumes,
                 raw_event.mstCommonConsume,
             )
             for box in raw_event.mstTreasureBox
@@ -351,7 +347,6 @@ async def get_nice_event(
                 raw_event.mstEventDiggingReward,
                 item_map=item_map,
                 gift_data=gift_data,
-                common_consumes=common_consumes,
                 raw_consumes=raw_event.mstCommonConsume,
             )
             if raw_event.mstEventDigging
@@ -364,7 +359,6 @@ async def get_nice_event(
                         region,
                         cooltime,
                         gift_data,
-                        common_releases[cooltime.commonReleaseId],
                         raw_releases=raw_event.mstCommonRelease,
                     )
                     for cooltime in raw_event.mstEventCooltimeReward

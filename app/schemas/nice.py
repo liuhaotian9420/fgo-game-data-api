@@ -350,7 +350,6 @@ class BaseVals(BaseModel):
         default=None,
         description="The buff with this dataVal is removed if the linked buff is removed.",
     )
-    AllowSubBgmPlaying: int | None = None
     NotAccompanyWhenLinkedTargetMoveState: int | None = None
     NotTargetSkillIdArray: list[int] | None = None
     ShortTurn: int | None = None
@@ -401,6 +400,21 @@ class BaseVals(BaseModel):
     IgnoreShiftSafeDamage: int | None = None
     ActAttackFunction: int | None = None
     DelayRemoveBuffExpiredOnPlayerTurn: int | None = None
+    AllowRemoveBuff: int | None = None
+    NotExecFunctionIfKeepAliveOnWarBoard: int | None = None
+    SnapShotParamAddSelfIndv: list[int] | None = None
+    SnapShotParamAddOpIndv: list[int] | None = None
+    SnapShotParamAddFieldIndv: list[int] | None = None
+    SnapShotParamAddValue: int | None = None
+    SnapShotParamAddMaxValue: int | None = None
+    SnapShotParamAddMaxCount: int | None = None
+    NotExecOnTransform: int | None = None
+    NotRemoveOnTransform: int | None = None
+    PriorityBgm: int | None = None
+    BgmAllowSubPlaying: int | None = None
+    BgPriority: int | None = None
+    PriorityBg: int | None = None
+    ResetBgmPriorityAtWaveStart: int | None = None
     # Extra dataval from SkillLvEntty.DIC_KEY_APPLY_SUPPORT_SVT
     ApplySupportSvt: Optional[int] = None
     # These are not DataVals but guesses from SkillLvEntity and EventDropUpValInfo
@@ -1775,7 +1789,6 @@ class NiceEventMissionCondition(BaseModelORJson):
     conditionMessage: str
     closedMessage: str = ""
     flag: int = 0
-    detail: Optional[NiceEventMissionConditionDetail] = None
     details: list[NiceEventMissionConditionDetail] | None = None
 
 
@@ -1876,7 +1889,6 @@ class NiceEventTreasureBox(BaseModelORJson):
     treasureBoxGifts: list[NiceEventTreasureBoxGift]
     maxDrawNumOnce: int
     extraGifts: list[NiceGift]
-    commonConsume: NiceCommonConsume
     consumes: list[NiceCommonConsume]
 
 
@@ -1884,7 +1896,6 @@ class NiceEventDiggingBlock(BaseModelORJson):
     id: int
     eventId: int
     image: HttpUrl
-    commonConsume: NiceCommonConsume
     consumes: list[NiceCommonConsume]
     objectId: int
     diggingEventPoint: int
@@ -1912,7 +1923,6 @@ class NiceEventCooltimeReward(BaseModelORJson):
     spotId: int
     lv: int
     name: str
-    commonRelease: NiceCommonRelease
     releaseConditions: list[NiceCommonRelease]
     cooltime: int
     addEventPointRate: int
