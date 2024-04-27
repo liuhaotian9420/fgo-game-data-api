@@ -1011,8 +1011,10 @@ class Trait(StrEnum):
     fieldDarkness = "fieldDarkness"
     magicBullet = "magicBullet"
     protagonistCorrection = "protagonistCorrection"
-    normalAoko = "normalAoko"
+    normalAokoBuff = "normalAokoBuff"
     magicBulletAtkBuff = "magicBulletAtkBuff"
+    demeritFunction = "demeritFunction"
+    extraBuff = "extraBuff"
 
     @classmethod
     def _missing_(cls, value: object):
@@ -1213,7 +1215,7 @@ TRAIT_NAME: dict[int, Trait] = {
     2884: Trait.fieldDarkness,
     2885: Trait.magicBullet,
     2888: Trait.protagonistCorrection,
-    2911: Trait.normalAoko,
+    2911: Trait.normalAokoBuff,
     2912: Trait.magicBulletAtkBuff,
     # 2xxx: CQ or Story quests buff
     3000: Trait.attackPhysical,  # Normal attack, including NP
@@ -1294,6 +1296,8 @@ TRAIT_NAME: dict[int, Trait] = {
     3092: Trait.artsBuff,
     3093: Trait.busterBuff,
     3094: Trait.quickBuff,
+    3098: Trait.demeritFunction,
+    3100: Trait.extraBuff,
     # 6016: No detail
     # 6021: No detail
     # 6022: No detail

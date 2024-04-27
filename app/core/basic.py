@@ -31,7 +31,14 @@ from ..schemas.basic import (
     BasicTdReverse,
     BasicWar,
 )
-from ..schemas.common import BuffScript, Language, MCAssets, Region, ReverseDepth
+from ..schemas.common import (
+    BuffScript,
+    Language,
+    MCAssets,
+    NiceTrait,
+    Region,
+    ReverseDepth,
+)
 from ..schemas.enums import (
     ATTRIBUTE_NAME,
     FUNC_APPLYTARGET_NAME,
@@ -155,10 +162,15 @@ def get_nice_buff_script(
     if "convert" in mstBuff.script:
         convert = mstBuff.script["convert"]
 
+        targetBuffs: list[Any] = []
+        targetIndividualities: list[NiceTrait] = []
+
         if convert["convertType"] == BuffConvertType.BUFF:
             targets = [raw_to_out(buff) for buff in convert["targetBuffs"]]
+            targetBuffs = targets
         elif convert["convertType"] == BuffConvertType.INDIVIDUALITY:
             targets = get_traits_list(convert["targetIds"])
+            targetIndividualities = targets
         else:
             targets = []
 
@@ -166,6 +178,8 @@ def get_nice_buff_script(
             "targetLimit": BUFF_CONVERT_LIMIT_TYPE_NAME[convert["targetLimit"]],
             "convertType": BUFF_CONVERT_TYPE_NAME[convert["convertType"]],
             "targets": targets,
+            "targetBuffs": targetBuffs,
+            "targetIndividualities": targetIndividualities,
             "convertBuffs": [raw_to_out(buff) for buff in convert["convertBuffs"]],
             "script": convert["script"],
             "effectId": convert["effectId"],
@@ -181,6 +195,7 @@ def get_basic_buff_no_reverse(
         id=mstBuff.id,
         name=get_translation(lang, mstBuff.name),
         originalName=mstBuff.name,
+        detail=mstBuff.detail,
         icon=fmt_url(
             AssetURL.buffIcon,
             base_url=settings.asset_url,
@@ -188,6 +203,7 @@ def get_basic_buff_no_reverse(
             item_id=mstBuff.iconId,
         ),
         type=BUFF_TYPE_NAME[mstBuff.type],
+        buffGroup=mstBuff.buffGroup,
         script=BuffScript.parse_obj(
             get_nice_buff_script(
                 mstBuff,
@@ -196,10 +212,12 @@ def get_basic_buff_no_reverse(
                 ),
             )
         ),
+        originalScript=mstBuff.script,
         vals=get_traits_list(mstBuff.vals),
         tvals=get_traits_list(mstBuff.tvals),
         ckSelfIndv=get_traits_list(mstBuff.ckSelfIndv),
         ckOpIndv=get_traits_list(mstBuff.ckOpIndv),
+        maxRate=mstBuff.maxRate,
     )
 
 
