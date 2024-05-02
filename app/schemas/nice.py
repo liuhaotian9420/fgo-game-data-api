@@ -2232,6 +2232,16 @@ class NiceQuestPhaseScript(BaseModelORJson):
     scripts: list[ScriptLink]
 
 
+class NiceQuestPhasePresent(BaseModelORJson):
+    phase: int
+    gifts: list[NiceGift]
+    giftIcon: HttpUrl | None = None
+    condType: NiceCondType = NiceCondType.none
+    condId: int = 0
+    condNum: int = 0
+    originalScript: dict[str, Any] = {}
+
+
 class NiceQuest(BaseModelORJson):
     id: int
     name: str
@@ -2254,6 +2264,7 @@ class NiceQuest(BaseModelORJson):
     gifts: list[NiceGift] = []
     releaseConditions: list[NiceQuestRelease] = []
     releaseOverwrites: list[NiceQuestReleaseOverwrite] = []
+    presents: list[NiceQuestPhasePresent] = []
     phases: list[int]
     phasesWithEnemies: list[int] = Field(
         [],
@@ -2306,6 +2317,7 @@ class EnemyScript(BaseModelORJson):
     npInfoEnable: Optional[bool]
     npCharge: Optional[int]
     NoSkipDead: Optional[bool]
+    probability_type: int | None
 
 
 class EnemyInfoScript(BaseModelORJson):

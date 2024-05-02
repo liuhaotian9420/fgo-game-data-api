@@ -1015,6 +1015,13 @@ class Trait(StrEnum):
     magicBulletAtkBuff = "magicBulletAtkBuff"
     demeritFunction = "demeritFunction"
     extraBuff = "extraBuff"
+    robinCounter = "robinCounter"
+    kuonjiAliceHasSkill3 = "kuonjiAliceHasSkill3"
+    kuonjiAliceStage3 = "kuonjiAliceStage3"
+    instantDeathFunction = "instantDeathFunction"
+    forceInstantDeathFunction = "forceInstantDeathFunction"
+    buffGutsOnInstantDeath = "buffGutsOnInstantDeath"
+    robinAllGone = "robinAllGone"
 
     @classmethod
     def _missing_(cls, value: object):
@@ -1214,9 +1221,14 @@ TRAIT_NAME: dict[int, Trait] = {
     2883: Trait.FSNServant,
     2884: Trait.fieldDarkness,
     2885: Trait.magicBullet,
+    2886: Trait.robinCounter,
+    2887: Trait.robinAllGone,
     2888: Trait.protagonistCorrection,
+    2903: Trait.kuonjiAliceStage3,
     2911: Trait.normalAokoBuff,
     2912: Trait.magicBulletAtkBuff,
+    2913: Trait.kuonjiAliceHasSkill3,
+    2914: Trait.buffGutsOnInstantDeath,
     # 2xxx: CQ or Story quests buff
     3000: Trait.attackPhysical,  # Normal attack, including NP
     3001: Trait.attackProjectile,
@@ -1296,6 +1308,8 @@ TRAIT_NAME: dict[int, Trait] = {
     3092: Trait.artsBuff,
     3093: Trait.busterBuff,
     3094: Trait.quickBuff,
+    3096: Trait.instantDeathFunction,
+    3097: Trait.forceInstantDeathFunction,
     3098: Trait.demeritFunction,
     3100: Trait.extraBuff,
     # 6016: No detail

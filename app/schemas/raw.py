@@ -1168,6 +1168,7 @@ class MstEventMission(BaseModelORJson):
     rewardRarity: int
     notfyPriority: int
     presentMessageId: int
+    giftIconId: int | None = None
 
 
 class MstEventMissionCondition(BaseModelORJson):
@@ -1945,6 +1946,7 @@ class MstQuestPhasePresent(BaseModelORJson):
     questId: int
     phase: int
     giftId: int
+    giftIconId: int
     presentMessageId: int
     condType: int
     condId: int
@@ -2213,6 +2215,7 @@ class QuestEntity(BaseModelORJson):
     mstClosedMessage: list[MstClosedMessage]
     mstGift: list[MstGift]
     mstGiftAdd: list[MstGiftAdd]
+    mstQuestPhasePresent: list[MstQuestPhasePresent] = []
     mstItem: list[MstItem] = []
     phases: list[int]
     phasesWithEnemies: list[int] = []

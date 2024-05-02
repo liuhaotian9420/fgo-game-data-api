@@ -48,6 +48,7 @@ from ...schemas.nice import (
     NiceQuestHint,
     NiceQuestMessage,
     NiceQuestPhase,
+    NiceQuestPhasePresent,
     NiceQuestPhaseRestriction,
     NiceQuestPhaseScript,
     NiceQuestRelease,
@@ -65,8 +66,10 @@ from ...schemas.raw import (
     MstBlankEarthSpot,
     MstClosedMessage,
     MstGift,
+    MstGiftAdd,
     MstQuestHint,
     MstQuestMessage,
+    MstQuestPhasePresent,
     MstQuestRelease,
     MstQuestReleaseOverwrite,
     MstQuestRestriction,
@@ -263,6 +266,37 @@ def get_nice_all_scripts(
     ]
 
 
+def get_nice_quest_present(
+    region: Region,
+    quest_present: MstQuestPhasePresent,
+    gifts: list[MstGift],
+    gift_adds: list[MstGiftAdd],
+    gift_maps: dict[int, list[MstGift]],
+) -> NiceQuestPhasePresent:
+    return NiceQuestPhasePresent(
+        phase=quest_present.phase,
+        gifts=[
+            get_nice_gift(region, gift, gift_adds, gift_maps)
+            for gift in gifts
+            if gift.id == quest_present.giftId
+        ],
+        giftIcon=(
+            fmt_url(
+                AssetURL.items,
+                base_url=settings.asset_url,
+                region=region,
+                item_id=quest_present.giftIconId,
+            )
+            if quest_present.giftIconId != 0
+            else None
+        ),
+        condType=COND_TYPE_NAME[quest_present.condType],
+        condId=quest_present.condId,
+        condNum=quest_present.condNum,
+        originalScript=quest_present.script,
+    )
+
+
 def get_nice_quest_with_war_spot(
     region: Region,
     raw_quest: Union[QuestEntity, QuestPhaseEntity],
@@ -324,6 +358,16 @@ def get_nice_quest_with_war_spot(
         "releaseOverwrites": [
             get_nice_quest_release_overwrite(release, raw_quest.mstClosedMessage)
             for release in raw_quest.mstQuestReleaseOverwrite
+        ],
+        "presents": [
+            get_nice_quest_present(
+                region,
+                quest_present,
+                raw_quest.mstGift,
+                raw_quest.mstGiftAdd,
+                gift_maps,
+            )
+            for quest_present in raw_quest.mstQuestPhasePresent
         ],
         "phases": sorted(raw_quest.phases),
         "phasesWithEnemies": sorted(raw_quest.phasesWithEnemies),
@@ -674,7 +718,7 @@ async def get_nice_quest_phase(
                         rayshift_quest_details[0],
                         rayshift_quest_drops,
                         lang,
-                        include_spawn_bonus_enemy=questHash is not None,
+                        include_spawn_bonus_enemy=True,
                     )
                 nice_quest_drops = [
                     get_nice_drop(drop)
@@ -738,7 +782,7 @@ async def get_nice_quest_phase(
             all_hashes=all_rayshift_hashes,
         )
 
-        TTL_SCALE = 12
+        TTL_SCALE = 6
         if quest_already_closed:
             ttl = None
         elif (
@@ -746,7 +790,7 @@ async def get_nice_quest_phase(
             < current_time - db_data.nice.openedAt
             < settings.quest_cache_length * TTL_SCALE
         ):
-            ttl = (current_time - db_data.nice.openedAt) // TTL_SCALE
+            ttl = min((current_time - db_data.nice.openedAt) // TTL_SCALE, 60)
         else:
             ttl = settings.quest_cache_length
 
