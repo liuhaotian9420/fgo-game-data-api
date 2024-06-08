@@ -24,7 +24,7 @@ from .redis import Redis
 from .routers import basic, nice, raw, secret
 from .routers.deps import get_redis
 from .schemas.common import Region, RepoInfo
-from .tasks import load_and_export
+from .zstd import zstd_compress, zstd_decompress
 
 
 settings = Settings()
@@ -293,16 +293,17 @@ class RedisBackend:  # pragma: no cover
 class PickleCoder:  # pragma: no cover
     @classmethod
     def encode(cls, value: Any) -> bytes:
-        return pickle.dumps(value)
+        picked = pickle.dumps(value, protocol=pickle.HIGHEST_PROTOCOL)
+        return zstd_compress(picked)
 
     @classmethod
     def decode(cls, value: bytes) -> Any:
-        return pickle.loads(value)
+        return pickle.loads(zstd_decompress(value))
 
 
 @app.on_event("startup")
 async def startup() -> None:
-    redis = await Redis.from_url(settings.redisdsn)
+    redis = await Redis.from_url(str(settings.redisdsn))
     FastAPICache.init(
         RedisBackend(redis),  # type: ignore
         prefix=f"{settings.redis_prefix}:cache",
@@ -311,14 +312,6 @@ async def startup() -> None:
         coder=PickleCoder,  # type: ignore
     )
     app.state.redis = redis
-
-    region_pathes = {
-        region: region_data.gamedata
-        for region, region_data in settings.data.items()
-        if region == Region.JP
-    }
-
-    await load_and_export(redis, region_pathes, async_engines, False)
 
 
 @app.on_event("shutdown")

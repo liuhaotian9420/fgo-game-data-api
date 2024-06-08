@@ -5,6 +5,7 @@ from ...config import Settings
 from ...schemas.base import BaseModelORJson
 from ...schemas.common import Language, Region
 from ...schemas.nice import EnemyDrop, NiceStage, QuestEnemy
+from ...zstd import zstd_compress, zstd_decompress
 from .. import Redis
 
 
@@ -40,10 +41,12 @@ async def get_stages_cache(
     hash: str | None = None,
 ) -> Optional[RayshiftRedisData]:
     redis_key = get_redis_cache_key(region, quest_id, phase, hash, lang)
-    redis_data = await redis.get(redis_key)
 
-    if redis_data:
-        return cast(RayshiftRedisData, pickle.loads(redis_data))
+    if redis_data := await redis.get(redis_key):
+        return cast(RayshiftRedisData, pickle.loads(zstd_decompress(redis_data)))
+
+    if redis_data := await redis.get(f"{redis_key}:heavy"):
+        return cast(RayshiftRedisData, pickle.loads(zstd_decompress(redis_data)))
 
     return None
 
@@ -59,7 +62,14 @@ async def set_stages_cache(
     ttl: int | None = None,
 ) -> None:
     redis_key = get_redis_cache_key(region, quest_id, phase, hash_, lang)
-    redis_data = pickle.dumps(data)
+    if (
+        data.quest_drops
+        and data.quest_drops[0].runs > settings.quest_heavy_cache_threshold
+    ):
+        redis_key = f"{redis_key}:heavy"
+
+    redis_data = zstd_compress(pickle.dumps(data, protocol=pickle.HIGHEST_PROTOCOL))
+
     if ttl is None:
         await redis.set(redis_key, redis_data)
     else:
