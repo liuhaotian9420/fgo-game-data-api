@@ -413,7 +413,14 @@ class BaseVals(BaseModel):
     BgmAllowSubPlaying: int | None = None
     BgPriority: int | None = None
     PriorityBg: int | None = None
-    ResetBgmPriorityAtWaveStart: int | None = None
+    ResetPriorityBgmAtWaveStart: int | None = None
+    ControlOtherBgmAtOverStageBgm_Priority: int | None = None
+    ControlOtherBgmAtOverStageBgm_Target: int | None = None
+    ExtendBuffHalfTurnInOpponentTurn: int | None = None
+    ShortenBuffHalfTurnInOpponentTurn: int | None = None
+    ExtendBuffHalfTurnInPartyTurn: int | None = None
+    ShortenBuffHalfTurnInPartyTurn: int | None = None
+    LinkageBuffGrantSuccessEvenIfOtherFailed: int | None = None
     # Extra dataval from SkillLvEntty.DIC_KEY_APPLY_SUPPORT_SVT
     ApplySupportSvt: Optional[int] = None
     # These are not DataVals but guesses from SkillLvEntity and EventDropUpValInfo
@@ -1087,6 +1094,26 @@ class NiceLoreStats(BaseModel):
     deity: NiceStatusRank = NiceStatusRank.none
 
 
+class NiceSvtLimit(BaseModelORJson):
+    limitCount: int
+    rarity: int
+    lvMax: int
+    hpBase: int
+    hpMax: int
+    atkBase: int
+    atkMax: int
+    criticalWeight: int
+    strength: NiceStatusRank
+    endurance: NiceStatusRank
+    agility: NiceStatusRank
+    magic: NiceStatusRank
+    luck: NiceStatusRank
+    np: NiceStatusRank
+    deity: NiceStatusRank
+    policy: ServantPolicy
+    personality: ServantPersonality
+
+
 class NiceVoiceCond(BaseModel):
     condType: NiceVoiceCondType = Field(
         ..., title="Voice Cond Type", description="Voice Condition Type Enum"
@@ -1391,6 +1418,12 @@ class NiceServant(BaseModelORJson):
         None,
         title="Valentine Servant ID",
         description="Servant ID if this CE is a valentine CE",
+    )
+    limits: list[NiceSvtLimit] = Field(
+        [],
+        title="Svt Limit",
+        description="Ascension and Costume data.",
+        exclude=True,
     )
     ascensionAdd: AscensionAdd = Field(
         ...,
