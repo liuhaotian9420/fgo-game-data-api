@@ -1102,22 +1102,22 @@ class NiceLoreStats(BaseModel):
 
 class NiceSvtLimit(BaseModelORJson):
     limitCount: int
-    rarity: int
-    lvMax: int
-    hpBase: int
-    hpMax: int
-    atkBase: int
-    atkMax: int
-    criticalWeight: int
-    strength: NiceStatusRank
-    endurance: NiceStatusRank
-    agility: NiceStatusRank
-    magic: NiceStatusRank
-    luck: NiceStatusRank
-    np: NiceStatusRank
-    deity: NiceStatusRank
-    policy: ServantPolicy
-    personality: ServantPersonality
+    rarity: int | None = None
+    lvMax: int | None = None
+    hpBase: int | None = None
+    hpMax: int | None = None
+    atkBase: int | None = None
+    atkMax: int | None = None
+    criticalWeight: int | None = None
+    strength: NiceStatusRank | None = None
+    endurance: NiceStatusRank | None = None
+    agility: NiceStatusRank | None = None
+    magic: NiceStatusRank | None = None
+    luck: NiceStatusRank | None = None
+    np: NiceStatusRank | None = None
+    deity: NiceStatusRank | None = None
+    policy: ServantPolicy | None = None
+    personality: ServantPersonality | None = None
 
 
 class NiceVoiceCond(BaseModel):
