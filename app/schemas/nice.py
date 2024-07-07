@@ -1697,8 +1697,8 @@ class NiceShop(BaseModelORJson):
         [], title="Common Consume", description="If payType is commonConsume"
     )
     freeShopConds: list[NiceCommonRelease] = Field([], title="Free Shop Conditions")
-    freeShopReleaseDate: int | None = None
-    freeShopCondMessage: str | None = None
+    freeShopReleaseDate: int | None = 0
+    freeShopCondMessage: str | None = ""
     purchaseType: NicePurchaseType = Field(
         ..., title="Reward Type", description="Type of items to be received."
     )

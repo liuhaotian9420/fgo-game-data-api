@@ -1102,7 +1102,7 @@ class MstCompleteMission(BaseModelORJson):
 
 
 class MstMasterMission(BaseModelORJson):
-    script: dict[str, Any] | None = None
+    script: dict[str, Any] | None = {}
     id: int
     priority: int = 0
     startedAt: int
