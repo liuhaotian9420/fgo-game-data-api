@@ -628,6 +628,7 @@ mstSvtLimitAdd = Table(
     Column("battleCharaOffsetZ", Integer),
     Column("svtVoiceId", Integer),
     Column("voicePrefix", Integer),
+    Column("attri", Integer),
 )
 
 
@@ -839,6 +840,7 @@ mstSvtMultiPortrait = Table(
     Column("svtId", Integer, index=True),
     Column("limitCount", Integer),
     Column("idx", Integer),
+    Column("type", Integer),
     Column("portraitImageId", Integer),
     Column("displayPriority", Integer),
 )
@@ -1338,6 +1340,7 @@ mstEventVoicePlay = Table(
 mstMasterMission = Table(
     "mstMasterMission",
     metadata,
+    Column("script", JSONB),
     Column("id", Integer),
     Column("priority", Integer, default=0),
     Column("startedAt", BigInteger),
@@ -1672,6 +1675,40 @@ mstEventFortificationSvt = Table(
     Column("lv", Integer),
     Column("commonReleaseId", Integer),
 )
+
+
+mstEventTradeGoods = Table(
+    "mstEventTradeGoods",
+    metadata,
+    Column("voiceData", JSONB),
+    Column("id", Integer, primary_key=True),
+    Column("eventId", Integer, index=True),
+    Column("name", String),
+    Column("goodsIconId", Integer),
+    Column("giftId", Integer),
+    Column("commonConsumeId", Integer),
+    Column("eventPointNum", Integer),
+    Column("eventPointItemId", Integer),
+    Column("tradeTime", Integer),
+    Column("maxNum", Integer),
+    Column("maxTradeTime", Integer),
+    Column("presentMessageId", Integer),
+    Column("commonReleaseId", Integer),
+    Column("closedMessage", String),
+)
+
+
+mstEventTradePickup = Table(
+    "mstEventTradePickup",
+    metadata,
+    Column("tradeGoodsId", Integer, index=True),
+    Column("startedAt", Integer),
+    Column("endedAt", Integer),
+    Column("eventId", Integer, index=True),
+    Column("pickupIconId", Integer),
+    Column("tradeTimeRate", Integer),
+)
+
 
 mstEventAlloutBattle = Table(
     "mstEventAlloutBattle",
@@ -2759,6 +2796,7 @@ TABLES_TO_BE_LOADED = [
     [mstEventBulletinBoard, mstEventBulletinBoardRelease],
     [mstEventRecipe, mstEventRecipeGift],
     [mstEventFortification, mstEventFortificationDetail, mstEventFortificationSvt],
+    [mstEventTradeGoods, mstEventTradePickup],
     [mstEventSvt],
     [mstVoice],
     [mstVoicePlayCond],

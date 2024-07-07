@@ -1964,3 +1964,15 @@ export enum NiceAiAllocationSvtFlag {
     FRIEND = "friend",
     NPC = "npc",
 }
+
+export enum NiceSvtMultiPortraitType {
+    NONE = "none",
+    COMBINE = "combine",
+    LIMIT_UP = "limitUp",
+}
+
+export enum NiceNpcFollowerEntityFlag {
+    RECOMMENDED_ICON = "recommendedIcon",
+    IS_MY_SVT_OR_NPC = "isMySvtOrNpc",
+    FIXED_NPC = "fixedNpc",
+}

@@ -120,6 +120,8 @@ from ..schemas.raw import (
     MstEventRewardSet,
     MstEventSvt,
     MstEventTower,
+    MstEventTradeGoods,
+    MstEventTradePickup,
     MstEventVoicePlay,
     MstFriendship,
     MstFunc,
@@ -1081,6 +1083,7 @@ async def get_event_entity(conn: AsyncConnection, event_id: int) -> EventEntity:
     shop_ids = [shop.id for shop in shops]
     shop_scripts = await fetch.get_all_multiple(conn, MstShopScript, shop_ids)
     shop_releases = await fetch.get_all_multiple(conn, MstShopRelease, shop_ids)
+    shop_release_ids = {shop.freeShopCondId for shop in shops if shop.freeShopCondId}
 
     rewards = await fetch.get_all(conn, MstEventReward, event_id)
 
@@ -1129,6 +1132,8 @@ async def get_event_entity(conn: AsyncConnection, event_id: int) -> EventEntity:
         | {svt.commonReleaseId for svt in fortification_servants}
     )
 
+    trade_goods = await fetch.get_all(conn, MstEventTradeGoods, event_id)
+
     warboards = await fetch.get_all(conn, MstWarBoard, event_id)
     warboard_stages = await fetch.get_all_multiple(
         conn, MstWarBoardStage, {w.id for w in warboards}
@@ -1162,6 +1167,8 @@ async def get_event_entity(conn: AsyncConnection, event_id: int) -> EventEntity:
         | fortification_release_ids
         | command_assist_release_ids
         | event_svt_release_ids
+        | shop_release_ids
+        | {trade.commonReleaseId for trade in trade_goods}
     )
     common_releases = await fetch.get_all_multiple(
         conn, MstCommonRelease, common_release_ids
@@ -1172,6 +1179,7 @@ async def get_event_entity(conn: AsyncConnection, event_id: int) -> EventEntity:
         | digging_consume_ids
         | {box.commonConsumeId for box in treasure_boxes}
         | {recipe.commonConsumeId for recipe in recipes}
+        | {trade.commonConsumeId for trade in trade_goods}
     )
     common_consumes = await fetch.get_all_multiple(
         conn, MstCommonConsume, common_consume_ids
@@ -1194,6 +1202,7 @@ async def get_event_entity(conn: AsyncConnection, event_id: int) -> EventEntity:
         | {recipe_gift.giftId for recipe_gift in recipe_gifts}
         | digging_gift_ids
         | {fortification.giftId for fortification in fortifications}
+        | {trade.giftId for trade in trade_goods}
         | {w.giftId for w in warboard_treasures}
     )
 
@@ -1206,6 +1215,7 @@ async def get_event_entity(conn: AsyncConnection, event_id: int) -> EventEntity:
         {get_shop_cost_item_id(shop) for shop in shops}
         | {lottery.payTargetId for lottery in box_gachas}
         | {recipe.eventPointItemId for recipe in recipes}
+        | {trade.eventPointItemId for trade in trade_goods}
     )
     if digging:
         item_ids |= {digging.eventPointItemId}
@@ -1256,6 +1266,8 @@ async def get_event_entity(conn: AsyncConnection, event_id: int) -> EventEntity:
         mstEventFortification=fortifications,
         mstEventFortificationDetail=fortification_details,
         mstEventFortificationSvt=fortification_servants,
+        mstEventTradeGoods=trade_goods,
+        mstEventTradePickup=await fetch.get_all(conn, MstEventTradePickup, event_id),
         mstEventQuest=await fetch.get_all(conn, MstEventQuest, event_id),
         mstEventCampaign=await fetch.get_all_multiple(
             conn, MstEventCampaign, [event_id]
@@ -1474,6 +1486,11 @@ async def get_shop_entities(
         conn, MstCommonConsume, common_consume_ids
     )
 
+    common_release_ids = {shop.freeShopCondId for shop in shops if shop.freeShopCondId}
+    common_releases = await fetch.get_all_multiple(
+        conn, MstCommonRelease, common_release_ids
+    )
+
     set_item_ids = {
         set_id
         for shop in shops
@@ -1538,6 +1555,11 @@ async def get_shop_entities(
                     if shop.payType == PayType.COMMON_CONSUME
                     else []
                 ),
+                mstCommonRelease=[
+                    release
+                    for release in common_releases
+                    if release.id == shop.freeShopCondId
+                ],
                 mstGift=gifts,
                 mstGiftAdd=gift_adds,
             )

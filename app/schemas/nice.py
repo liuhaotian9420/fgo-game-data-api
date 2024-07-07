@@ -71,6 +71,7 @@ from .gameenums import (
     NiceMissionProgressType,
     NiceMissionRewardType,
     NiceMissionType,
+    NiceNpcFollowerEntityFlag,
     NiceNpcServantFollowerFlag,
     NicePayType,
     NicePurchaseType,
@@ -665,6 +666,7 @@ class NiceSkillScript(BaseModel):
     actRarity: list[list[int]] | None = None
     battleStartRemainingTurn: list[int] | None = None
     SelectAddInfo: list[NiceSelectAddInfo] | None = None
+    IgnoreValueUp: list[bool] | None = None
 
 
 class NiceSkillAdd(BaseModelORJson):
@@ -895,6 +897,8 @@ class ExtraAssets(ExtraCCAssets):
     charaFigure: ExtraAssetsUrl
     charaFigureForm: dict[int, ExtraAssetsUrl]
     charaFigureMulti: dict[int, ExtraAssetsUrl]
+    charaFigureMultiCombine: dict[int, ExtraAssetsUrl]
+    charaFigureMultiLimitUp: dict[int, ExtraAssetsUrl]
     commands: ExtraAssetsUrl
     status: ExtraAssetsUrl
     equipFace: ExtraAssetsUrl
@@ -960,9 +964,11 @@ class AscensionAddEntryCommonRelease(BaseModel):
 AscensionAddEntryInt = AscensionAddEntry[int]
 AscensionAddEntryStr = AscensionAddEntry[str]
 AscensionAddEntryHttpUrl = AscensionAddEntry[HttpUrl]
+AscensionAddEntryAttribte = AscensionAddEntry[Attribute]
 
 
 class AscensionAdd(BaseModel):
+    attribute: AscensionAddEntryAttribte
     individuality: AscensionAddEntryTrait = Field(
         ...,
         title="Individuality changes",
@@ -1690,6 +1696,9 @@ class NiceShop(BaseModelORJson):
     consumes: list[NiceCommonConsume] = Field(
         [], title="Common Consume", description="If payType is commonConsume"
     )
+    freeShopConds: list[NiceCommonRelease] = Field([], title="Free Shop Conditions")
+    freeShopReleaseDate: int | None = None
+    freeShopCondMessage: str | None = None
     purchaseType: NicePurchaseType = Field(
         ..., title="Reward Type", description="Type of items to be received."
     )
@@ -2042,6 +2051,31 @@ class NiceEventFortification(BaseModelORJson):
     servants: list[NiceEventFortificationSvt]
 
 
+class NiceEventTradePickup(BaseModelORJson):
+    startedAt: int
+    endedAt: int
+    # pickupIconId: int
+    tradeTimeRate: int
+
+
+class NiceEventTradeGoods(BaseModelORJson):
+    id: int
+    name: str
+    goodsIcon: HttpUrl
+    gifts: list[NiceGift]
+    consumes: list[NiceCommonConsume]
+    eventPointNum: int
+    eventPointItem: NiceItem
+    tradeTime: int
+    maxNum: int
+    maxTradeTime: int
+    # presentMessageId: int
+    releaseConditions: list[NiceCommonRelease] = []
+    closedMessage: str = ""
+    # voiceData: dict[str,Any]
+    pickups: list[NiceEventTradePickup] = []
+
+
 class NiceEventRewardSceneGuide(BaseModelORJson):
     imageId: int
     limitCount: int = 0
@@ -2213,6 +2247,7 @@ class NiceEvent(BaseModelORJson):
     digging: NiceEventDigging | None = None
     cooltime: NiceEventCooltime | None = None
     fortifications: list[NiceEventFortification] = []
+    tradeGoods: list[NiceEventTradeGoods] = []
     campaigns: list[NiceEventCampaign] = []
     campaignQuests: list[NiceEventQuest] = []
     commandAssists: list[NiceEventCommandAssist] = []
@@ -2646,6 +2681,7 @@ class SupportServant(BaseModelORJson):
     skills: EnemySkill
     noblePhantasm: SupportServantTd
     flags: list[NiceNpcServantFollowerFlag]
+    followerFlags: list[NiceNpcFollowerEntityFlag]
     equips: list[SupportServantEquip]
     script: SupportServantScript
     limit: SupportServantLimit
