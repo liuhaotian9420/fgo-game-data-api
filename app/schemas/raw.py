@@ -395,40 +395,20 @@ class MstSvtIndividuality(BaseModelORJson):
     endedAt: Optional[int] = None
 
 
-class MstSvtExtra(BaseModelORJson):
-    svtId: int
-    zeroLimitOverwriteName: Optional[str] = None
-    bondEquip: int
-    bondEquipOwner: Optional[int] = None
-    valentineEquip: list[int]
-    valentineScript: list[NiceValentineScript]
-    valentineEquipOwner: Optional[int] = None
-    costumeLimitSvtIdMap: dict[int, NiceCostume] = {}  # Map<costume limit, NiceCostume>
-
-
-class MstSvtCard(BaseModelORJson):
-    normalDamage: list[int]  # [4, 9, 14, 19, 23, 31],
-    singleDamage: list[int]  # [4, 9, 14, 19, 23, 31],
-    trinityDamage: list[int]  # [4, 9, 14, 19, 23, 31],
-    unisonDamage: list[int]  # [4, 9, 14, 19, 23, 31],
-    grandDamage: list[int]  # [4, 9, 14, 19, 23, 31],
-    attackIndividuality: list[int]  # [3000],
-    svtId: int  # 5009941050,
-    cardId: int  # 5001,
-    motion: int  # 50010,
-    attackType: int  # 5001
-
-
-class MstSvtCardAdd(BaseModelORJson):
-    svtId: int
-    cardId: int
-    script: str
-
-
-class BasicMstSvtLimit(BaseModelORJson):
-    rarity: int
-    hpMax: int
-    atkMax: int
+class MstSvtLimitAdd(BaseModelORJson):
+    individuality: list[int]  # [],
+    script: dict[str, Any]  # {},
+    svtId: int  # 102900,
+    limitCount: int  # 11,
+    battleCharaId: int  # 102930,
+    fileConvertLimitCount: int  # 0,
+    battleCharaLimitCount: int  # 2,
+    battleCharaOffsetX: int  # 0,
+    battleCharaOffsetY: int  # 0,
+    battleCharaOffsetZ: int
+    svtVoiceId: int  # 102900,
+    voicePrefix: int  # 11
+    attri: int | None = None
 
 
 class MstSvtLimit(BaseModelORJson):
@@ -456,6 +436,45 @@ class MstSvtLimit(BaseModelORJson):
     deity: int  # 99
     stepProbability: int  # 1000
     strParam: str  #  "{\"Attack_s1\":285}"
+
+
+class MstSvtExtra(BaseModelORJson):
+    svtId: int
+    mstSvt: MstSvt
+    zeroLimitOverwriteName: Optional[str] = None
+    bondEquip: int
+    bondEquipOwner: Optional[int] = None
+    valentineEquip: list[int]
+    valentineScript: list[NiceValentineScript]
+    valentineEquipOwner: Optional[int] = None
+    costumeLimitSvtIdMap: dict[int, NiceCostume] = {}  # Map<costume limit, NiceCostume>
+    limitAdds: list[MstSvtLimitAdd] = []
+    limits: list[MstSvtLimit] = []
+
+
+class MstSvtCard(BaseModelORJson):
+    normalDamage: list[int]  # [4, 9, 14, 19, 23, 31],
+    singleDamage: list[int]  # [4, 9, 14, 19, 23, 31],
+    trinityDamage: list[int]  # [4, 9, 14, 19, 23, 31],
+    unisonDamage: list[int]  # [4, 9, 14, 19, 23, 31],
+    grandDamage: list[int]  # [4, 9, 14, 19, 23, 31],
+    attackIndividuality: list[int]  # [3000],
+    svtId: int  # 5009941050,
+    cardId: int  # 5001,
+    motion: int  # 50010,
+    attackType: int  # 5001
+
+
+class MstSvtCardAdd(BaseModelORJson):
+    svtId: int
+    cardId: int
+    script: str
+
+
+class BasicMstSvtLimit(BaseModelORJson):
+    rarity: int
+    hpMax: int
+    atkMax: int
 
 
 class MstSvtComment(BaseModelORJson):
@@ -732,22 +751,6 @@ class MstSetItem(BaseModelORJson):
 
 class ItemEntity(BaseModelORJson):
     mstItem: MstItem
-
-
-class MstSvtLimitAdd(BaseModelORJson):
-    individuality: list[int]  # [],
-    script: dict[str, Any]  # {},
-    svtId: int  # 102900,
-    limitCount: int  # 11,
-    battleCharaId: int  # 102930,
-    fileConvertLimitCount: int  # 0,
-    battleCharaLimitCount: int  # 2,
-    battleCharaOffsetX: int  # 0,
-    battleCharaOffsetY: int  # 0,
-    battleCharaOffsetZ: int
-    svtVoiceId: int  # 102900,
-    voicePrefix: int  # 11
-    attri: int | None = None
 
 
 class MstSvtLimitImage(BaseModelORJson):

@@ -52,11 +52,11 @@ async def load_svt_extra_redis(
 ) -> None:
     redis_key = f"{REDIS_DATA_PREFIX}:{region.name}:mstSvtExtra"
     svtExtra_redis_data = {
-        str(svtExtra.svtId): zstd_compress(svtExtra.json().encode("utf-8"))
+        str(svtExtra.svtId): zstd_compress(svtExtra.model_dump_json().encode("utf-8"))
         for svtExtra in svtExtras
     }
     await redis.delete(redis_key)
-    await redis.hset(redis_key, mapping=svtExtra_redis_data)
+    await redis.hset(redis_key, mapping=svtExtra_redis_data)  # type: ignore[arg-type]
 
 
 async def load_mstBuff(
@@ -69,26 +69,7 @@ async def load_mstBuff(
             k: zstd_compress(v.json().encode("utf-8")) for k, v in mstBuff_data.items()
         }
         await redis.delete(redis_key)
-        await redis.hset(redis_key, mapping=mstBuff_redis)
-
-
-async def load_mstSvtLimit(
-    redis: Redis, region_path: dict[Region, DirectoryPath], redis_prefix: str
-) -> None:
-    for region, master_folder in region_path.items():
-        mstSvtLimit_json = master_folder / "master" / "mstSvtLimit.json"
-        if mstSvtLimit_json.exists():
-            with open(mstSvtLimit_json, "rb") as fp:
-                mstSvtLimit_data: list[dict[str, Any]] = orjson.loads(fp.read())
-            redis_data = {
-                f'{item["svtId"]}:{item["limitCount"]}': zstd_compress(
-                    orjson.dumps(item)
-                )
-                for item in mstSvtLimit_data
-            }
-            redis_key = f"{redis_prefix}:{region.name}:mstSvtlimit"
-            await redis.delete(redis_key)
-            await redis.hset(redis_key, mapping=redis_data)
+        await redis.hset(redis_key, mapping=mstBuff_redis)  # type: ignore[arg-type]
 
 
 @dataclass
@@ -120,7 +101,7 @@ async def load_reverse_data(
             }
             redis_key = f"{redis_prefix}:{region.name}:{data.key.name}"
             await redis.delete(redis_key)
-            await redis.hset(redis_key, mapping=redis_data)
+            await redis.hset(redis_key, mapping=redis_data)  # type: ignore[arg-type]
 
 
 async def load_redis_data(
@@ -130,7 +111,6 @@ async def load_redis_data(
     start_loading_time = time.perf_counter()
 
     await load_pydantic_object(redis, region_path, REDIS_DATA_PREFIX)
-    await load_mstSvtLimit(redis, region_path, REDIS_DATA_PREFIX)
     await load_mstBuff(redis, region_path, REDIS_DATA_PREFIX)
     await load_reverse_data(redis, region_path, REDIS_DATA_PREFIX)
 
