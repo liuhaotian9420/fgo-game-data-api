@@ -1146,14 +1146,14 @@ class NiceSvtLimit(BaseModelORJson):
 class NiceBattlePointPhase(BaseModelORJson):
     phase: int
     value: int
-    name: str
-    effectId: int
+    name: str = ""
+    effectId: int = 0
 
 
 class NiceBattlePoint(BaseModelORJson):
     id: int
-    flags: list[NiceBattlePointFlag]
-    phases: list[NiceBattlePointPhase]
+    flags: list[NiceBattlePointFlag] = []
+    phases: list[NiceBattlePointPhase] = []
 
 
 class NiceVoiceCond(BaseModel):
@@ -1510,7 +1510,7 @@ class NiceServant(BaseModelORJson):
         description="Random stuffs that get added to the servant entry. "
         "See each field description for more details.",
     )
-    battlePoints: list[NiceBattlePoint]
+    battlePoints: list[NiceBattlePoint] = []
     skills: list[NiceSkill] = Field(
         ..., title="Skills", description="List of servant or CE skills."
     )
