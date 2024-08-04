@@ -45,6 +45,7 @@ from .gameenums import (
     NiceAiAllocationSvtFlag,
     NiceAiCond,
     NiceBattleFieldEnvironmentGrantType,
+    NiceBattlePointFlag,
     NiceBuffType,
     NiceCardType,
     NiceClassBoardSkillType,
@@ -690,6 +691,7 @@ class NiceSkillScript(BaseModel):
     battleStartRemainingTurn: list[int] | None = None
     SelectAddInfo: list[NiceSelectAddInfo] | None = None
     IgnoreValueUp: list[bool] | None = None
+    IgnoreBattlePointUp: list[list[int]] | None = None
 
 
 class NiceSkillAdd(BaseModelORJson):
@@ -1141,6 +1143,19 @@ class NiceSvtLimit(BaseModelORJson):
     personality: ServantPersonality | None = None
 
 
+class NiceBattlePointPhase(BaseModelORJson):
+    phase: int
+    value: int
+    name: str
+    effectId: int
+
+
+class NiceBattlePoint(BaseModelORJson):
+    id: int
+    flags: list[NiceBattlePointFlag]
+    phases: list[NiceBattlePointPhase]
+
+
 class NiceVoiceCond(BaseModel):
     condType: NiceVoiceCondType = Field(
         ..., title="Voice Cond Type", description="Voice Condition Type Enum"
@@ -1495,6 +1510,7 @@ class NiceServant(BaseModelORJson):
         description="Random stuffs that get added to the servant entry. "
         "See each field description for more details.",
     )
+    battlePoints: list[NiceBattlePoint]
     skills: list[NiceSkill] = Field(
         ..., title="Skills", description="List of servant or CE skills."
     )
@@ -2746,6 +2762,7 @@ class NiceQuestPhaseExtraDetail(BaseModelORJson):
     waveSetup: int | None = None  # U Olga Marie Quest
     interruptibleQuest: int | None = None
     masterImageId: int | None = None
+    IgnoreBattlePointUp: list[int] | None = None
 
 
 class NiceRestriction(BaseModelORJson):
