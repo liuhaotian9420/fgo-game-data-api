@@ -3092,3 +3092,4 @@ class NiceGacha(BaseModelORJson):
     detailUrl: str
     flags: list[NiceGachaFlag] = []
     storyAdjusts: list[GachaStoryAdjust] = []
+    featuredSvtIds: list[int] = []
