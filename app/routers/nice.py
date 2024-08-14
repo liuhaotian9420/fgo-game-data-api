@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Response
+from fastapi import APIRouter, Depends, HTTPException, Query, Response
 from fastapi_cache.decorator import cache
 
 from ..config import Settings, logger
@@ -102,6 +102,8 @@ async def find_servant(
     lore: bool = False,
 ) -> Response:
     async with get_db(search_param.region) as conn:
+        if not search_param.excludeCollectionNo:
+            search_param.excludeCollectionNo = [0]
         matches = await search.search_servant(conn, search_param)
         return list_response(
             [
@@ -920,13 +922,16 @@ async def get_ai_field(
 async def get_bgm(
     region: Region,
     bgm_id: int,
+    fileName: str | None = Query(None, max_length=999),
     lang: Language = Depends(language_parameter),
 ) -> Response:
     """
     Get the BGM data from the given BGM ID
     """
     async with get_db(region) as conn:
-        return item_response(await bgm.get_nice_bgm_entity(conn, region, bgm_id, lang))
+        return item_response(
+            await bgm.get_nice_bgm_entity(conn, region, bgm_id, lang, fileName)
+        )
 
 
 @router.get(

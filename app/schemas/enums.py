@@ -362,11 +362,19 @@ class SvtClass(StrEnum):
     uOlgaMarieFlareCollection = "uOlgaMarieFlareCollection"
     uOlgaMarieAquaCollection = "uOlgaMarieAquaCollection"
     beastEresh = "beastEresh"
+    grandSaber = "grandSaber"
+    grandArcher = "grandArcher"
+    grandLancer = "grandLancer"
+    grandRider = "grandRider"
+    grandAssassin = "grandAssassin"
+    grandBerserker = "grandBerserker"
     atlasUnmappedClass = "atlasUnmappedClass"
     OTHER = "OTHER"
     ALL = "ALL"
     EXTRA = "EXTRA"
     MIX = "MIX"
+    EXTRA1 = "EXTRA1"
+    EXTRA2 = "EXTRA2"
 
 
 CLASS_NAME: dict[int, SvtClass] = {
@@ -382,13 +390,13 @@ CLASS_NAME: dict[int, SvtClass] = {
     10: SvtClass.alterEgo,
     11: SvtClass.avenger,
     12: SvtClass.demonGodPillar,
-    # 13
-    # 14
-    # 15
-    # 16
+    13: SvtClass.grandSaber,
+    14: SvtClass.grandArcher,
+    15: SvtClass.grandLancer,
+    16: SvtClass.grandRider,
     17: SvtClass.grandCaster,
-    # 18
-    # 19
+    18: SvtClass.grandAssassin,
+    19: SvtClass.grandBerserker,
     20: SvtClass.beastII,
     21: SvtClass.ushiChaosTide,
     22: SvtClass.beastI,
@@ -420,8 +428,8 @@ CLASS_NAME: dict[int, SvtClass] = {
     1001: SvtClass.ALL,
     1002: SvtClass.EXTRA,
     1003: SvtClass.MIX,
-    # 1004: SvtClass.EXTRA1,
-    # 1005: SvtClass.EXTRA2,
+    1004: SvtClass.EXTRA1,
+    1005: SvtClass.EXTRA2,
     9001: SvtClass.uOlgaMarieFlareCollection,
     9002: SvtClass.uOlgaMarieAquaCollection,
 }
@@ -435,24 +443,6 @@ def get_class_name(class_id: int) -> SvtClass | str:
 
 
 CLASS_NAME_REVERSE: dict[SvtClass, int] = {v: k for k, v in CLASS_NAME.items()}
-
-
-PLAYABLE_CLASS_LIST = [
-    SvtClass.saber,
-    SvtClass.archer,
-    SvtClass.lancer,
-    SvtClass.rider,
-    SvtClass.caster,
-    SvtClass.assassin,
-    SvtClass.berserker,
-    SvtClass.shielder,
-    SvtClass.ruler,
-    SvtClass.alterEgo,
-    SvtClass.avenger,
-    SvtClass.moonCancer,
-    SvtClass.foreigner,
-    SvtClass.pretender,
-]
 
 
 ### AI Type ###
