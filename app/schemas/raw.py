@@ -505,7 +505,8 @@ class MstSvtScriptExtendDataCond(BaseModelORJson):
 
 
 class MstSvtScriptExtendData(BaseModelORJson):
-    faceSize: None | int | list[int] = None
+    faceSize: None | int = None
+    faceSizeRect: None | list[int] = None
     combineResultMultipleForm: Optional[int] = None
     myroomForm: Optional[int] = None
     conds: Optional[list[MstSvtScriptExtendDataCond]] = None
@@ -647,6 +648,7 @@ class MstBattleMasterImage(BaseModelORJson):
     commandSpellCutinOffsetY: int
     resultImageId: int
     commonReleaseId: int
+    script: str | None = None
 
 
 class MstCommandCode(BaseModelORJson):
@@ -978,6 +980,7 @@ class MstBgm(BaseModelORJson):
     shopId: int  # 7000001
     logoId: int  # 1
     script: str | None = None
+    fileLocation: str | None = None
 
 
 class MstBgmRelease(BaseModelORJson):
@@ -1795,6 +1798,7 @@ class MstBlankEarthSpot(BaseModelORJson):
     id: int
     warId: int
     mapId: int
+    onObjectType: int | None = None
     name: str
     objectId: int
     x: float

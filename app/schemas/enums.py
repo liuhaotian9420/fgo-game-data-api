@@ -1016,6 +1016,13 @@ class Trait(StrEnum):
     robinAllGone = "robinAllGone"
     classBeastEresh = "classBeastEresh"
     alignmentBeast = "alignmentBeast"
+    bunnyServant = "bunnyServant"
+    buffSpecialDmgAgainstAlignmentGood = "buffSpecialDmgAgainstAlignmentGood"
+    buffSpecialDmgAgainstAlignmentEvil = "buffSpecialDmgAgainstAlignmentEvil"
+    hasSupereffectiveNPAgainstAlignmentGood = "hasSupereffectiveNPAgainstAlignmentGood"
+    hasSupereffectiveNPAgainstAlignmentEvil = "hasSupereffectiveNPAgainstAlignmentEvil"
+    happyHalloween = "happyHalloween"
+    happyHalloweenCounter = "happyHalloweenCounter"
 
     @classmethod
     def _missing_(cls, value: object):
@@ -1203,6 +1210,8 @@ TRAIT_NAME: dict[int, Trait] = {
     2850: Trait.hasGoddessMetamorphosis,
     2851: Trait.servantsWithSkyAttribute,
     2857: Trait.holdingHolyGrail,
+    2859: Trait.happyHalloween,
+    2860: Trait.happyHalloweenCounter,
     2858: Trait.standardClassServant,
     2871: Trait.murasamaAscension0,
     2872: Trait.manuscriptComplete,
@@ -1225,6 +1234,11 @@ TRAIT_NAME: dict[int, Trait] = {
     2912: Trait.magicBulletAtkBuff,
     2913: Trait.kuonjiAliceHasSkill3,
     2914: Trait.buffGutsOnInstantDeath,
+    2919: Trait.bunnyServant,
+    2920: Trait.buffSpecialDmgAgainstAlignmentGood,
+    2921: Trait.buffSpecialDmgAgainstAlignmentEvil,
+    2922: Trait.hasSupereffectiveNPAgainstAlignmentGood,
+    2923: Trait.hasSupereffectiveNPAgainstAlignmentEvil,
     # 2xxx: CQ or Story quests buff
     3000: Trait.attackPhysical,  # Normal attack, including NP
     3001: Trait.attackProjectile,

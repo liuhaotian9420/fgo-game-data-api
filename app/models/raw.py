@@ -989,6 +989,7 @@ mstBattleMasterImage = Table(
     Column("commandSpellCutinOffsetY", Integer),
     Column("resultImageId", Integer),
     Column("commonReleaseId", Integer),
+    Column("script", String),
 )
 
 
@@ -1994,7 +1995,7 @@ mstBgm = Table(
     "mstBgm",
     metadata,
     Column("id", Integer, primary_key=True),
-    Column("fileName", String),
+    Column("fileName", String, index=True),
     Column("name", String),
     Column("priority", Integer),
     Column("detail", String, default=""),
@@ -2002,6 +2003,7 @@ mstBgm = Table(
     Column("shopId", Integer),
     Column("logoId", Integer),
     Column("script", String),
+    Column("fileLocation", String),
 )
 
 
@@ -2125,6 +2127,7 @@ mstBlankEarthSpot = Table(
     Column("id", Integer, primary_key=True),
     Column("warId", Integer, index=True),
     Column("mapId", Integer),
+    Column("onObjectType", Integer),
     Column("name", String, index=True),
     Column("objectId", Integer),
     Column("x", Numeric),
@@ -2767,7 +2770,7 @@ TABLES_TO_BE_LOADED = [
     [mstAiAct],
     [mstAi],
     [mstAiField],
-    [mstBgm, mstBgmRelease],
+    [mstBgmRelease],
     [mstBoxGacha, mstBoxGachaBase, mstBoxGachaTalk],
     [mstClassRelationOverwrite, mstBuffConvert],
     [mstClosedMessage],

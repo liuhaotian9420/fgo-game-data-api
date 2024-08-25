@@ -233,6 +233,8 @@ class NiceItem(BaseModelORJson):
     icon: HttpUrl
     background: NiceItemBGType
     value: int = 0
+    eventId: int = 0
+    eventGroupId: int = 0
     priority: int
     dropPriority: int
     startedAt: int
@@ -307,7 +309,7 @@ class NiceBuff(BaseModelORJson):
         description="Target's required individuality for the buff's effect to apply.",
     )
     maxRate: int = Field(
-        ...,
+        0,
         title="Buff max rate",
         description="Buff max rate. "
         "See https://github.com/atlasacademy/fgo-docs#lower-and-upper-bounds-of-buffs "
