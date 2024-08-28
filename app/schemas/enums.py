@@ -1023,6 +1023,9 @@ class Trait(StrEnum):
     hasSupereffectiveNPAgainstAlignmentEvil = "hasSupereffectiveNPAgainstAlignmentEvil"
     happyHalloween = "happyHalloween"
     happyHalloweenCounter = "happyHalloweenCounter"
+    protectedByBBDubai = "protectedByBBDubai"
+    notProtectedByBBDubai = "notProtectedByBBDubai"
+    canFlyInSpace = "canFlyInSpace"
 
     @classmethod
     def _missing_(cls, value: object):
@@ -1239,6 +1242,7 @@ TRAIT_NAME: dict[int, Trait] = {
     2921: Trait.buffSpecialDmgAgainstAlignmentEvil,
     2922: Trait.hasSupereffectiveNPAgainstAlignmentGood,
     2923: Trait.hasSupereffectiveNPAgainstAlignmentEvil,
+    2924: Trait.canFlyInSpace,
     # 2xxx: CQ or Story quests buff
     3000: Trait.attackPhysical,  # Normal attack, including NP
     3001: Trait.attackProjectile,
@@ -1322,6 +1326,8 @@ TRAIT_NAME: dict[int, Trait] = {
     3097: Trait.forceInstantDeathFunction,
     3098: Trait.demeritFunction,
     3100: Trait.extraBuff,
+    3102: Trait.protectedByBBDubai,
+    3103: Trait.notProtectedByBBDubai,
     # 6016: No detail
     # 6021: No detail
     # 6022: No detail
