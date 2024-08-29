@@ -2021,6 +2021,19 @@ mstBgmRelease = Table(
 )
 
 
+mstWarRelease = Table(
+    "mstWarRelease",
+    metadata,
+    Column("warId", Integer),
+    Column("condType", Integer),
+    Column("condId", Integer),
+    Column("condNum", Integer),
+    Column("warDisplayType", Integer),
+    Column("closedDialogMessage", String),
+    Column("priority", Integer),
+)
+
+
 mstWar = Table(
     "mstWar",
     metadata,
@@ -2521,6 +2534,8 @@ npcFollowerRelease = Table(
 npcSvtFollower = Table(
     "npcSvtFollower",
     metadata,
+    Column("passiveSkill", ARRAY(Integer)),
+    Column("passiveSkillLvs", ARRAY(Integer)),
     Column("appendPassiveSkillIds", ARRAY(Integer)),
     Column("appendPassiveSkillLvs", ARRAY(Integer)),
     Column("id", Integer, primary_key=True),
@@ -2875,7 +2890,7 @@ TABLES_TO_BE_LOADED = [
     [mstMap],
     [mstSpot, mstBlankEarthSpot, mstSpotAdd, mstSpotRoad],
     [mstMapGimmick],
-    [mstWarAdd],
+    [mstWarAdd, mstWarRelease],
     [mstWarQuestSelection],
     [mstEventCampaign],
     [mstEventQuest],
