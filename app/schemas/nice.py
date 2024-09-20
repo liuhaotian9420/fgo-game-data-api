@@ -594,6 +594,9 @@ class BaseVals(BaseModel):
     ParamAddBattlePointPhaseId: int | None = None
     ParamAddBattlePointPhaseValue: int | None = None
     ShortenMaxCountEachSkill: list[int] | None = None
+    ChargeHpMaxBeforeBreakGaugeUp: str | None = None
+    TargetFunctionIndividuality: str | None = None
+    TargetBuffIndividuality: str | None = None
     # Extra dataval from SkillLvEntty.DIC_KEY_APPLY_SUPPORT_SVT
     ApplySupportSvt: Optional[int] = None
     # These are not DataVals but guesses from SkillLvEntity and EventDropUpValInfo
@@ -2813,6 +2816,9 @@ class NiceQuestPhaseExtraDetail(BaseModelORJson):
     interruptibleQuest: int | None = None
     masterImageId: int | None = None
     IgnoreBattlePointUp: list[int] | None = None
+    useEventDeckNo: int | None = None
+    masterSkillDelay: int | None = None
+    masterSkillDelayInfo: str | None = None
 
 
 class NiceRestriction(BaseModelORJson):
