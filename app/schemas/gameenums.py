@@ -2003,6 +2003,8 @@ class NiceItemType(StrEnum):
     battleItem = "battleItem"
     aniplexPlusChargeStone = "aniplexPlusChargeStone"
     purePriShopReset = "purePriShopReset"
+    pp = "pp"
+    ri = "ri"
 
 
 ITEM_TYPE_NAME: dict[int, NiceItemType] = {
@@ -2146,6 +2148,8 @@ class NiceShopType(StrEnum):
     tradeAp = "tradeAp"
     revivalItem = "revivalItem"
     eventSvtEquip = "eventSvtEquip"
+    shop13 = "shop13"
+    shop15 = "shop15"
 
 
 SHOP_TYPE_NAME: dict[int, NiceShopType] = {
