@@ -1099,6 +1099,18 @@ class MstGachaStoryAdjust(BaseModelORJson):
     imageId: int
 
 
+class MstGachaSub(BaseModelORJson):
+    script: dict[str, Any] | None = None
+    gachaId: int
+    id: int
+    priority: int
+    imageId: int
+    adjustAddId: int
+    openedAt: int
+    closedAt: int
+    commonReleaseId: int
+
+
 class ViewGachaFeaturedSvt(BaseModelORJson):
     gachaId: int
     svtIds: list[int]
@@ -1938,6 +1950,7 @@ class MstQuestConsumeItem(BaseModelORJson):
 class MstClosedMessage(BaseModelORJson):
     id: int
     message: str
+    overwriteQuestName: str | None = None
     leftIndent: int | None = None
     flag: int | None = None
 
@@ -2323,6 +2336,7 @@ class QuestEntity(BaseModelORJson):
 class QuestPhaseEntity(QuestEntity):
     mstQuestPhase: MstQuestPhase
     mstQuestPhaseDetail: Optional[MstQuestPhaseDetail] = None
+    mstQuestPhaseIndividuality: list[MstQuestPhaseIndividuality] = []
     mstQuestMessage: list[MstQuestMessage] = []
     scripts: list[str]
     mstStage: list[MstStage]
@@ -2578,7 +2592,9 @@ class ClassBoardEntity(BaseModelORJson):
 class GachaEntity(BaseModelORJson):
     mstGacha: MstGacha
     mstGachaStoryAdjust: list[MstGachaStoryAdjust]
+    mstGachaSub: list[MstGachaSub]
     viewGachaFeaturedSvt: list[ViewGachaFeaturedSvt]
+    mstCommonRelease: list[MstCommonRelease]
 
 
 class AssetStorageLine(BaseModelORJson):

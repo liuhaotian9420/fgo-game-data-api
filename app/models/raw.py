@@ -1258,6 +1258,20 @@ mstGachaStoryAdjust = Table(
 )
 
 
+mstGachaSub = Table(
+    "mstGachaSub",
+    metadata,
+    Column("script", JSONB),
+    Column("gachaId", Integer, index=True),
+    Column("id", Integer, index=True),
+    Column("priority", Integer),
+    Column("imageId", Integer),
+    Column("adjustAddId", Integer),
+    Column("openedAt", Integer),
+    Column("closedAt", Integer),
+    Column("commonReleaseId", Integer),
+)
+
 viewGachaFeaturedSvt = Table(
     "viewGachaFeaturedSvt",
     metadata,
@@ -1285,8 +1299,8 @@ mstEvent = Table(
     Column("intervalHours", Integer, default=0),
     Column("noticeAt", Integer),
     Column("startedAt", Integer),
-    Column("endedAt", Integer),
-    Column("finishedAt", Integer),
+    Column("endedAt", BigInteger),
+    Column("finishedAt", BigInteger),
     Column("materialOpenedAt", Integer),
     Column("linkType", Integer),
     Column("linkBody", String),
@@ -2315,6 +2329,7 @@ mstClosedMessage = Table(
     metadata,
     Column("id", Integer, primary_key=True),
     Column("message", String),
+    Column("overwriteQuestName", String),
     Column("leftIndent", Integer),
     Column("flag", Integer),
 )
@@ -2898,6 +2913,6 @@ TABLES_TO_BE_LOADED = [
     [mstClassBoardBase, mstClassBoardClass, mstClassBoardLine, mstFuncDisp],
     [mstClassBoardLock, mstClassBoardSquare],
     [mstFuncTypeDetail, mstBuffTypeDetail],
-    [mstGacha, mstGachaStoryAdjust, viewGachaFeaturedSvt],
+    [mstGacha, mstGachaStoryAdjust, mstGachaSub, viewGachaFeaturedSvt],
     [mstItemDropEfficiency],
 ]
