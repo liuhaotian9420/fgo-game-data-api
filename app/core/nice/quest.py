@@ -407,6 +407,8 @@ async def get_nice_quest_phase_no_rayshift(
     raw_quest = await raw.get_quest_phase_entity(conn, quest_id, phase)
     nice_data = await get_nice_quest(conn, region, raw_quest, lang)
 
+    gift_data = GiftData(raw_quest.mstGiftAdd, get_gift_map(raw_quest.mstGift))
+
     aiNpcIds: list[int] = []
     if "aiNpc" in raw_quest.mstQuestPhase.script:
         aiNpcIds.append(raw_quest.mstQuestPhase.script["aiNpc"]["npcId"])
@@ -450,17 +452,11 @@ async def get_nice_quest_phase_no_rayshift(
         "className": [
             get_class_name(class_id) for class_id in raw_quest.mstQuestPhase.classIds
         ],
-        # temp solution
-        "individuality": (
-            get_traits_list(raw_quest.mstQuestPhaseIndividuality[0].individuality)
-            if not raw_quest.mstQuestPhase.individuality
-            and raw_quest.mstQuestPhaseIndividuality
-            else get_traits_list(raw_quest.mstQuestPhase.individuality)
-        ),
+        "individuality": get_traits_list(raw_quest.mstQuestPhase.individuality),
         "phaseIndividuality": (
-            get_traits_list(raw_quest.mstQuestPhaseIndividuality[0].individuality)
+            get_traits_list(raw_quest.mstQuestPhaseIndividuality.individuality)
             if raw_quest.mstQuestPhaseIndividuality
-            else []
+            else None
         ),
         "qp": raw_quest.mstQuestPhase.qp,
         "exp": raw_quest.mstQuestPhase.playerExp,
@@ -477,6 +473,7 @@ async def get_nice_quest_phase_no_rayshift(
             ),
             None,
         ),
+        "phaseGifts": get_nice_gifts(region, raw_quest.mstQuestPhase.giftId, gift_data),
         "availableEnemyHashes": [],
         "scripts": [
             get_nice_script_link(region, script) for script in sorted(raw_quest.scripts)

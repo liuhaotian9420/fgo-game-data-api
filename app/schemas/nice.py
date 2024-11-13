@@ -610,6 +610,9 @@ class BaseVals(BaseModel):
     SnapShotParamAddSelfIndividualityAndCheck: list[list[int]] | None = None
     SnapShotParamAddOpIndividualityAndCheck: list[list[int]] | None = None
     SnapShotParamAddFieldIndividualityAndCheck: list[list[int]] | None = None
+    EnemyCountChangeTime: int | None = None
+    EnemyCountChangeEffectId: int | None = None
+    EnemyCountWaitTimeAfterMessage: int | None = None
     # Extra dataval from SkillLvEntty.DIC_KEY_APPLY_SUPPORT_SVT
     ApplySupportSvt: Optional[int] = None
     # These are not DataVals but guesses from SkillLvEntity and EventDropUpValInfo
@@ -2855,12 +2858,13 @@ class NiceQuestPhase(NiceQuest):
     phase: int
     className: list[SvtClass | str] = []
     individuality: list[NiceTrait] = []
-    phaseIndividuality: list[NiceTrait] = []
+    phaseIndividuality: list[NiceTrait] | None = []
     qp: int
     exp: int
     bond: int
     isNpcOnly: bool = False
     battleBgId: int
+    phaseGifts: list[NiceGift]
     enemyHash: str | None = None
     availableEnemyHashes: list[str] = []
     dropsFromAllHashes: bool | None = None
