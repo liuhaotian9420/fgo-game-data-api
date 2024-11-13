@@ -2164,7 +2164,7 @@ class NiceEventTradeGoods(BaseModelORJson):
     gifts: list[NiceGift]
     consumes: list[NiceCommonConsume]
     eventPointNum: int
-    eventPointItem: NiceItem
+    eventPointItem: NiceItem | None = None
     tradeTime: int
     maxNum: int
     maxTradeTime: int
@@ -2864,7 +2864,7 @@ class NiceQuestPhase(NiceQuest):
     bond: int
     isNpcOnly: bool = False
     battleBgId: int
-    phaseGifts: list[NiceGift]
+    phaseGifts: list[NiceGift] = []
     enemyHash: str | None = None
     availableEnemyHashes: list[str] = []
     dropsFromAllHashes: bool | None = None
