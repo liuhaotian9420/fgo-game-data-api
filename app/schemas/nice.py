@@ -2859,7 +2859,7 @@ class NiceQuestPhase(NiceQuest):
     className: list[SvtClass | str] = []
     individuality: list[NiceTrait] = []
     phaseIndividuality: list[NiceTrait] | None = []
-    qp: int
+    qp: int = 0
     exp: int
     bond: int
     isNpcOnly: bool = False
