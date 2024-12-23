@@ -1910,7 +1910,7 @@ class MstQuestWithPhase(MstQuestWithWar):
     isNpcOnly: bool  # true,
     battleBgId: int  # 13400,
     battleBgType: int  # 0,
-    qp: int  # 1900,
+    qp: int | None  # 1900,
     playerExp: int  # 550,
     friendshipExp: int  # 165
     phaseGiftId: Optional[int] = None
@@ -1981,7 +1981,7 @@ class MstQuestPhase(BaseModelORJson):
     isNpcOnly: bool  # true,
     battleBgId: int  # 13400,
     battleBgType: int  # 0,
-    qp: int = 0  # 1900,
+    qp: int | None = 0  # 1900,
     playerExp: int  # 550,
     friendshipExp: int  # 165
     giftId: int = 0
