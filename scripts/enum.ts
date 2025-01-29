@@ -772,6 +772,7 @@ export enum NiceDataValsType {
     ContinueDisplayMessage = "continuedisplaymessage",
     StartIntervalTurn = "startintervalturn",
     StartIntervalCount = "startintervalcount",
+    CommonReleaseId = "commonreleaseid",
 }
 
 export enum NiceClassRelationOverwriteType {
@@ -914,6 +915,7 @@ export enum NiceCardType {
     BLANK = "blank",
     WEAK = "weak",
     STRENGTH = "strength",
+    ADDATTACK2 = "addattack2",
 }
 
 export enum NiceCondType {
@@ -1151,6 +1153,10 @@ export enum NiceCondType {
     NOT_BATTLE_FUNCTION_TARGET_ONE_INDIVIDUALITY = "notBattleFunctionTargetOneIndividuality",
     EVENT_SCRIPT_NOT_PLAY = "eventScriptNotPlay",
     EVENT_SCRIPT_FLAG = "eventScriptFlag",
+    IMAGE_PARTS_GROUP = "imagePartsGroup",
+    USER_LEVEL_ABOVE = "userLevelAbove",
+    USER_LEVEL_BELOW = "userLevelBelow",
+    USER_LEVEL_EQUAL = "userLevelEqual",
 }
 
 export enum NiceVoiceCondType {
@@ -1626,6 +1632,7 @@ export enum NiceAiCond {
     COUNT_AVAILABLE_MASTER_SKILL_HIGHER = "countAvailableMasterSkillHigher",
     COUNT_AVAILABLE_MASTER_SKILL_LOWER = "countAvailableMasterSkillLower",
     COUNT_AVAILABLE_MASTER_SKILL_EQUAL = "countAvailableMasterSkillEqual",
+    COMMON_RELEASE_ID = "commonReleaseId",
 }
 
 export enum NiceAiActType {
@@ -1653,6 +1660,7 @@ export enum NiceAiActType {
     BATTLE_END = "battleEnd",
     LOSE_END = "loseEnd",
     BATTLE_END_NOT_RELATED_SURVIVAL_STATUS = "battleEndNotRelatedSurvivalStatus",
+    BATTLE_END_NOT_RELATED_SURVIVAL_STATUS_INSTANTLY = "battleEndNotRelatedSurvivalStatusInstantly",
     CHANGE_THINKING = "changeThinking",
 }
 
@@ -1824,6 +1832,7 @@ export enum NiceAiCondParameter {
     COUNT_AVAILABLE_PLAYER_AND_MASTER_SKILL = "countAvailablePlayerAndMasterSkill",
     COUNT_AVAILABLE_PLAYER_SKILL = "countAvailablePlayerSkill",
     COUNT_AVAILABLE_MASTER_SKILL = "countAvailableMasterSkill",
+    COMMON_RELEASE_ID = "commonReleaseId",
 }
 
 export enum NiceAiCondRefine {
@@ -1889,6 +1898,7 @@ export enum NiceCombineAdjustTarget {
     SUPER_SUCCESS_BY_CLASS = "superSuccessByClass",
     EXCHANGE_SVT = "exchangeSvt",
     QUEST_ITEM_FIRST_TIME = "questItemFirstTime",
+    QUEST_USE_REWARD_ADD_ITEM = "questUseRewardAddItem",
 }
 
 export enum NiceEventCombineCalc {

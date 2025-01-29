@@ -1934,6 +1934,7 @@ class DataValsType(IntEnum):
     ContinueDisplayMessage = 204
     StartIntervalTurn = 205
     StartIntervalCount = 206
+    CommonReleaseId = 207
 
 
 class ClassRelationOverwriteType(IntEnum):
@@ -2620,6 +2621,10 @@ class CondType(IntEnum):
     NOT_BATTLE_FUNCTION_TARGET_ONE_INDIVIDUALITY = 236
     EVENT_SCRIPT_NOT_PLAY = 237
     EVENT_SCRIPT_FLAG = 238
+    IMAGE_PARTS_GROUP = 241
+    USER_LEVEL_ABOVE = 242
+    USER_LEVEL_BELOW = 243
+    USER_LEVEL_EQUAL = 244
 
 
 class NiceCondType(StrEnum):
@@ -2859,6 +2864,10 @@ class NiceCondType(StrEnum):
     notBattleFunctionTargetOneIndividuality = "notBattleFunctionTargetOneIndividuality"
     eventScriptNotPlay = "eventScriptNotPlay"
     eventScriptFlag = "eventScriptFlag"
+    imagePartsGroup = "imagePartsGroup"
+    userLevelAbove = "userLevelAbove"
+    userLevelBelow = "userLevelBelow"
+    userLevelEqual = "userLevelEqual"
 
 
 COND_TYPE_NAME: dict[int, NiceCondType] = {
@@ -3096,6 +3105,10 @@ COND_TYPE_NAME: dict[int, NiceCondType] = {
     236: NiceCondType.notBattleFunctionTargetOneIndividuality,
     237: NiceCondType.eventScriptNotPlay,
     238: NiceCondType.eventScriptFlag,
+    241: NiceCondType.imagePartsGroup,
+    242: NiceCondType.userLevelAbove,
+    243: NiceCondType.userLevelBelow,
+    244: NiceCondType.userLevelEqual,
 }
 
 
@@ -4181,6 +4194,7 @@ class AiCond(IntEnum):
     COUNT_AVAILABLE_MASTER_SKILL_HIGHER = 217
     COUNT_AVAILABLE_MASTER_SKILL_LOWER = 218
     COUNT_AVAILABLE_MASTER_SKILL_EQUAL = 219
+    COMMON_RELEASE_ID = 220
 
 
 class NiceAiCond(StrEnum):
@@ -4384,6 +4398,7 @@ class NiceAiCond(StrEnum):
     countAvailableMasterSkillHigher = "countAvailableMasterSkillHigher"
     countAvailableMasterSkillLower = "countAvailableMasterSkillLower"
     countAvailableMasterSkillEqual = "countAvailableMasterSkillEqual"
+    commonReleaseId = "commonReleaseId"
 
 
 AI_COND_NAME: dict[int, NiceAiCond] = {
@@ -4567,6 +4582,7 @@ AI_COND_NAME: dict[int, NiceAiCond] = {
     217: NiceAiCond.countAvailableMasterSkillHigher,
     218: NiceAiCond.countAvailableMasterSkillLower,
     219: NiceAiCond.countAvailableMasterSkillEqual,
+    220: NiceAiCond.commonReleaseId,
 }
 
 
@@ -4595,6 +4611,7 @@ class AiActType(IntEnum):
     BATTLE_END = 90
     LOSE_END = 91
     BATTLE_END_NOT_RELATED_SURVIVAL_STATUS = 92
+    BATTLE_END_NOT_RELATED_SURVIVAL_STATUS_INSTANTLY = 93
     CHANGE_THINKING = 99
 
 
@@ -4625,6 +4642,9 @@ class NiceAiActType(StrEnum):
     battleEnd = "battleEnd"
     loseEnd = "loseEnd"
     battleEndNotRelatedSurvivalStatus = "battleEndNotRelatedSurvivalStatus"
+    battleEndNotRelatedSurvivalStatusInstantly = (
+        "battleEndNotRelatedSurvivalStatusInstantly"
+    )
     changeThinking = "changeThinking"
 
 
@@ -4653,6 +4673,7 @@ AI_ACT_TYPE_NAME: dict[int, NiceAiActType] = {
     90: NiceAiActType.battleEnd,
     91: NiceAiActType.loseEnd,
     92: NiceAiActType.battleEndNotRelatedSurvivalStatus,
+    93: NiceAiActType.battleEndNotRelatedSurvivalStatusInstantly,
     99: NiceAiActType.changeThinking,
 }
 
@@ -5093,6 +5114,7 @@ class AiCondParameter(IntEnum):
     COUNT_AVAILABLE_PLAYER_AND_MASTER_SKILL = 46
     COUNT_AVAILABLE_PLAYER_SKILL = 47
     COUNT_AVAILABLE_MASTER_SKILL = 48
+    COMMON_RELEASE_ID = 49
 
 
 class NiceAiCondParameter(StrEnum):
@@ -5147,6 +5169,7 @@ class NiceAiCondParameter(StrEnum):
     countAvailablePlayerAndMasterSkill = "countAvailablePlayerAndMasterSkill"
     countAvailablePlayerSkill = "countAvailablePlayerSkill"
     countAvailableMasterSkill = "countAvailableMasterSkill"
+    commonReleaseId = "commonReleaseId"
 
 
 AI_COND_PARAMETER_NAME: dict[int, NiceAiCondParameter] = {
@@ -5199,6 +5222,7 @@ AI_COND_PARAMETER_NAME: dict[int, NiceAiCondParameter] = {
     46: NiceAiCondParameter.countAvailablePlayerAndMasterSkill,
     47: NiceAiCondParameter.countAvailablePlayerSkill,
     48: NiceAiCondParameter.countAvailableMasterSkill,
+    49: NiceAiCondParameter.commonReleaseId,
 }
 
 
@@ -5328,6 +5352,7 @@ class CombineAdjustTargetType(IntEnum):
     SUPER_SUCCESS_BY_CLASS = 33
     EXCHANGE_SVT = 34
     QUEST_ITEM_FIRST_TIME = 35
+    QUEST_USE_REWARD_ADD_ITEM = 36
 
 
 class NiceCombineAdjustTarget(StrEnum):
@@ -5368,6 +5393,7 @@ class NiceCombineAdjustTarget(StrEnum):
     superSuccessByClass = "superSuccessByClass"
     exchangeSvt = "exchangeSvt"
     questItemFirstTime = "questItemFirstTime"
+    questUseRewardAddItem = "questUseRewardAddItem"
 
 
 COMBINE_ADJUST_TARGET_TYPE_NAME: dict[int, NiceCombineAdjustTarget] = {
@@ -5406,6 +5432,7 @@ COMBINE_ADJUST_TARGET_TYPE_NAME: dict[int, NiceCombineAdjustTarget] = {
     33: NiceCombineAdjustTarget.superSuccessByClass,
     34: NiceCombineAdjustTarget.exchangeSvt,
     35: NiceCombineAdjustTarget.questItemFirstTime,
+    36: NiceCombineAdjustTarget.questUseRewardAddItem,
 }
 
 
