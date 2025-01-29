@@ -1865,7 +1865,7 @@ class NiceBgmEntity(NiceBgm):
 
 class NiceEventQuest(BaseModelORJson):
     questId: int
-    # phase: int
+    phase: int = 0
 
 
 class NiceEventCampaign(BaseModelORJson):
