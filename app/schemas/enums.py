@@ -360,8 +360,10 @@ class SvtClass(StrEnum):
     beastVIBoss = "beastVIBoss"
     uOlgaMarieFlare = "uOlgaMarieFlare"
     uOlgaMarieAqua = "uOlgaMarieAqua"
+    uOlgaMarieGround = "uOlgaMarieGround"
     uOlgaMarieFlareCollection = "uOlgaMarieFlareCollection"
     uOlgaMarieAquaCollection = "uOlgaMarieAquaCollection"
+    uOlgaMarieGroundCollection = "uOlgaMarieGroundCollection"
     beastEresh = "beastEresh"
     grandSaber = "grandSaber"
     grandArcher = "grandArcher"
@@ -417,6 +419,7 @@ CLASS_NAME: dict[int, SvtClass] = {
     36: SvtClass.uOlgaMarieFlare,
     38: SvtClass.beastEresh,
     37: SvtClass.uOlgaMarieAqua,
+    39: SvtClass.uOlgaMarieGround,
     97: SvtClass.unknown,
     # 98
     # 99
@@ -433,6 +436,7 @@ CLASS_NAME: dict[int, SvtClass] = {
     1005: SvtClass.EXTRA2,
     9001: SvtClass.uOlgaMarieFlareCollection,
     9002: SvtClass.uOlgaMarieAquaCollection,
+    9003: SvtClass.uOlgaMarieGroundCollection,
 }
 
 
@@ -1030,6 +1034,7 @@ class Trait(StrEnum):
     buffSpecialInvinciblePierce = "buffSpecialInvinciblePierce"
     sakuraSeries = "sakuraSeries"
     buffDefenceDown = "buffDefenceDown"
+    classUOlgaMarieGround = "classUOlgaMarieGround"
 
     @classmethod
     def _missing_(cls, value: object):
@@ -1069,6 +1074,7 @@ TRAIT_NAME: dict[int, Trait] = {
     126: Trait.classBeastVIBoss,
     127: Trait.classUOlgaMarieFlare,
     129: Trait.classBeastEresh,
+    130: Trait.classUOlgaMarieGround,
     200: Trait.attributeSky,
     201: Trait.attributeEarth,
     202: Trait.attributeHuman,

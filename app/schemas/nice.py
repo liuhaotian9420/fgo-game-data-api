@@ -463,7 +463,7 @@ class BaseVals(BaseModel):
     ShiftNpcId: Optional[int] = None
     DisplayLastFuncInvalidType: Optional[int] = None
     AndCheckIndividualityList: Optional[list[int]] = None
-    AndOrCheckIndividualityList: list[int] | None = None
+    AndOrCheckIndividualityList: list[list[int]] | None = None
     WinBattleNotRelatedSurvivalStatus: Optional[int] = None
     ForceSelfInstantDeath: Optional[int] = None
     ChangeMaxBreakGauge: Optional[int] = None
@@ -615,10 +615,14 @@ class BaseVals(BaseModel):
     EnemyCountChangeEffectId: int | None = None
     EnemyCountWaitTimeAfterMessage: int | None = None
     WaitMessageEnd: int | None = None
+    MessageStartDelayTime: int | None = None
     ContinueDisplayMessage: int | None = None
     StartIntervalTurn: int | None = None
     StartIntervalCount: int | None = None
     CommonReleaseId: int | None = None
+    ForceTurnProgressIfTimingIsOverInPartyTurn: int | None = None
+    ForceTurnProgressIfTimingIsOverInOpponentTurn: int | None = None
+    OverwriteFuncInvalidType: int | None = None
     # Extra dataval from SkillLvEntty.DIC_KEY_APPLY_SUPPORT_SVT
     ApplySupportSvt: Optional[int] = None
     # These are not DataVals but guesses from SkillLvEntity and EventDropUpValInfo
