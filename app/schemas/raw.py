@@ -1587,6 +1587,17 @@ class MstEventPointActivity(BaseModelORJson):
     point: int
 
 
+class MstImagePartsGroup(BaseModelORJson):
+    script: dict[str, Any]
+    id: int
+    idx: int
+    typeValue: int
+    imageValue: int
+    condType: int
+    condId: int
+    condNum: int
+
+
 class MstEventAdd(BaseModelORJson):
     eventId: int
     overwriteType: int
@@ -2253,6 +2264,7 @@ class ServantEntity(BaseModelORJson):
     mstBattlePointPhase: list[MstBattlePointPhase]
     mstItem: list[MstItem]
     mstCommonRelease: list[MstCommonRelease]
+    mstImagePartsGroup: list[MstImagePartsGroup]
     mstSvtCoin: Optional[MstSvtCoin] = None
     mstCv: Optional[MstCv] = None
     mstIllustrator: Optional[MstIllustrator] = None
