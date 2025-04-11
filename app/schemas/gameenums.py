@@ -1986,6 +1986,7 @@ class DataValsType(IntEnum):
     ForceTurnProgressIfTimingIsOverInPartyTurn = 210
     ForceTurnProgressIfTimingIsOverInOpponentTurn = 211
     OverwriteFuncInvalidType = 212
+    OnlyMaxFuncGroupId = 213
 
 
 class ClassRelationOverwriteType(IntEnum):
@@ -2095,6 +2096,7 @@ class NiceItemType(StrEnum):
     exchangeSvtCoin = "exchangeSvtCoin"
     reduceTradeTime = "reduceTradeTime"
     eventPassiveSkillGiven = "eventPassiveSkillGiven"
+    netmarbleChargeStone = "netmarbleChargeStone"
 
 
 ITEM_TYPE_NAME: dict[int, NiceItemType] = {
@@ -2138,6 +2140,7 @@ ITEM_TYPE_NAME: dict[int, NiceItemType] = {
     38: NiceItemType.exchangeSvtCoin,
     39: NiceItemType.reduceTradeTime,
     40: NiceItemType.eventPassiveSkillGiven,
+    9999: NiceItemType.netmarbleChargeStone,
 }
 
 

@@ -53,7 +53,7 @@ The current data version can be found [here](/info).
 
 API's changelog can be found [here](https://github.com/atlasacademy/fgo-game-data-api/blob/master/CHANGELOG.md).
 
-To discuss more about the API, you can go to the [Atlas Academy Discord](https://discord.gg/TKJmuCR).
+To discuss more about the API, you can go to the [Atlas Academy Discord](https://atlasacademy.io/discord/).
 Bug reports and feature requests are welcome.
 Source code of the API is available on [GitHub](https://github.com/atlasacademy/fgo-game-data-api).
 
@@ -176,7 +176,7 @@ with open(project_root / "pyproject.toml", "rb") as f:
 app = FastAPI(
     title="FGO game data API",
     description=app_description,
-    version=pyproject_toml["tool"]["poetry"]["version"],
+    version=pyproject_toml["project"]["version"],
     docs_url=None,
     openapi_tags=tags_metadata,
 )
