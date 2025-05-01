@@ -72,6 +72,7 @@ LIST_DATAVALS = {
     "TargetFunctionIndividuality",
     "TargetBuffIndividuality",
     "TriggeredFuncIndexAndCheckList",
+    "AddIndividualityEx",
 }
 LIST_2D_DATAVALS = {
     "ParamAddSelfIndividualityAndCheck",
@@ -336,7 +337,11 @@ async def parse_dataVals(
                 len([val for val in array if val])
                 != (
                     len([k for k in output if k != "DependFunc"])
-                    + max(len(AddIndividualtyList) - 2, 0)
+                    + (
+                        max(len(AddIndividualtyList) - 2, -1)
+                        if AddIndividualtyList
+                        else 0
+                    )
                 )
                 and functype != FuncType.NONE
             ):
