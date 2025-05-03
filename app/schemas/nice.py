@@ -1550,7 +1550,7 @@ class NiceServant(BaseModelORJson):
         'Will show up as "Base EXP" when feeding the item into something else.',
     )
     bondGifts: dict[int, list[NiceGift]] = Field(
-        ..., title="Bond Gift", description="Gifts per level"
+        {}, title="Bond Gift", description="Gifts per level"
     )
     bondEquip: int = Field(
         0,
