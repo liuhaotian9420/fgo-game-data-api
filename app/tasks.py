@@ -66,6 +66,7 @@ from .schemas.raw import (
     GachaEntity,
     MstClassBoardBase,
     MstCommandCode,
+    MstConstant,
     MstCv,
     MstEnemyMaster,
     MstEquip,
@@ -409,6 +410,7 @@ class TimerData(BaseModelORJson):
     masterMissions: list[NiceMasterMission]
     shops: list[NiceShop]
     items: list[NiceItem]
+    constants: dict[str, int]
 
 
 async def dump_current_events(
@@ -418,6 +420,7 @@ async def dump_current_events(
     nice_mms: list[NiceMasterMission],
     nice_shops: list[NiceShop],
     nice_items: list[NiceItem],
+    raw_constants: list[MstConstant],
 ) -> None:  # pragma: no cover
     now = int(time.time())
 
@@ -432,13 +435,19 @@ async def dump_current_events(
         if is_recent(now, g.mstGacha.openedAt, g.mstGacha.closedAt, None, 14, 3)
     ]
     nice_gachas = get_all_nice_gachas(recent_gacha_entities, util.lang)
-    masterMissions = [
-        mm
-        for mm in nice_mms
-        if is_recent(now, mm.startedAt, mm.endedAt, None, 14, 0)
-        and mm.id // 100000 != 3
-        and mm.endedAt < now + 360 * SECS_PER_DAY
-    ]
+    masterMissions: list[NiceMasterMission] = []
+    for mm in nice_mms:
+        if mm.id == 10001:
+            masterMissions.append(mm)
+            continue
+        if mm.id // 100000 == 3 and mm.id < 300010:
+            continue
+        if (
+            is_recent(now, mm.startedAt, mm.endedAt, None, 14, 0)
+            and mm.endedAt < now + 360 * SECS_PER_DAY
+        ):
+            masterMissions.append(mm)
+
     shops = [
         shop
         for shop in nice_shops
@@ -458,6 +467,9 @@ async def dump_current_events(
         masterMissions=masterMissions,
         shops=shops,
         items=items,
+        constants={
+            raw_constant.name: raw_constant.value for raw_constant in raw_constants
+        },
     )
 
     await util.dump_orjson_object("timer_data", timer_data)
@@ -573,6 +585,8 @@ async def generate_exports(
                 nice_events = await get_nice_events_from_raw(util, mstEvents)
                 await dump_nice_events(util, nice_events)
 
+                raw_constants = await fetch.get_everything(conn, MstConstant)
+
                 await dump_current_events(
                     util,
                     nice_events,
@@ -580,6 +594,7 @@ async def generate_exports(
                     nice_mms,
                     nice_shops,
                     nice_items,
+                    raw_constants,
                 )
 
                 if region == Region.JP:
@@ -596,6 +611,7 @@ async def generate_exports(
                         nice_mms,
                         nice_shops,
                         nice_items_lang_en,
+                        raw_constants,
                     )
 
             repo_info = await get_repo_version(redis, region)
