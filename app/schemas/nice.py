@@ -2898,6 +2898,7 @@ class NiceQuestPhaseExtraDetail(BaseModelORJson):
     useEventDeckNo: int | None = None
     masterSkillDelay: int | None = None
     masterSkillDelayInfo: str | None = None
+    isUseGrandBoard: int | None = None
 
 
 class NiceRestriction(BaseModelORJson):
@@ -3199,9 +3200,38 @@ class NiceClassBoard(BaseModelORJson):
     condType: NiceCondType = NiceCondType.none
     condTargetId: int = 0
     condNum: int = 0
+    parentClassBoardBaseId: int = 0
     classes: list[NiceClassBoardClass]
     squares: list[NiceClassBoardSquare]
     lines: list[NiceClassBoardLine]
+
+
+class NiceGrandGraphDetail(BaseModelORJson):
+    # grandGraphId: int
+    baseClassId: int
+    grandClassId: int
+    baseClass: SvtClass | str
+    grandClass: SvtClass | str
+    adjustHp: int
+    adjustAtk: int
+    condType: NiceCondType
+    condTargetId: int
+    condNum: int
+
+
+class NiceGrandGraph(BaseModelORJson):
+    id: int
+    name: str
+    nameShort: str
+    nameShortEnglish: str
+    classBoardBaseId: int
+    condSvtLv: int
+    condSkillLv: int
+    condType: NiceCondType
+    condTargetId: int
+    condNum: int
+    removeItems: list[NiceItemAmount]
+    details: list[NiceGrandGraphDetail]
 
 
 class NiceFuncTypeDetail(BaseModelORJson):
